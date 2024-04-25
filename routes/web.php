@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminResepController;
 
-Route::get('/', function () {
-    return view('resetPassword');
+Route::prefix('admin')->group(function () {
+    Route::resource('/resep', AdminResepController::class);
 });
+
 
 
