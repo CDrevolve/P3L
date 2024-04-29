@@ -77,6 +77,8 @@
 </head>
 <body>
     <div class="container">
+    <a href="{{ route('admin') }}" class="button">Back</a>
+
         <!-- Form pencarian -->
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Cari produk...">
