@@ -82,6 +82,7 @@
             <input type="text" id="searchInput" placeholder="Cari produk...">
             <button onclick="search()">Search</button>
         </div>
+        <a href="{{route('actionLogout')}}">logout</a>
 
         <!-- Daftar produk -->
         <div id="productList" class="row">

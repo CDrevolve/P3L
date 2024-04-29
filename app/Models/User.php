@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     public $timestamps = false;
-    protected $table = 'user';
-    protected $primaryKey = 'id_user';
-
+    protected $table = "users";
+    protected $primary = "id_user";
     /**
      * The attributes that are mass assignable.
      *
@@ -21,8 +22,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'password',
         'email',
+        'password',
         'id_role',
     ];
 
@@ -43,6 +44,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            // Set default value for id_role to 5
+            $user->id_role = 5;
+        });
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'id_role');
+    }
 }
