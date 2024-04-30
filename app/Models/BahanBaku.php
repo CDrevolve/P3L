@@ -9,14 +9,11 @@ class BahanBaku extends Model
 {
     use HasFactory;
 
+    protected $table = 'bahan_bakus';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'nama_bahan_baku',
-        'satuan_bahan_baku',
-        'stok_bahan_baku'
-    ];
-
-
-    protected $casts = [
-        'stok_bahan_baku' => 'double'
+        'nama',
+        'stok',
+        'satuan',
     ];
 }
