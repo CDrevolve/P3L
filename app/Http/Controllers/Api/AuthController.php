@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Mail\MailSend;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -31,12 +36,20 @@ class AuthController extends Controller
 
         // Periksa apakah user ditemukan
         if (!$user) {
-            return response(['message' => 'Invalid Credentials'], 401);
+            Session::flash('Error', 'Email atau password Salah!');
+            return redirect('login');
         }
 
         // Periksa apakah password cocok
-        if ($user->password !== $data['password']) {
-            return response(['message' => 'Invalid Credentials'], 401);
+        if (!Hash::check($data['password'], $user->password)) {
+            Session::flash('Error', 'Email atau password Salah!');
+            return redirect('login');
+        }
+
+        // Periksa apakah user aktif
+        if (!$user->active) {
+            Session::flash('Error', 'Akun anda belum diverifikasi. Silahkan cek email Anda!');
+            return redirect('login');
         }
 
         // Lakukan login jika berhasil
@@ -82,17 +95,47 @@ class AuthController extends Controller
             return response()->json(['message' => $validator->errors()], 400);
         }
     
-        // Simpan password tanpa hashing
+        // Buat random string untuk verifikasi
+        $str = Str::random(100);
+    
+        // Simpan user dengan password terhash dan key verifikasi
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password,
             'id_role' => 5,
+            'verify_key' => $str,
+            'active' => 0,
         ]);
+
+        // Kirim email verifikasi
+        $details = [
+            'username' => $request->username,
+            'website' => 'Atma Kitchen',
+            'datetime' => now(),
+            'url' => request()->getHttpHost() . '/register/verify/' . $str
+        ];
+        Mail::to($request->email)->send(new MailSend($details));
     
+        // Kembalikan respons berhasil
         return response()->json([
             'message' => 'Register Berhasil',
             'user' => $user,
         ], 200);
+    }
+    public function verify($verify_key)
+    {
+        $keyCheck = User::where('verify_key', $verify_key)->exists();
+
+        if ($keyCheck) {
+            $user = User::where('verify_key', $verify_key)
+                ->update([
+                    'active' => 1,
+                ]);
+
+            return "Verifikasi berhasil. Akun anda sudah aktif.";
+        } else {
+            return "Keys tidak valid.";
+        }
     }
 }

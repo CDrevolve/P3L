@@ -10,6 +10,7 @@ Route::post('actionLogin',[ AuthController::class,'actionLogin'])->name('actionL
 
 Route::get('register', [AuthController::class,'register'])->name('register');
 Route::post('register/action', [AuthController::class,'actionRegister'])->name('actionRegister');
+Route::get('/register/verify/{verify_key}', [AuthController::class,'verify'])->name('verify');
 
 Route::get('logout', [AuthController::class,'actionLogout'])->name('actionLogout')->middleware('auth');
 
