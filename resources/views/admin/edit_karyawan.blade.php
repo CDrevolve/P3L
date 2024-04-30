@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Produk: {{ $produk->nama_produk }}</title>
+    <title>Edit Karyawan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,7 +36,8 @@
         }
 
         input[type="text"],
-        select {
+        input[type="number"],
+        input[type="date"] {
             width: calc(100% - 16px);
             padding: 8px;
             margin-top: 5px;
@@ -61,42 +62,37 @@
         button:hover {
             background-color: #45a049;
         }
-
-        .back-link {
-            display: block;
-            text-align: left;
-            margin-top: 10px;
-            text-decoration: none;
-            color: #007bff;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-    <a href="{{ route('produk.show', $produk->id_produk) }}" class="back-link">Kembali</a>
-        <h1>Edit Produk: {{ $produk->nama_produk }}</h1>
-        <form action="{{ route('produk.update', $produk->id_produk) }}" method="POST">
+        <h1>Edit Karyawan</h1>
+        <form action="{{ route('karyawan.update', $karyawan->id_karyawan) }}" method="POST">
             @csrf
             @method('PUT')
             <div>
-                <label for="nama_produk">Nama Produk:</label>
-                <input type="text" name="nama_produk" id="nama_produk" value="{{ $produk->nama_produk }}" required>
+                <label for="nama_karyawan">Nama Karyawan:</label>
+                <input type="text" name="nama_karyawan" id="nama_karyawan" value="{{ $karyawan->nama_karyawan }}" required>
             </div>
             <div>
-                <label for="stok_produk">Stok Produk:</label>
-                <input type="text" name="stok_produk" id="stok_produk" value="{{ $produk->stok_produk }}" required>
+                <label for="tanggal_lahir">Tanggal Lahir:</label>
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir" value="{{ $karyawan->tanggal_lahir }}" required>
             </div>
             <div>
-                <label for="harga_produk">Harga:</label>
-                <input type="text" name="harga_produk" id="harga_produk" value="{{ $produk->harga_produk }}" required>
+                <label for="alamat_karyawan">Alamat Karyawan:</label>
+                <input type="text" name="alamat_karyawan" id="alamat_karyawan" value="{{ $karyawan->alamat_karyawan }}" required>
             </div>
             <div>
-                <label for="kuota_harian">Kuota Harian:</label>
-                <input type="text" name="kuota_harian" id="kuota_harian" value="{{ $produk->kuota_harian }}" required>
+                <label for="notelp_karyawan">No. Telepon Karyawan:</label>
+                <input type="text" name="notelp_karyawan" id="notelp_karyawan" value="{{ $karyawan->notelp_karyawan }}" required>
             </div>
+            <div>
+                <label for="gaji">Gaji:</label>
+                <input type="number" name="gaji" id="gaji" value="{{ $karyawan->gaji }}" required>
+            </div>
+            <!-- Add more inputs for other karyawan data here -->
             <button type="submit">Simpan Perubahan</button>
         </form>
-
     </div>
 </body>
 </html>

@@ -100,6 +100,7 @@
 
 <body>
     <div class="container">
+    <a href="{{ route('admin') }}" class="button">Back</a>
         <h1>Daftar Resep</h1>
 
         <!-- Form pencarian -->
