@@ -31,4 +31,5 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('mo')->group(function () {
     Route::resource('/pembelian', PembelianBBController::class);
+    Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
 });

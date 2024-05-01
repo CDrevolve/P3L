@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Customer;
 use App\Mail\MailSend;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
@@ -82,45 +83,53 @@ class AuthController extends Controller
     }
 
     public function actionRegister(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 400);
-        }
-    
-        // Buat random string untuk verifikasi
-        $str = Str::random(100);
-    
-        // Simpan user dengan password terhash dan key verifikasi
-        $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => $request->password,
-            'id_role' => 5,
-            'verify_key' => $str,
-            'active' => 0,
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'username' => 'required|max:255',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+    ]);
 
-        // Kirim email verifikasi
-        $details = [
-            'username' => $request->username,
-            'website' => 'Atma Kitchen',
-            'datetime' => now(),
-            'url' => request()->getHttpHost() . '/register/verify/' . $str
-        ];
-        Mail::to($request->email)->send(new MailSend($details));
-    
-        // Kembalikan respons berhasil
-        return response()->json([
-            'message' => 'Register Berhasil',
-            'user' => $user,
-        ], 200);
+    if ($validator->fails()) {
+        return response()->json(['message' => $validator->errors()], 400);
     }
+
+    // Buat random string untuk verifikasi
+    $str = Str::random(100);
+
+    // Simpan user dengan password terhash dan key verifikasi
+    $user = User::create([
+        'username' => $request->username,
+        'email' => $request->email,
+        'password' => $request->password,
+        'id_role' => 5,
+        'verify_key' => $str,
+        'active' => 0,
+    ]);
+
+    // Buat data customer
+    $customer = Customer::create([
+        'id' => $user->id, // Ambil id pengguna yang baru dibuat
+        'nama_customer' => $user->username, // Gunakan nama pengguna sebagai nama customer
+        // Masukkan nilai default untuk kolom lain jika diperlukan
+    ]);
+
+    // Kirim email verifikasi
+    $details = [
+        'username' => $request->username,
+        'website' => 'Atma Kitchen',
+        'datetime' => now(),
+        'url' => request()->getHttpHost() . '/register/verify/' . $str
+    ];
+    Mail::to($request->email)->send(new MailSend($details));
+
+    // Kembalikan respons berhasil
+    return response()->json([
+        'message' => 'Register Berhasil',
+        'user' => $user,
+        'customer' => $customer, // Tambahkan data customer dalam respons jika diperlukan
+    ], 200);
+}
 
     public function verify($verify_key)
     {

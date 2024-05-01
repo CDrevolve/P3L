@@ -36,7 +36,7 @@ class PembelianBBController extends Controller
 
     // Kurangi stok bahan baku yang terkait
     $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
-    $bahanBaku->stok -= $request->input('jumlah');
+    $bahanBaku->stok_bahan_baku -= $request->input('jumlah');
     $bahanBaku->save();
 
     return redirect()->route('mo.create_pembelian')->with('success', 'Data pembelian berhasil ditambahkan');
@@ -69,9 +69,9 @@ class PembelianBBController extends Controller
     // Update stok bahan baku yang terkait
     $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
     // Kembalikan stok sebelumnya
-    $bahanBaku->stok += $jumlahSebelumnya;
+    $bahanBaku->stok_bahan_baku += $jumlahSebelumnya;
     // Kurangi stok baru
-    $bahanBaku->stok -= $request->input('jumlah');
+    $bahanBaku->stok_bahan_baku -= $request->input('jumlah');
     $bahanBaku->save();
 
     return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil diperbarui');
