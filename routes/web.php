@@ -7,7 +7,6 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AdminResepController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\ProfileController;
 
 Route::get("login", [AuthController::class,'login'])->name('login');
 Route::post('actionLogin',[ AuthController::class,'actionLogin'])->name('actionLogin');
@@ -33,3 +32,4 @@ Route::prefix('admin')->group(function () {
     Route::resource('/resep', AdminResepController::class);
     Route::resource('/karyawan', KaryawanController::class);
 });
+
