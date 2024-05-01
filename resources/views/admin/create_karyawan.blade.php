@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tambahProduk</title>
+    <title>Tambah Karyawan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,7 +38,8 @@
         }
 
         input[type="text"],
-        select {
+        input[type="number"],
+        input[type="date"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -64,36 +65,32 @@
     </style>
 </head>
 <body>
-<div class="container">
-<h1>Tambah Produk</h1>
-    <form action="{{ route('produk.store') }}" method="POST">
-        @csrf
-        <div>
-            <label for="nama_produk">Nama Produk:</label>
-            <input type="text" name="nama_produk" id="nama_produk" required>
-        </div>
-        <div>
-            <label for="id_jenis">ID jenis:</label>
-            <input type="text" name="id_jenis" id="id_jenis" required>
-        </div>
-        <div>
-            <label for="id_resep">ID resep:</label>
-            <input type="text" name="id_resep" id="id_resep" required>
-        </div>
-        <div>
-            <label for="stok_produk">Stok Produk:</label>
-            <input type="text" name="stok_produk" id="stok_produk" required>
-        </div>
-        <div>
-            <label for="harga_produk">Harga:</label>
-            <input type="text" name="harga_produk" id="harga_produk" required>
-        </div>
-        <div>
-            <label for="kuota_harian">Kuota Harian:</label>
-            <input type="text" name="kuota_harian" id="kuota_harian" required>
-        </div>
-        <button>Tambah Produk</button>
+    <div class="container">
+        <h1>Tambah Karyawan</h1>
+        <form action="{{ route('karyawan.store') }}" method="POST">
+            @csrf
+            <div>
+                <label for="nama_karyawan">Nama Karyawan:</label>
+                <input type="text" name="nama_karyawan" id="nama_karyawan" required>
+            </div>
+            <div>
+                <label for="tanggal_lahir">Tanggal Lahir:</label>
+                <input type="date" name="tanggal_lahir" id="tanggal_lahir" required>
+            </div>
+            <div>
+                <label for="alamat_karyawan">Alamat Karyawan:</label>
+                <input type="text" name="alamat_karyawan" id="alamat_karyawan" required>
+            </div>
+            <div>
+                <label for="notelp_karyawan">Nomor Telepon Karyawan:</label>
+                <input type="text" name="notelp_karyawan" id="notelp_karyawan" required>
+            </div>
+            <div>
+                <label for="gaji">Gaji:</label>
+                <input type="number" name="gaji" id="gaji" min="0" required>
+            </div>
+            <button type="submit">Tambah Karyawan</button>
+        </form>
     </div>
-    </form>
 </body>
 </html>

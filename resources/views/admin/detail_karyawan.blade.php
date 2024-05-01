@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk: {{ $produk->nama_produk }}</title>
+    <title>Detail Karyawan</title>
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #FEFAF6;
             margin: 0;
@@ -49,15 +49,12 @@
             text-decoration: none;
             transition: background-color 0.3s;
         }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
         .btn-edit {
             background-color: #4caf50;
         }
-
+        .btn:hover {
+            background-color: #0056b3;
+        }
         .btn-delete {
             background-color: #f44336;
         }
@@ -65,28 +62,23 @@
 </head>
 <body>
     <div class="container">
-    <a href="{{ route('produk.index') }}" style="display: block; margin-top: 20px;">Kembali</a>
-        <h1>Detail Produk: {{ $produk->nama_produk }}</h1>
-        @if($produk)
-            <ul>
-                <li><strong>Stok:</strong> {{ $produk->stok_produk }}</li>
-                <li><strong>Harga:</strong> {{ $produk->harga_produk }}</li>
-                <li><strong>Stok Harian:</strong> {{ $produk->kuota_harian }}</li>
-            </ul>
-            <a href="{{ route('produk.edit', $produk->id_produk) }}" class="btn">Edit</a>
 
-            <form action="{{ route('produk.destroy', $produk->id_produk) }}" method="POST">
-                
-                @csrf
-
-                @method('DELETE')
-
-                <button type="submit" class="btn btn-danger">Delete</button>
-
-            </form>
-        @else
-            <p>Produk tidak ditemukan.</p>
-        @endif
+    <h1>Detail Karyawan</h1>
+    <div>
+        <h1><strong>Nama Karyawan:</strong> {{ $karyawan->nama_karyawan }}</h1>
+        <p><strong>Tanggal Lahir:</strong> {{ $karyawan->tanggal_lahir }}</p>
+        <p><strong>Alamat Karyawan:</strong> {{ $karyawan->alamat_karyawan }}</p>
+        <p><strong>No. Telepon Karyawan:</strong> {{ $karyawan->notelp_karyawan }}</p>
+        <p><strong>Gaji:</strong> {{ $karyawan->gaji }}</p>
+        <!-- Tambahkan informasi detail lainnya sesuai kebutuhan -->
+    </div>
+    <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}" class="btn btn-edit">Edit</a>
+    <!-- Tambahkan tombol untuk mengedit data karyawan -->
+    <form action="{{ route('karyawan.destroy', $karyawan->id_karyawan) }}" method="POST" style="display: inline;">
+        @csrf
+        @method('DELETE')
+        <button type="submit">Hapus</button>
+    </form>
     </div>
 </body>
 </html>
