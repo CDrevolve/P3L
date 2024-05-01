@@ -7,7 +7,6 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AdminResepController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\PembelianBBController;
 
 Route::get("login", [AuthController::class,'login'])->name('login');
 Route::post('actionLogin',[ AuthController::class,'actionLogin'])->name('actionLogin');
@@ -22,14 +21,15 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
 
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
+
+
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
     Route::resource('/karyawan', KaryawanController::class);
 });
-//pembelian
 
-Route::prefix('mo')->group(function () {
-    Route::resource('/pembelian', PembelianBBController::class);
-    Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
-});

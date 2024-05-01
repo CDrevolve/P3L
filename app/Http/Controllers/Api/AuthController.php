@@ -43,13 +43,25 @@ class AuthController extends Controller
         Session::flash('Error', 'Email atau password Salah!');
         return redirect('login');
     }
+    // Periksa apakah password cocok
+    if ($user->password !== $data['password']) {
+        Session::flash('Error', 'Email atau password Salah!');
+        return redirect('login');
+    }
 
     // Periksa apakah user aktif
     if (!$user->active) {
         Session::flash('Error', 'Akun anda belum diverifikasi. Silahkan cek email Anda!');
         return redirect('login');
     }
+    // Periksa apakah user aktif
+    if (!$user->active) {
+        Session::flash('Error', 'Akun anda belum diverifikasi. Silahkan cek email Anda!');
+        return redirect('login');
+    }
 
+    // Lakukan login jika berhasil
+    Auth::login($user);
     // Lakukan login jika berhasil
     Auth::login($user);
 
@@ -64,7 +76,7 @@ class AuthController extends Controller
         case 4:
             return redirect('karyawan');
         case 5:
-            return redirect('dashboard');
+            return redirect('profile');
         default:
             return redirect('default');
     }
@@ -114,23 +126,21 @@ class AuthController extends Controller
         // Masukkan nilai default untuk kolom lain jika diperlukan
     ]);
 
-    // Kirim email verifikasi
-    $details = [
-        'username' => $request->username,
-        'website' => 'Atma Kitchen',
-        'datetime' => now(),
-        'url' => request()->getHttpHost() . '/register/verify/' . $str
-    ];
-    Mail::to($request->email)->send(new MailSend($details));
-
-    // Kembalikan respons berhasil
-    return response()->json([
-        'message' => 'Register Berhasil',
-        'user' => $user,
-        'customer' => $customer, // Tambahkan data customer dalam respons jika diperlukan
-    ], 200);
-}
-
+        // Kirim email verifikasi
+        $details = [
+            'username' => $request->username,
+            'website' => 'Atma Kitchen',
+            'datetime' => now(),
+            'url' => request()->getHttpHost() . '/register/verify/' . $str
+        ];
+        Mail::to($request->email)->send(new MailSend($details));
+    
+        // Kembalikan respons berhasil
+        return response()->json([
+            'message' => 'Register Berhasil',
+            'user' => $user,
+        ], 200);
+    }
     public function verify($verify_key)
     {
         $keyCheck = User::where('verify_key', $verify_key)->exists();
