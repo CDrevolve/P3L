@@ -6,6 +6,12 @@
     <title>login</title>
 </head>
 <body>
+@if(Session::has('Error'))
+    <div class="alert alert-danger">
+        {{ Session::get('Error') }}
+    </div>
+@endif
+
     <form method="post" action="{{route('actionLogin')}}">
     @csrf
     <div>
