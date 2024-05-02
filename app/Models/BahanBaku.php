@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BahanBaku extends Model
 {
-    use HasFactory;
 
     protected $table = 'bahan_bakus';
     protected $primaryKey = 'id';
@@ -16,4 +14,9 @@ class BahanBaku extends Model
         'stok',
         'satuan',
     ];
+  
+  public function detailProduks()
+    {
+        return $this->hasMany(DetailProduk::class, 'id_bahan_baku');
+    }
 }
