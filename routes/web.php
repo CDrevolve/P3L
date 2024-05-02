@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminResepController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\ProfileController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -40,13 +41,20 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('mo')->group(function () {
-    Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+    
 });
 Route::get('/', function () {
     return view('welcome');
 });
 
 
+Route::prefix('mo')->group(function () {
+    Route::resource('/pembelian', PembelianBBController::class);
+    Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
+    Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+});
+
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);
 Route::get('datapenitip/fetchAll', [DataPenitipController::class, 'fetchAll']);
 Route::get('pengeluaranlain/fetchAll', [PengeluaranLainController::class, 'fetchAll']);
+
