@@ -9,9 +9,11 @@ class DataPenitip extends Model
 {
     use HasFactory;
 
+    protected $table = 'data_penitips';
+    protected $primaryKey = 'id';
     protected $fillable = [
-        'nama_penitip',
-        'alamat_penitip',
-        'notelp_penitip',
+        'nama',
+        'alamat',
+        'notelp',
     ];
 }

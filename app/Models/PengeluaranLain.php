@@ -5,18 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pengeluaran extends Model
+class PengeluaranLain extends Model
 {
     use HasFactory;
 
-    /**
-     * Atribut yang dapat diisi secara massal.
-     *
-     * @var array
-     */
+    protected $table = 'pengeluaran_lains';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'nama',
         'jumlah',
-        'harga'
+        'harga',
     ];
 }
