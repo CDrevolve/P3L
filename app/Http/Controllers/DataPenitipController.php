@@ -8,102 +8,54 @@ use Illuminate\Http\Request;
 class DataPenitipController extends Controller
 {
     /**
-     * Menampilkan daftar data penitip.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of the resource.
      */
     public function index()
     {
+        //
         $dataPenitips = DataPenitip::all();
-        return view('data_penitip.index', compact('dataPenitips'));
+        return view('admin.dataPenitipview', compact('dataPenitips'));
     }
 
-    /**
-     * Menampilkan formulir untuk membuat data penitip baru.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('data_penitip.create');
-    }
 
     /**
-     * Menyimpan data penitip yang baru dibuat.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_penitip' => 'required|string',
-            'alamat_penitip' => 'required|string',
-            'notelp_penitip' => 'required|string',
-        ]);
-
+        //
         DataPenitip::create($request->all());
-
-        return redirect()->route('data-penitip.index')
-            ->with('success', 'Data penitip berhasil ditambahkan.');
+        return redirect()->route('datapenitip.index');
     }
 
-    /**
-     * Menampilkan detail dari data penitip tertentu.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $dataPenitip = DataPenitip::find($id);
-        return view('data_penitip.show', compact('dataPenitip'));
-    }
 
     /**
-     * Menampilkan formulir untuk mengedit data penitip tertentu.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $dataPenitip = DataPenitip::find($id);
-        return view('data_penitip.edit', compact('dataPenitip'));
-    }
-
-    /**
-     * Memperbarui data penitip tertentu.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_penitip' => 'required|string',
-            'alamat_penitip' => 'required|string',
-            'notelp_penitip' => 'required|string',
-        ]);
-
-        DataPenitip::find($id)->update($request->all());
-
-        return redirect()->route('data-penitip.index')
-            ->with('success', 'Data penitip berhasil diperbarui.');
+        //
+        $dataPenitip = DataPenitip::findOrFail($id);
+        $dataPenitip->update($request->all());
+        return redirect()->route('datapenitip.index');
     }
 
     /**
-     * Menghapus data penitip tertentu dari penyimpanan.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Remove the specified resource from storage.
      */
+
+
     public function destroy($id)
     {
-        DataPenitip::destroy($id);
+        //
+        $dataPenitip = DataPenitip::findOrFail($id);
+        $dataPenitip->delete();
+        return redirect()->route('datapenitip.index');
+    }
 
-        return redirect()->route('data-penitip.index')
-            ->with('success', 'Data penitip berhasil dihapus.');
+    public function fetchAll()
+    {
+        $dataPenitips = DataPenitip::all();
+        return response()->json($dataPenitips);
     }
 }

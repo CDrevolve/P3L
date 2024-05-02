@@ -11,7 +11,7 @@ class Pembelian extends Model
 
     protected $table = 'pengeluaran';
 
-    protected $primaryKey = 'id_pengeluaran';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [

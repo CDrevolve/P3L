@@ -10,13 +10,13 @@ class Karyawan extends Model
     use HasFactory;
 
     protected $table = 'karyawan';
-    protected $primaryKey = 'id_karyawan';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nama_karyawan',
+        'nama',
         'tanggal_lahir',
-        'alamat_karyawan',
-        'notelp_karyawan',
+        'alamat',
+        'notelp',
         'gaji',
     ];
 

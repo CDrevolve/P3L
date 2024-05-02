@@ -21,26 +21,26 @@ class PembelianBBController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'id_bahanbaku' => 'required|numeric',
-        'nama' => 'required|string|max:255',
-        'jenis' => 'required|string|max:255',
-        'tanggal'=> 'required|date',
-        'harga' => 'required|numeric',
-        'jumlah' => 'required|numeric',
-    ]);
+    {
+        $request->validate([
+            'id_bahanbaku' => 'required|numeric',
+            'nama' => 'required|string|max:255',
+            'jenis' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'harga' => 'required|numeric',
+            'jumlah' => 'required|numeric',
+        ]);
 
-    // Simpan pembelian
-    $pembelian = Pembelian::create($request->all());
+        // Simpan pembelian
+        $pembelian = Pembelian::create($request->all());
 
-    // Kurangi stok bahan baku yang terkait
-    $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
-    $bahanBaku->stok_bahan_baku -= $request->input('jumlah');
-    $bahanBaku->save();
+        // Kurangi stok bahan baku yang terkait
+        $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
+        $bahanBaku->stok -= $request->input('jumlah');
+        $bahanBaku->save();
 
-    return redirect()->route('mo.create_pembelian')->with('success', 'Data pembelian berhasil ditambahkan');
-}
+        return redirect()->route('mo.create_pembelian')->with('success', 'Data pembelian berhasil ditambahkan');
+    }
 
     public function edit($id_pengeluaran)
     {
@@ -49,33 +49,33 @@ class PembelianBBController extends Controller
     }
 
     public function update(Request $request, $id_pengeluaran)
-{
-    $request->validate([
-        'id_bahanbaku' => 'required|numeric',
-        'nama' => 'required|string|max:255',
-        'jenis' => 'required|string|max:255', 
-        'tanggal' => 'required|date',
-        'harga' => 'required|numeric',
-        'jumlah' => 'required|numeric',
-    ]);
+    {
+        $request->validate([
+            'id_bahanbaku' => 'required|numeric',
+            'nama' => 'required|string|max:255',
+            'jenis' => 'required|string|max:255',
+            'tanggal' => 'required|date',
+            'harga' => 'required|numeric',
+            'jumlah' => 'required|numeric',
+        ]);
 
-    // Temukan pembelian
-    $pembelian = Pembelian::findOrFail($id_pengeluaran);
-    // Simpan jumlah pembelian sebelum diubah
-    $jumlahSebelumnya = $pembelian->jumlah;
-    // Update pembelian
-    $pembelian->update($request->all());
+        // Temukan pembelian
+        $pembelian = Pembelian::findOrFail($id_pengeluaran);
+        // Simpan jumlah pembelian sebelum diubah
+        $jumlahSebelumnya = $pembelian->jumlah;
+        // Update pembelian
+        $pembelian->update($request->all());
 
-    // Update stok bahan baku yang terkait
-    $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
-    // Kembalikan stok sebelumnya
-    $bahanBaku->stok_bahan_baku += $jumlahSebelumnya;
-    // Kurangi stok baru
-    $bahanBaku->stok_bahan_baku -= $request->input('jumlah');
-    $bahanBaku->save();
+        // Update stok bahan baku yang terkait
+        $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
+        // Kembalikan stok sebelumnya
+        $bahanBaku->stok += $jumlahSebelumnya;
+        // Kurangi stok baru
+        $bahanBaku->stok -= $request->input('jumlah');
+        $bahanBaku->save();
 
-    return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil diperbarui');
-}
+        return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil diperbarui');
+    }
 
     public function destroy($id_pembelian)
     {
@@ -84,5 +84,4 @@ class PembelianBBController extends Controller
 
         return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil dihapus');
     }
-
 }

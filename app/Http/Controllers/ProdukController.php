@@ -29,23 +29,22 @@ class ProdukController extends Controller
         $request->validate([
             'id_jenis' => 'required|numeric',
             'id_resep' => 'required|numeric',
-            'nama_produk' => 'required|string|max:255',
-            'stok_produk' => 'required|numeric',
-            'harga_produk'=> 'required|numeric',
-            'kuota_harian'=> 'required|numeric',
+            'nama' => 'required|string|max:255',
+            'stok' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'kuota_harian' => 'required|numeric',
         ]);
-        
-         Produk::create([
-            'id_jenis'=> $request->input('id_jenis'),
-            'id_resep'=> $request->input('id_resep'),
-            'nama_produk'=> $request->input('nama_produk'),
-            'stok_produk'=> $request->input('stok_produk'),
-            'harga_produk'=> $request->input('harga_produk'),
-            'kuota_harian'=> $request->input('kuota_harian'),
+
+        Produk::create([
+            'id_jenis' => $request->input('id_jenis'),
+            'id_resep' => $request->input('id_resep'),
+            'nama' => $request->input('nama'),
+            'stok' => $request->input('stok'),
+            'harga' => $request->input('harga'),
+            'kuota_harian' => $request->input('kuota_harian'),
         ]);
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
-
     }
     public function edit($id_produk)
     {
@@ -53,16 +52,16 @@ class ProdukController extends Controller
         return view('admin.edit_produk', compact('produk'));
     }
 
-    public function update(Request $request, $id_produk)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_produk' => 'required|string|max:255',
-            'stok_produk' => 'required|numeric',
-            'harga_produk'=> 'required|numeric',
-            'kuota_harian'=> 'required|numeric',
+            'nama' => 'required|string|max:255',
+            'stok' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'kuota_harian' => 'required|numeric',
         ]);
-        
-        $produk = Produk::findOrFail($id_produk);
+
+        $produk = Produk::findOrFail($id);
         $produk->update($request->all());
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui');
@@ -76,12 +75,12 @@ class ProdukController extends Controller
         return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus');
     }
     public function search(Request $request)
-{
-    $keyword = $request->input('keyword');
+    {
+        $keyword = $request->input('keyword');
 
-    // Lakukan pencarian berdasarkan keyword
-    $produk = Produk::where('nama_produk', 'like', '%' . $keyword . '%')->get();
+        // Lakukan pencarian berdasarkan keyword
+        $produk = Produk::where('nama', 'like', '%' . $keyword . '%')->get();
 
-    return view('admin.daftar_produk', compact('produk'));
-}
+        return view('admin.daftar_produk', compact('produk'));
+    }
 }

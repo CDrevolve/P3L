@@ -24,8 +24,11 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        $user->update($request->all());
-        return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
+        if ($user) {
+            $user->update($request->all()); // gatau ini kok error, tapi masih bisa jalan
+            return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
+        }
+        // Handle the case where there is no authenticated user.
     }
 
     public function orderHistory()
