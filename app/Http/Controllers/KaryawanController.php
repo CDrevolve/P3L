@@ -11,18 +11,18 @@ class KaryawanController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-    
+
         // Jika terdapat keyword pencarian
         if ($keyword) {
-            $karyawan = Karyawan::where('nama_karyawan', 'like', '%' . $keyword . '%')->get();
+            $karyawan = Karyawan::where('nama', 'like', '%' . $keyword . '%')->get();
         } else {
             // Jika tidak ada keyword, tampilkan semua karyawan
             $karyawan = Karyawan::all();
         }
-    
+
         return view('admin.daftar_karyawan', compact('karyawan', 'keyword'));
     }
-    
+
 
     public function create()
     {
@@ -32,31 +32,31 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_karyawan' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'alamat_karyawan' => 'required|string',
-            'notelp_karyawan' => 'required|string|max:20',
+            'alamat' => 'required|string',
+            'notelp' => 'required|string|max:20',
             'gaji' => 'required|numeric|min:0',
         ]);
-    
+
         // Menyimpan data karyawan
         $karyawan = Karyawan::create([
-            'nama_karyawan' => $request->input('nama_karyawan'),
+            'nama' => $request->input('nama'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
-            'alamat_karyawan' => $request->input('alamat_karyawan'),
-            'notelp_karyawan' => $request->input('notelp_karyawan'),
+            'alamat' => $request->input('alamat'),
+            'notelp' => $request->input('notelp'),
             'gaji' => $request->input('gaji'),
         ]);
-    
+
         return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil ditambahkan.');
     }
-    
+
 
     public function show($id)
     {
         $karyawan = Karyawan::findOrFail($id);
         return view('admin.detail_karyawan', compact('karyawan'));
-    }    
+    }
 
     public function edit($id)
     {
@@ -67,10 +67,10 @@ class KaryawanController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_karyawan' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'alamat_karyawan' => 'required|string',
-            'notelp_karyawan' => 'required|string|max:20',
+            'alamat' => 'required|string',
+            'notelp' => 'required|string|max:20',
             'gaji' => 'required|numeric|min:0',
         ]);
 
@@ -87,8 +87,4 @@ class KaryawanController extends Controller
 
         return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil dihapus.');
     }
-
 }
-
-
-

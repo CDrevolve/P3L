@@ -9,18 +9,18 @@ class Pemesanan extends Model
 {
     use HasFactory;
 
-    protected $table = 'pemesanan'; // Sesuaikan dengan nama tabel Anda
+    protected $table = 'pemesanans'; // Sesuaikan dengan nama tabel Anda
 
-    protected $primaryKey = 'id_pesanan'; // Sesuaikan dengan nama primary key tabel Anda
+    protected $primaryKey = 'id'; // Sesuaikan dengan nama primary key tabel Anda
 
     protected $fillable = [
         'id_customer',
         'id_karyawan',
-        'nama_pesanan',
-        'isi_pesanan',
-        'harga_pesanan',
+        'nama',
+        'isi',
+        'harga',
         'pickup',
-        'tanggal_pesanan',
+        'tanggal',
     ];
 
     // Relasi dengan model User untuk menghubungkan id_customer dengan id_user di tabel users

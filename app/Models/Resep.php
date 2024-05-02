@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resep extends Model
 {
-    protected $table = 'resep';
-    protected $primaryKey = 'id_resep'; 
+    protected $table = 'reseps';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'nama_resep',
+        'nama',
     ];
 
     public $timestamps = false;
