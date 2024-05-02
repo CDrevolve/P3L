@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk: {{ $produk->nama_produk }}</title>
+    <title>Detail Produk: {{ $produk->nama }}</title>
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #FEFAF6;
             margin: 0;
@@ -38,6 +39,7 @@
         li {
             margin-bottom: 10px;
         }
+
         .btn {
             padding: 8px 16px;
             background-color: #007bff;
@@ -63,30 +65,32 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-    <a href="{{ route('produk.index') }}" style="display: block; margin-top: 20px;">Kembali</a>
-        <h1>Detail Produk: {{ $produk->nama_produk }}</h1>
+        <a href="{{ route('produk.index') }}" style="display: block; margin-top: 20px;">Kembali</a>
+        <h1>Detail Produk: {{ $produk->nama }}</h1>
         @if($produk)
-            <ul>
-                <li><strong>Stok:</strong> {{ $produk->stok_produk }}</li>
-                <li><strong>Harga:</strong> {{ $produk->harga_produk }}</li>
-                <li><strong>Stok Harian:</strong> {{ $produk->kuota_harian }}</li>
-            </ul>
-            <a href="{{ route('produk.edit', $produk->id_produk) }}" class="btn">Edit</a>
+        <ul>
+            <li><strong>Stok:</strong> {{ $produk->stok }}</li>
+            <li><strong>Harga:</strong> {{ $produk->harga }}</li>
+            <li><strong>Stok Harian:</strong> {{ $produk->kuota_harian }}</li>
+        </ul>
+        <a href="{{ route('produk.edit', $produk->id) }}" class="btn">Edit</a>
 
-            <form action="{{ route('produk.destroy', $produk->id_produk) }}" method="POST">
-                
-                @csrf
+        <form action="{{ route('produk.destroy', $produk->id) }}" method="POST">
 
-                @method('DELETE')
+            @csrf
 
-                <button type="submit" class="btn btn-danger">Delete</button>
+            @method('DELETE')
 
-            </form>
+            <button type="submit" class="btn btn-danger">Delete</button>
+
+        </form>
         @else
-            <p>Produk tidak ditemukan.</p>
+        <p>Produk tidak ditemukan.</p>
         @endif
     </div>
 </body>
+
 </html>

@@ -100,7 +100,7 @@
 
 <body>
     <div class="container">
-    <a href="{{ route('admin') }}" class="button">Back</a>
+        <a href="{{ route('admin') }}" class="button">Back</a>
         <h1>Daftar Resep</h1>
 
         <!-- Form pencarian -->
@@ -112,10 +112,10 @@
         <ul>
             @foreach ($reseps as $resep)
             <li>
-                <a href="{{ route('resep.show', $resep->id_resep) }}">{{ $resep->nama_resep }}</a>
+                <a href="{{ route('resep.show', $resep->id) }}">{{ $resep->nama }}</a>
                 <div>
-                    <a href="{{ route('resep.edit', $resep->id_resep) }}" class="btn btn-edit">Edit</a>
-                    <form action="{{ route('resep.destroy', $resep->id_resep) }}" method="POST" style="display: inline;">
+                    <a href="{{ route('resep.edit', $resep->id) }}" class="btn btn-edit">Edit</a>
+                    <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-delete">Hapus</button>

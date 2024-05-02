@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,36 +12,44 @@
             padding: 0;
             background-color: #FEFAF6;
         }
+
         .container {
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
         }
+
         .row {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 20px;
         }
+
         .card {
             background-color: #FFD9C0;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
-            flex-basis: calc(20% - 20px); /* Atur 20% untuk 5 kartu per baris atau 25% untuk 4 kartu per baris */
+            flex-basis: calc(20% - 20px);
+            /* Atur 20% untuk 5 kartu per baris atau 25% untuk 4 kartu per baris */
         }
+
         h1 {
             color: #333;
             text-align: center;
         }
+
         h2 {
             margin-top: 0;
         }
+
         a {
             color: #007bff;
             text-decoration: none;
         }
+
         .btn {
             display: inline-block;
             padding: 8px 16px;
@@ -53,18 +62,22 @@
             text-decoration: none;
             transition: background-color 0.3s;
         }
+
         .btn:hover {
             background-color: #0056b3;
         }
+
         .search-container {
             margin-bottom: 20px;
         }
+
         .search-container input[type=text] {
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
             width: 300px;
         }
+
         .search-container button {
             padding: 10px 20px;
             border-radius: 5px;
@@ -75,9 +88,10 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-    <a href="{{ route('admin') }}" class="button">Back</a>
+        <a href="{{ route('admin') }}" class="button">Back</a>
 
         <!-- Form pencarian -->
         <div class="search-container">
@@ -89,10 +103,10 @@
         <!-- Daftar produk -->
         <div id="productList" class="row">
             @foreach ($produk as $produk)
-                <div class="card">
-                    <h2><a href="{{ route('produk.show', $produk->id_produk) }}">{{ $produk->nama_produk }}</a></h2>
-                    <!-- Tambahkan informasi produk lainnya di sini -->
-                </div>
+            <div class="card">
+                <h2><a href="{{ route('produk.show', $produk->id) }}">{{ $produk->nama }}</a></h2>
+                <!-- Tambahkan informasi produk lainnya di sini -->
+            </div>
             @endforeach
         </div>
 
@@ -120,4 +134,5 @@
         }
     </script>
 </body>
+
 </html>

@@ -118,11 +118,11 @@
             @forelse ($karyawan as $item)
                 <li>
                     <div>
-                        <a href="{{ route('karyawan.show', $item->id_karyawan) }}">{{ $item->nama_karyawan }}</a>
+                        <a href="{{ route('karyawan.show', $item->id) }}">{{ $item->nama }}</a>
                     </div>
                     <div class="button-group">
-                        <a href="{{ route('karyawan.edit', $item->id_karyawan) }}" class="button">Edit</a>
-                        <form action="{{ route('karyawan.destroy', $item->id_karyawan) }}" method="POST">
+                        <a href="{{ route('karyawan.edit', $item->id) }}" class="button">Edit</a>
+                        <form action="{{ route('karyawan.destroy', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Delete</button>

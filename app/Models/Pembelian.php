@@ -22,4 +22,9 @@ class Pembelian extends Model
         'harga',
         'jumlah'
     ];
+
+    public function bahanbaku()
+    {
+        return $this->belongsTo(BahanBaku::class, 'id_bahanbaku');
+    }
 }

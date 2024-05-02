@@ -14,7 +14,7 @@ return new class extends Migration
         //
         Schema::create('reseps', function (Blueprint $table) {
             $table->id('id');
-            $table->string('nama_resep');
+            $table->string('nama');
             $table->timestamps();
         });
     }

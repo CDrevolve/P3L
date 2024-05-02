@@ -44,11 +44,11 @@
 
 <body>
     <div class="container">
-        <h1>Detail Resep: {{ $resep->nama_resep }}</h1>
+        <h1>Detail Resep: {{ $resep->nama }}</h1>
         <h2>Bahan-bahan:</h2>
         <ul>
             @foreach ($resep->detailProduks as $detailProduk)
-            <li>{{ $detailProduk->bahanBaku->nama_bahan_baku }} - {{ $detailProduk->jumlah }}</li>
+            <li>{{ $detailProduk->bahanBaku->nama }} - {{ $detailProduk->jumlah }}</li>
             @endforeach
         </ul>
     </div>

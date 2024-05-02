@@ -11,7 +11,7 @@ use App\Http\Controllers\AdminResepController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PembelianBBController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');

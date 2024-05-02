@@ -57,12 +57,12 @@
 <body>
     <div class="container">
         <h1>Edit Resep</h1>
-        <form action="{{ route('resep.update', $resep->id_resep) }}" method="POST">
+        <form action="{{ route('resep.update', $resep->id) }}" method="POST">
             @csrf
             @method('PUT') <!-- Gunakan metode PUT untuk update -->
             <div>
-                <label for="nama_resep">Nama Resep:</label>
-                <input type="text" name="nama_resep" id="nama_resep" value="{{ $resep->nama_resep }}" required>
+                <label for="nama">Nama Resep:</label>
+                <input type="text" name="nama" id="nama" value="{{ $resep->nama }}" required>
             </div>
             <div>
                 <label for="id_bahan_baku">Bahan Baku:</label>

@@ -71,14 +71,14 @@
         <form action="{{ route('resep.store') }}" method="POST">
             @csrf
             <div>
-                <label for="nama_resep">Nama Resep:</label>
-                <input type="text" name="nama_resep" id="nama_resep" required>
+                <label for="nama">Nama Resep:</label>
+                <input type="text" name="nama" id="nama" required>
             </div>
             <div>
                 <label for="id_bahan_baku">Bahan Baku:</label>
                 <select name="id_bahan_baku" id="id_bahan_baku" required>
                     @foreach ($bahanBaku as $bb)
-                    <option value="{{ $bb->id_bahan_baku }}">{{ $bb->id_bahan_baku }} - {{ $bb->nama_bahan_baku }}</option>
+                    <option value="{{ $bb->id }}">{{ $bb->id }} - {{ $bb->nama }}</option>
                     @endforeach
                 </select>
             </div>

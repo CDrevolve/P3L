@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Produk: {{ $produk->nama_produk }}</title>
+    <title>Edit Produk: {{ $produk->nama }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,24 +72,25 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-    <a href="{{ route('produk.show', $produk->id_produk) }}" class="back-link">Kembali</a>
-        <h1>Edit Produk: {{ $produk->nama_produk }}</h1>
-        <form action="{{ route('produk.update', $produk->id_produk) }}" method="POST">
+        <a href="{{ route('produk.show', $produk->id) }}" class="back-link">Kembali</a>
+        <h1>Edit Produk: {{ $produk->nama }}</h1>
+        <form action="{{ route('produk.update', $produk->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div>
-                <label for="nama_produk">Nama Produk:</label>
-                <input type="text" name="nama_produk" id="nama_produk" value="{{ $produk->nama_produk }}" required>
+                <label for="nama">Nama Produk:</label>
+                <input type="text" name="nama" id="nama" value="{{ $produk->nama }}" required>
             </div>
             <div>
-                <label for="stok_produk">Stok Produk:</label>
-                <input type="text" name="stok_produk" id="stok_produk" value="{{ $produk->stok_produk }}" required>
+                <label for="stok">Stok Produk:</label>
+                <input type="text" name="stok" id="stok" value="{{ $produk->stok }}" required>
             </div>
             <div>
-                <label for="harga_produk">Harga:</label>
-                <input type="text" name="harga_produk" id="harga_produk" value="{{ $produk->harga_produk }}" required>
+                <label for="harga">Harga:</label>
+                <input type="text" name="harga" id="harga" value="{{ $produk->harga }}" required>
             </div>
             <div>
                 <label for="kuota_harian">Kuota Harian:</label>
@@ -99,4 +101,5 @@
 
     </div>
 </body>
+
 </html>

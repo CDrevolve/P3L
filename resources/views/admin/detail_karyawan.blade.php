@@ -65,16 +65,16 @@
 
     <h1>Detail Karyawan</h1>
     <div>
-        <h1><strong>Nama Karyawan:</strong> {{ $karyawan->nama_karyawan }}</h1>
+        <h1><strong>Nama Karyawan:</strong> {{ $karyawan->nama }}</h1>
         <p><strong>Tanggal Lahir:</strong> {{ $karyawan->tanggal_lahir }}</p>
-        <p><strong>Alamat Karyawan:</strong> {{ $karyawan->alamat_karyawan }}</p>
-        <p><strong>No. Telepon Karyawan:</strong> {{ $karyawan->notelp_karyawan }}</p>
+        <p><strong>Alamat Karyawan:</strong> {{ $karyawan->alamat }}</p>
+        <p><strong>No. Telepon Karyawan:</strong> {{ $karyawan->notelp }}</p>
         <p><strong>Gaji:</strong> {{ $karyawan->gaji }}</p>
         <!-- Tambahkan informasi detail lainnya sesuai kebutuhan -->
     </div>
-    <a href="{{ route('karyawan.edit', $karyawan->id_karyawan) }}" class="btn btn-edit">Edit</a>
+    <a href="{{ route('karyawan.edit', $karyawan->id) }}" class="btn btn-edit">Edit</a>
     <!-- Tambahkan tombol untuk mengedit data karyawan -->
-    <form action="{{ route('karyawan.destroy', $karyawan->id_karyawan) }}" method="POST" style="display: inline;">
+    <form action="{{ route('karyawan.destroy', $karyawan->id) }}" method="POST" style="display: inline;">
         @csrf
         @method('DELETE')
         <button type="submit">Hapus</button>
