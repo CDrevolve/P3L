@@ -9,6 +9,7 @@ use App\Models\DataPenitip;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AdminResepController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
 
 Route::get("login", [AuthController::class,'login'])->name('login');
