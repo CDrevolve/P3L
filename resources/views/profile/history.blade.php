@@ -14,11 +14,10 @@
     <div class="container">
         <div class="title">
             <h3>Order History for {{ $user->username }}</h3>
+            
         </div>
         <div class="order-list">
-            @if ($orders->isEmpty())
-                <p>No orders found.</p>
-            @else
+            
                 <table>
                     <thead>
                         <tr>
@@ -31,19 +30,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orders as $index => $order)
+                        @forelse($orders as $order)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $order->id_customer}}</td>
                                 <td>{{ $order->nama_pesanan }}</td>
                                 <td>{{ $order->isi_pesanan }}</td>
                                 <td>{{ $order->harga_pesanan }}</td>
                                 <td>{{ $order->pickup }}</td>
                                 <td>{{ $order->tanggal_pesanan }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td> 
+                                <span>
+                                Belum ada Data
+                                </span>
+                            </td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
-            @endif
         </div>
     </div>
 </body>

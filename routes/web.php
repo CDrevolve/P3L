@@ -7,6 +7,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AdminResepController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\ProfileController;
 
 Route::get("login", [AuthController::class,'login'])->name('login');
 Route::post('actionLogin',[ AuthController::class,'actionLogin'])->name('actionLogin');
@@ -33,3 +34,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('/karyawan', KaryawanController::class);
 });
 
+Route::prefix('mo')->group(function () {
+    Route::resource('/pembelian', PembelianBBController::class);
+    Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
+});

@@ -16,7 +16,7 @@ class Customer extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id',
+        'id_user',
         'nama_customer',
         'saldo_customer',
         'tanggal_lahir_customer',
@@ -24,8 +24,8 @@ class Customer extends Model
         'poin'
     ];
 
-    public function customer()
+    public function user()
     {
-        return $this->hasMany(User::class, 'id');
+        return $this->belongsTo(User::class, 'id_user');
     }
 }

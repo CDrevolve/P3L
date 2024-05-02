@@ -82,7 +82,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="photo-profile">
-                <img src="{{ asset('images/ppUser/' . $user->image) }}" class="card-img-top rounded-circle" alt="Avatar">
+                <img src="{{ asset('images/ppUser/') }}" class="card-img-top rounded-circle" alt="Avatar">
             </div>
         </div>
 
@@ -93,11 +93,10 @@
                 <h5>Email</h5>
                 <p>{{ $user->email }}</p>
             </div>
+            <a href="{{ route('profile.edit') }}">Edit Profil</a>
         </div>
     </div>
 </div>
-
-    <a href="{{ route('profile.edit') }}">Edit Profil</a>
 
     <div class="container">
     <div class="title">
