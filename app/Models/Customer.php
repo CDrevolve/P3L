@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
-    
-    protected $table = 'customer';
 
-    protected $primaryKey = 'id_customer';
+    protected $table = 'customers';
+
+    protected $primaryKey = 'id';
 
     public $timestamps = false;
 
     protected $fillable = [
         'id_user',
-        'nama_customer',
-        'saldo_customer',
-        'tanggal_lahir_customer',
-        'notelp_customer',
+        'nama',
+        'saldo',
+        'tanggal_lahir',
+        'notelp',
         'poin'
     ];
 

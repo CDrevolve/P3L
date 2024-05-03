@@ -9,7 +9,7 @@ class Pembelian extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengeluaran';
+    protected $table = 'pengeluarans';
 
     protected $primaryKey = 'id';
     public $timestamps = false;

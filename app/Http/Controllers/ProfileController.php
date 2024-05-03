@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Pemesanan; 
+use App\Models\Pemesanan;
 use App\Models\Customer;
 
 class ProfileController extends Controller
@@ -34,9 +34,9 @@ class ProfileController extends Controller
     public function orderHistory()
     {
         $user = auth()->user();
-        $customer= Customer::where('id_user',$user->id)->first();
-        $orders = Pemesanan::where('id_customer',$customer->id_customer)->get();
+        $customer = Customer::where('id_user', $user->id)->first();
+        $orders = Pemesanan::where('id_customer', $customer->id_customer)->get();
         // Ambil semua pesanan berdasarkan id_customer
-        return view('profile.history', compact('user', 'orders','customer'));
+        return view('profile.history', compact('user', 'orders', 'customer'));
     }
 }
