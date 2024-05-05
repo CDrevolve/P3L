@@ -8,6 +8,9 @@
 </head>
 
 <body>
+    <div>
+        <a href="{{route('actionLogout')}}">logout</a>
+    </div>
     <table>
         <thead>
             <tr>

@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form method="post" action="{{route('actionRegister')}}">
+    <form method="post" action="{{route('actionRegister')}}" enctype="multipart/form-data">
         @csrf
         <div>
             <label>Nama</label>

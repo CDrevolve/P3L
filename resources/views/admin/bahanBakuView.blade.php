@@ -29,7 +29,7 @@
 
 
     <div class="row">
-
+        <a href="{{route('actionLogout')}}">logout</a>
         <div class="col">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahBahanModal">Tambah</button>
 

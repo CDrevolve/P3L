@@ -50,6 +50,11 @@ class ProfileController extends Controller
                     'foto' => $destinationPath,
                 ]);
             }
+            $customer->update([
+                'nama' => $request->nama,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'no_telp' => $request->no_telp,
+            ]);
             return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
         }
         // Handle the case where there is no authenticated user.
@@ -58,8 +63,11 @@ class ProfileController extends Controller
     public function orderHistory()
     {
         $user = auth()->user();
+
         $customer = Customer::where('id_user', $user->id)->first();
-        $orders = Pemesanan::where('id_customer', $customer->id_customer)->get();
+
+        $orders = Pemesanan::where('id_customer', $customer->id)->get();
+
         // Ambil semua pesanan berdasarkan id_customer
         return view('profile.history', compact('user', 'orders', 'customer'));
     }

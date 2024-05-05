@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AdminDetailProduk;
 use App\Http\Controllers\Api\ResetPassword;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
@@ -40,6 +41,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('/karyawan', KaryawanController::class);
     Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
+    Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
 });
 
 Route::get('/', function () {

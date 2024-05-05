@@ -104,7 +104,6 @@ class AuthController extends Controller
             'alamat' => 'required',
             'tanggal_lahir' => 'required',
             'no_telp' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -127,9 +126,9 @@ class AuthController extends Controller
         // Buat data customer
         $image = $request->file('foto');
         $imageName = $image->getClientOriginalName();
-        $destinationPath = ('images/');
+        $destinationPath = ('images/ppUser');
         $image->move($destinationPath, $imageName);
-        $destinationPath = 'images/' . $imageName;
+        $destinationPath = 'images/ppUser' . $imageName;
 
         $customer = Customer::create([
             'id_user' => $user->id, // Ambil id pengguna yang baru dibuat
