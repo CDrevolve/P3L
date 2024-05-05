@@ -13,6 +13,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\KaryawanMobile;
+
 use App\Http\Controllers\Api\ResetPassword;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
@@ -61,6 +63,8 @@ Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);
 Route::get('datapenitip/fetchAll', [DataPenitipController::class, 'fetchAll']);
 Route::get('pengeluaranlain/fetchAll', [PengeluaranLainController::class, 'fetchAll']);
+
+Route::resource('/karyawanMobile', KaryawanMobile::class);
 
 Route::get('resetPassword', function () {
     return view('resetPassword');

@@ -22,7 +22,6 @@ class Customer extends Model
         'no_telp',
         'saldo',
         'poin',
-        'foto',
     ];
 
     public function user()

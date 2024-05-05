@@ -55,12 +55,22 @@ class ProfileController extends Controller
         // Handle the case where there is no authenticated user.
     }
 
-    public function orderHistory()
+    public function orderHistory(Request $request)
     {
         $user = auth()->user();
         $customer = Customer::where('id_user', $user->id)->first();
-        $orders = Pemesanan::where('id_customer', $customer->id_customer)->get();
-        // Ambil semua pesanan berdasarkan id_customer
+
+        $keyword = $request->input('keyword');
+
+        if ($keyword) {
+            $orders = Pemesanan::where('id_customer', $customer->id_customer)
+                                ->where('isi_pesanan', 'like', '%' . $keyword . '%')
+                                ->get();
+        } else {
+            $orders = Pemesanan::where('id_customer', $customer->id_customer)->get();
+        }
+    
         return view('profile.history', compact('user', 'orders', 'customer'));
     }
+    
 }

@@ -104,7 +104,7 @@ class AuthController extends Controller
             'alamat' => 'required',
             'tanggal_lahir' => 'required',
             'no_telp' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -125,11 +125,11 @@ class AuthController extends Controller
         ]);
 
         // Buat data customer
-        $image = $request->file('foto');
-        $imageName = $image->getClientOriginalName();
-        $destinationPath = ('images/');
-        $image->move($destinationPath, $imageName);
-        $destinationPath = 'images/' . $imageName;
+        // $image = $request->file('foto');
+        // $imageName = $image->getClientOriginalName();
+        // $destinationPath = ('images/');
+        // $image->move($destinationPath, $imageName);
+        // $destinationPath = 'images/' . $imageName;
 
         $customer = Customer::create([
             'id_user' => $user->id, // Ambil id pengguna yang baru dibuat
@@ -138,7 +138,7 @@ class AuthController extends Controller
             'no_telp' => $request->no_telp,
             'saldo' => '0',
             'poin' => '0',
-            'foto' => $destinationPath,
+            // 'foto' => $destinationPath,
             // Gunakan nama pengguna sebagai nama customer
             // Masukkan nilai default untuk kolom lain jika diperlukan
         ]);
