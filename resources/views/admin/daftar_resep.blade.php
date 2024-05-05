@@ -115,6 +115,7 @@
                 <a href="{{ route('resep.show', $resep->id) }}">{{ $resep->nama }}</a>
                 <div>
                     <a href="{{ route('resep.edit', $resep->id) }}" class="btn btn-edit">Edit</a>
+                    <a href="{{route('detail.resep', $resep->id) }}" class="btn btn-success">Detail</a>
                     <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')

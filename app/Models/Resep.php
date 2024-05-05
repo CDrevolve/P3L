@@ -13,7 +13,6 @@ class Resep extends Model
         'nama',
     ];
 
-    public $timestamps = false;
 
     public function detailProduks()
     {

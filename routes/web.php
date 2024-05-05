@@ -42,6 +42,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
+    Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
+    Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
+    Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
 });
 
 Route::get('/', function () {
