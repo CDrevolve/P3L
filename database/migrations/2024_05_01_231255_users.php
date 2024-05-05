@@ -17,10 +17,9 @@ return new class extends Migration
             $table->foreignId('id_role')->constrained('roles');
             $table->string('username');
             $table->string('password');
-            $table->string('image');
             $table->string('email')->unique();
             $table->string('verify_key');
-            $table->smallInteger('status');
+            $table->smallInteger('active');
             $table->timestamps();
         });
     }

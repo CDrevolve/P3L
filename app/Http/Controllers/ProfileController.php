@@ -6,13 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pemesanan;
 use App\Models\Customer;
+use Carbon\Carbon;
+use Symfony\Component\HttpFoundation\file\UploadedFile;
 
 class ProfileController extends Controller
 {
     public function show()
     {
         $user = auth()->user();
-        return view('profile.show', compact('user'));
+        $customer = Customer::where('id_user', $user->id)->first();
+        return view('profile.show', compact('user', 'customer'));
     }
 
     public function edit()
@@ -24,8 +27,29 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = auth()->user();
-        if ($user) {
-            $user->update($request->all()); // gatau ini kok error, tapi masih bisa jalan
+        $customer = Customer::where('id_user', $user->id)->first();
+
+        $image = $request->file('foto');
+        $imageName = $image->getClientOriginalName();
+        $destinationPath = public_path('images/ppUser/');
+        $image->move($destinationPath, $imageName);
+        $destinationPath = 'images/ppUser/' . $imageName;
+
+        if ($customer) {
+            if ($image == null) {
+                $customer->update([
+                    'nama' => $request->nama,
+                    'tanggal_lahir' => $request->tanggal_lahir,
+                    'no_telp' => $request->no_telp,
+                ]);
+            } else {
+                $customer->update([
+                    'nama' => $request->nama,
+                    'tanggal_lahir' => $request->tanggal_lahir,
+                    'no_telp' => $request->no_telp,
+                    'foto' => $destinationPath,
+                ]);
+            }
             return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
         }
         // Handle the case where there is no authenticated user.

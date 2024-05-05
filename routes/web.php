@@ -12,6 +12,8 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PembelianBBController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Api\ResetPassword;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -40,9 +42,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('/bahanbaku', BahanBakuController::class);
 });
 
-Route::prefix('mo')->group(function () {
-    
-});
 Route::get('/', function () {
     return view('welcome');
 });
@@ -54,7 +53,15 @@ Route::prefix('mo')->group(function () {
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
 });
 
+Route::get('costumer/index', [CustomerController::class, 'index']);
+Route::get('costumer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan']);
+
+
+Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);
 Route::get('datapenitip/fetchAll', [DataPenitipController::class, 'fetchAll']);
 Route::get('pengeluaranlain/fetchAll', [PengeluaranLainController::class, 'fetchAll']);
 
+Route::get('resetPassword', function () {
+    return view('resetPassword');
+})->name('resetPassword');

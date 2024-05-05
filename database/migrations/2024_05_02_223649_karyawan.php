@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('karyawans', function (Blueprint $table) {
             $table->id('id');
             $table->string('nama');
+            $table->date('tanggal_lahir');
             $table->string('alamat');
             $table->string('no_telp');
-            $table->string('email');
-            $table->string('password');
+            $table->double('gaji');
             $table->timestamps();
         });
     }
