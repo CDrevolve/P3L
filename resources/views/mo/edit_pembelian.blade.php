@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,18 +59,19 @@
     </style>
 
 </head>
+
 <body>
     <h2>Edit Pembelian</h2>
 
     @if ($errors->any())
-        <div class="error">
-            <strong>Error:</strong>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="error">
+        <strong>Error:</strong>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <form action="{{ route('pembelian.update', $pembelian->id_pengeluaran) }}" method="POST">
@@ -92,18 +94,10 @@
         <input type="number" name="jumlah" id="jumlah" value="{{ $pembelian->jumlah }}" required><br>
 
         <label for="tanggal">Tanggal:</label>
-        <input type="text" name="tanggal" id="tanggal" value="{{ $pembelian->tanggal }}" required><br>
+        <input type="date" name="tanggal" id="tanggal" value="{{ $pembelian->tanggal }}" required><br>
 
         <button type="submit">Submit</button>
     </form>
-
-    <script>
-        // Datepicker initialization
-        $(function() {
-            $("#tanggal").datepicker({
-                dateFormat: "yy-mm-dd"
-            });
-        });
-    </script>
 </body>
+
 </html>

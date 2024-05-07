@@ -25,6 +25,13 @@ Route::get('/register/verify/{verify_key}', [AuthController::class, 'verify'])->
 
 Route::get('logout', [AuthController::class, 'actionLogout'])->name('actionLogout')->middleware('auth');
 
+Route::get('forgetPassword', [ResetPassword::class, 'forgetPassword'])->name('forgetPassword');
+
+
+Route::get('/', function () {
+    return view('dashboard.landingPage');
+});
+
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
@@ -33,6 +40,8 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show')
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
+
+
 
 
 Route::prefix('admin')->group(function () {
@@ -47,9 +56,6 @@ Route::prefix('admin')->group(function () {
     Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 Route::prefix('mo')->group(function () {
@@ -66,7 +72,3 @@ Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);
 Route::get('datapenitip/fetchAll', [DataPenitipController::class, 'fetchAll']);
 Route::get('pengeluaranlain/fetchAll', [PengeluaranLainController::class, 'fetchAll']);
-
-Route::get('resetPassword', function () {
-    return view('resetPassword');
-})->name('resetPassword');

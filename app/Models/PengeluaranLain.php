@@ -15,5 +15,6 @@ class PengeluaranLain extends Model
         'nama',
         'jumlah',
         'harga',
+        'tanggal',
     ];
 }

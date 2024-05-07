@@ -40,6 +40,7 @@
                         <th>Nama Pengeluaran</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
+                        <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -48,6 +49,7 @@
                         <th>Nama Pengeluaran</th>
                         <th>Jumlah</th>
                         <th>Harga</th>
+                        <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -57,6 +59,7 @@
                         <td>{{$pl->nama}}</td>
                         <td>{{$pl->jumlah}}</td>
                         <td>{{$pl->harga}}</td>
+                        <td>{{$pl->tanggal}}</td>
                         <td>
                             <!-- Edit button -->
                             <button class="btn btn-primary edit-btn" data-bs-toggle="modal" data-bs-target="#editPengeluaranLainModal{{$pl->id}}" data-item-id="{{ $pl->id }}">Edit</button>
@@ -88,6 +91,8 @@
                                         <input required type="text" class="form-control" id="jumlah" name="jumlah" value="{{$pl->jumlah}}">
                                         <label for="notelp">Harga:</label>
                                         <input required type="number" step="any" class="form-control" id="harga" name="harga" value="{{$pl->harga}}">
+                                        <label for="tanggal">Tanggal:</label>
+                                        <input required type="date" class="form-control" id="tanggal" name="tanggal" value="{{$pl->tanggal}}">
                                         <!-- Add more form fields as needed -->
 
                                         <div class="modal-footer">
@@ -153,6 +158,8 @@
                         <input required type="text" class="form-control" id="jumlah" name="jumlah">
                         <label for="itemName">Harga:</label>
                         <input required type="number" step="any" class="form-control" id="harga" name="harga">
+                        <label for="itemName">Tanggal:</label>
+                        <input required type="date" class="form-control" id="tanggal" name="tanggal">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-success" id="addBtn">Add Pengeluaran</button>

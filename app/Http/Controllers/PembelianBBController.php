@@ -25,10 +25,9 @@ class PembelianBBController extends Controller
         $request->validate([
             'id_bahanbaku' => 'required|numeric',
             'nama' => 'required|string|max:255',
-            'jenis' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'harga' => 'required|numeric',
             'jumlah' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'tanggal' => 'required|date',
         ]);
 
         // Simpan pembelian
@@ -53,10 +52,9 @@ class PembelianBBController extends Controller
         $request->validate([
             'id_bahanbaku' => 'required|numeric',
             'nama' => 'required|string|max:255',
-            'jenis' => 'required|string|max:255',
-            'tanggal' => 'required|date',
-            'harga' => 'required|numeric',
             'jumlah' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'tanggal' => 'required|date',
         ]);
 
         // Temukan pembelian

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_penitips', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('nama');
-            $table->string('alamat');
-            $table->string('notelp');
+        //
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_user')->constrained('users');
+            $table->string('token');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_penitips');
+        //
     }
 };

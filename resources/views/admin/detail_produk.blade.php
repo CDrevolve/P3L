@@ -48,6 +48,7 @@
 
 <body>
     <div class="container">
+        <a href="{{ route('resep.index') }}">back</a>
         <h1>Detail Resep: {{ $resep->nama }}</h1>
         <h2>Bahan-bahan:</h2>
         <button>
@@ -89,7 +90,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="tambahModalLabel">Tambah Item</h5>
+                                <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
                             </div>
                             <div class="modal-body">
                                 <!-- Form fields for add item -->
