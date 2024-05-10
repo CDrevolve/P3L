@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengeluaran_lains', function (Blueprint $table) {
+        //
+        Schema::create('detail_produks', function (Blueprint $table) {
             $table->id('id');
-            $table->string('nama');
+            $table->foreignId('id_resep')->constrained('reseps');
+            $table->foreignId('id_bahan_baku')->constrained('bahan_bakus');
             $table->integer('jumlah');
-            $table->double('harga');
-            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -26,6 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengeluaran_lains');
+        //
+        Schema::dropIfExists('detail_produks');
     }
 };

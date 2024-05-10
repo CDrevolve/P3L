@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,24 +78,35 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="title">Edit Profil</h1>
-        <form action="{{ route('profile.update') }}" method="POST">
+        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+
             @csrf
             @method('PUT')
             <div class="user-box">
                 <div>
-                    <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" value="{{ $user->username }}" class="form-control" required>
+                    <label for="username">Nama:</label>
+                    <input type="text" name="nama" id="nama" value="{{ $user->nama }}" class="form-control" required>
                 </div>
                 <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value="{{ $user->email }}" class="form-control" required>
+                    <label for="tanggal_lahir">Tanggal Lahir:</label>
+                    <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control" required>
+                </div>
+                <div>
+                    <label for="no_telp">Nomor Telepon:</label>
+                    <input type="text" name="no_telp" id="no_telp" class="form-control" required>
+                </div>
+                <div>
+                    <label for="foto">Foto:</label>
+                    <input type="file" name="foto" id="foto" class="form-control">
                 </div>
                 <button type="submit" class="btn btn-update">Simpan Perubahan</button>
             </div>
         </form>
     </div>
 </body>
+
 </html>

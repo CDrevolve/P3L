@@ -35,7 +35,7 @@ class KaryawanController extends Controller
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'notelp' => 'required|string|max:20',
+            'no_telp' => 'required|string|max:20',
             'gaji' => 'required|numeric|min:0',
         ]);
 
@@ -44,7 +44,7 @@ class KaryawanController extends Controller
             'nama' => $request->input('nama'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'alamat' => $request->input('alamat'),
-            'notelp' => $request->input('notelp'),
+            'no_telp' => $request->input('no_telp'),
             'gaji' => $request->input('gaji'),
         ]);
 
@@ -70,7 +70,7 @@ class KaryawanController extends Controller
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'notelp' => 'required|string|max:20',
+            'no_telp' => 'required|string|max:20',
             'gaji' => 'required|numeric|min:0',
         ]);
 

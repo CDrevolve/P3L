@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,26 +65,27 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Tambah Karyawan</h1>
         <form action="{{ route('karyawan.store') }}" method="POST">
             @csrf
             <div>
-                <label for="nama_karyawan">Nama Karyawan:</label>
-                <input type="text" name="nama_karyawan" id="nama_karyawan" required>
+                <label for="nama">Nama Karyawan:</label>
+                <input type="text" name="nama" id="nama" required>
             </div>
             <div>
                 <label for="tanggal_lahir">Tanggal Lahir:</label>
                 <input type="date" name="tanggal_lahir" id="tanggal_lahir" required>
             </div>
             <div>
-                <label for="alamat_karyawan">Alamat Karyawan:</label>
-                <input type="text" name="alamat_karyawan" id="alamat_karyawan" required>
+                <label for="alamat">Alamat Karyawan:</label>
+                <input type="text" name="alamat" id="alamat" required>
             </div>
             <div>
-                <label for="notelp_karyawan">Nomor Telepon Karyawan:</label>
-                <input type="text" name="notelp_karyawan" id="notelp_karyawan" required>
+                <label for="no_telp">Nomor Telepon Karyawan:</label>
+                <input type="text" name="no_telp" id="no_telp" required>
             </div>
             <div>
                 <label for="gaji">Gaji:</label>
@@ -93,4 +95,5 @@
         </form>
     </div>
 </body>
+
 </html>

@@ -86,7 +86,7 @@
             </div>
             <div>
                 <label for="notelp">No. Telepon Karyawan:</label>
-                <input type="text" name="notelp" id="notelp" value="{{ $karyawan->notelp }}" required>
+                <input type="text" name="no_telp" id="no_telp" value="{{ $karyawan->no_telp }}" required>
             </div>
             <div>
                 <label for="gaji">Gaji:</label>

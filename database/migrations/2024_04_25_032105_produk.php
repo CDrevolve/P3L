@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\ForeignIdColumnDefinition;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -11,11 +12,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_penitips', function (Blueprint $table) {
+        //
+        Schema::create('produks', function (Blueprint $table) {
             $table->id('id');
+            $table->foreignId('id_resep')->constrained('reseps');
+            $table->foreignId('id_jenis')->constrained('jenis');
             $table->string('nama');
-            $table->string('alamat');
-            $table->string('notelp');
+            $table->double('stok');
+            $table->double('harga');
+            $table->integer('kuota_harian');
             $table->timestamps();
         });
     }
@@ -25,6 +30,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_penitips');
+        //
+        Schema::dropIfExists('produks');
     }
 };

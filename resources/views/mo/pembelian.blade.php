@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Daftar Pembelian Bahan Baku</h1>
@@ -20,10 +22,9 @@
             <thead class="thead-dark">
                 <tr>
                     <th>Nama</th>
-                    <th>Jenis</th>
-                    <th>Tanggal</th>
                     <th>Jumlah</th>
                     <th>Harga</th>
+                    <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -31,10 +32,9 @@
                 @foreach ($pembelian as $pembelian)
                 <tr>
                     <td>{{ $pembelian->nama }}</td>
-                    <td>{{ $pembelian->jenis }}</td>
-                    <td>{{ $pembelian->tanggal }}</td>
                     <td>{{ $pembelian->jumlah }}</td>
                     <td>{{ $pembelian->harga }}</td>
+                    <td>{{ $pembelian->tanggal }}</td>
                     <td>
                         <a href="{{ route('pembelian.edit', $pembelian->id_pengeluaran) }}" class="btn btn-primary">Edit</a>
                         <form action="{{ route('pembelian.destroy', $pembelian->id_pengeluaran) }}" method="POST" style="display: inline;">
@@ -49,4 +49,5 @@
         </table>
     </div>
 </body>
+
 </html>

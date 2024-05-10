@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('id_bahanbaku')->constrained('bahan_bakus');
             $table->string('nama');
             $table->string('jumlah');
-            $table->string('harga');
-            $table->string('total');
+            $table->double('harga');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

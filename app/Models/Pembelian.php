@@ -17,10 +17,9 @@ class Pembelian extends Model
     protected $fillable = [
         'id_bahanbaku',
         'nama',
-        'jenis',
-        'tanggal',
+        'jumlah',
         'harga',
-        'jumlah'
+        'tanggal',
     ];
 
     public function bahanbaku()

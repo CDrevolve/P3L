@@ -20,6 +20,8 @@ class Produk extends Model
         'stok',
         'harga',
         'kuota_harian',
+        'lebihan',
+        'foto',
     ];
 
     public function jenis()

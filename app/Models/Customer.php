@@ -18,10 +18,11 @@ class Customer extends Model
     protected $fillable = [
         'id_user',
         'nama',
-        'saldo',
         'tanggal_lahir',
-        'notelp',
-        'poin'
+        'no_telp',
+        'saldo',
+        'poin',
+        'foto',
     ];
 
     public function user()

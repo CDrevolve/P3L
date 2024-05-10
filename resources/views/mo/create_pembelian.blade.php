@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -69,19 +70,20 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Create Pembelian</h2>
 
         @if ($errors->any())
-            <div>
-                <strong>Error:</strong>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        <div>
+            <strong>Error:</strong>
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
 
         <form action="{{ route('pembelian.store') }}" method="POST">
@@ -92,9 +94,6 @@
             <label for="nama">Nama:</label>
             <input type="text" name="nama" id="nama" required><br>
 
-            <label for="jenis">Jenis:</label>
-            <input type="text" name="jenis" id="jenis" required><br>
-
             <label for="harga">Harga:</label>
             <input type="number" name="harga" id="harga" required><br>
 
@@ -102,18 +101,12 @@
             <input type="number" name="jumlah" id="jumlah" required><br>
 
             <label for="tanggal">Tanggal:</label>
-            <input type="text" name="tanggal" id="tanggal" required><br>
+            <input type="date" name="tanggal" id="tanggal" required><br>
 
             <button type="submit">Submit</button>
         </form>
     </div>
 
-    <script>
-        $(function() {
-            $("#tanggal").datepicker({
-                dateFormat: "yy-mm-dd"
-            });
-        });
-    </script>
 </body>
+
 </html>

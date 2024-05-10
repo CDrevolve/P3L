@@ -14,11 +14,13 @@ return new class extends Migration
         //
         Schema::create('customers', function (Blueprint $table) {
             $table->id('id');
+            $table->foreignId('id_user')->constrained('users');
             $table->string('nama');
-            $table->string('alamat');
+            $table->date('tanggal_lahir');
             $table->string('no_telp');
-            $table->string('email');
-            $table->string('password');
+            $table->string('saldo');
+            $table->string('poin');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
