@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\Jenis;
+// use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProdukController extends Controller
 {
@@ -16,32 +19,51 @@ class ProdukController extends Controller
     public function show($id_produk)
     {
         $produk = Produk::findOrFail($id_produk);
-        return view("admin.isi_produk", compact("produk"));
+        return view("admin.isi_produk", compact('produk'));
     }
 
     public function create()
     {
-        return view("admin.create_produk");
+        $jenis = Jenis::all();
+        return view("admin.create_produk", compact('jenis'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'id_jenis' => 'required|numeric',
-            'id_resep' => 'required|numeric',
             'nama' => 'required|string|max:255',
             'stok' => 'required|numeric',
             'harga' => 'required|numeric',
             'kuota_harian' => 'required|numeric',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 400);
+        }
+        // $request->validate([
+        //     'id_jenis' => 'required|numeric',
+        //     'nama' => 'required|string|max:255',
+        //     'stok' => 'required|numeric',
+        //     'harga' => 'required|numeric',
+        //     'kuota_harian' => 'required|numeric',
+        //     'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+
+        $image = $request->file('foto');
+        $imageName = $image->getClientOriginalName();
+        $destinationPath = ('images/produk');
+        $image->move($destinationPath, $imageName);
+        $destinationPath = 'images/produk' . $imageName;
 
         Produk::create([
             'id_jenis' => $request->input('id_jenis'),
-            'id_resep' => $request->input('id_resep'),
             'nama' => $request->input('nama'),
             'stok' => $request->input('stok'),
             'harga' => $request->input('harga'),
             'kuota_harian' => $request->input('kuota_harian'),
+            'foto' => $destinationPath
         ]);
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
