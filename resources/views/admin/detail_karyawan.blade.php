@@ -68,7 +68,7 @@
         <h1><strong>Nama Karyawan:</strong> {{ $karyawan->nama }}</h1>
         <p><strong>Tanggal Lahir:</strong> {{ $karyawan->tanggal_lahir }}</p>
         <p><strong>Alamat Karyawan:</strong> {{ $karyawan->alamat }}</p>
-        <p><strong>No. Telepon Karyawan:</strong> {{ $karyawan->notelp }}</p>
+        <p><strong>No. Telepon Karyawan:</strong> {{ $karyawan->no_telp }}</p>
         <p><strong>Gaji:</strong> {{ $karyawan->gaji }}</p>
         <!-- Tambahkan informasi detail lainnya sesuai kebutuhan -->
     </div>

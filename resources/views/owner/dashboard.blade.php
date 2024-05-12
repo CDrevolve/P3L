@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Owner Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,10 +49,9 @@
 
 <body>
     <div class="container">
-        <h1>Welcome to Admin Dashboard</h1>
-        <a href="{{ route('produk.index') }}" class="btn">Manage Products</a>
-        <a href="{{ route('resep.index') }}" class="btn">Manage Recipes</a>
-        <a href="{{ route('profile.editPassword') }}" class="btn">Manage Account</a>
+        <h1>Welcome to Owner Dashboard</h1>
+        <a href="{{ route('owner.karyawann') }}" class="btn">Manage Gaji Karyawan</a>
+
     </div>
 </body>
 

@@ -16,7 +16,7 @@ class Karyawan extends Model
         'nama',
         'tanggal_lahir',
         'alamat',
-        'notelp',
+        'no_telp',
         'gaji',
     ];
 

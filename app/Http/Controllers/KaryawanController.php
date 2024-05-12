@@ -35,8 +35,7 @@ class KaryawanController extends Controller
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'notelp' => 'required|string|max:20',
-            'gaji' => 'required|numeric|min:0',
+            'no_telp' => 'required|string|max:20',
         ]);
 
         // Menyimpan data karyawan
@@ -44,8 +43,7 @@ class KaryawanController extends Controller
             'nama' => $request->input('nama'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
             'alamat' => $request->input('alamat'),
-            'notelp' => $request->input('notelp'),
-            'gaji' => $request->input('gaji'),
+            'no_telp' => $request->input('no_telp'),
         ]);
 
         return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil ditambahkan.');
@@ -70,8 +68,7 @@ class KaryawanController extends Controller
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
-            'notelp' => 'required|string|max:20',
-            'gaji' => 'required|numeric|min:0',
+            'no_telp' => 'required|string|max:20',
         ]);
 
         $karyawan = Karyawan::findOrFail($id);

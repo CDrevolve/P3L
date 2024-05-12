@@ -10,11 +10,6 @@ class KaryawanMobile extends Controller
 {
     public function index()
     {
-        
-    
-        // Jika terdapat keyword pencarian
-        
-            // Jika tidak ada keyword, tampilkan semua karyawan
             $karyawan = Karyawan::all();
     
         return response()->json([
