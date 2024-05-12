@@ -22,7 +22,50 @@
 </head>
 
 <body>
-    <a href="{{route('actionLogout')}}">logout</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('produk.index')}}">Produk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('resep.index')}}">Resep</a>
+                    </li>
+                    @if (Auth::user())
+                    <li>
+                        
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('actionLogout')}}">Logout</a>
+                    </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('login')}}">Login</a>
+
+                    </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <h1>Dashboard</h1>
+        <p>Welcome to dashboard</p>
+    </div>
+
+
+
+
 </body>
 
 </html>

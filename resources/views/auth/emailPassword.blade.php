@@ -10,7 +10,7 @@
 <body>
     <div>
         <p>We will send a link to you email, use that link to reset password</p>
-        <form method="post" action="{{route('actionResetPassword')}}">
+        <form method="post" action="{{route('sendEmail')}}">
             @csrf
             <div>
                 <label>Email</label>
@@ -19,6 +19,11 @@
             <button type="submit">Reset Password</button>
         </form>
     </div>
+
+    <div>
+        <a class="nav-link" href="{{route('login')}}">Login</a>
+    </div>
+
 </body>
 
 </html>

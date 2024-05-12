@@ -74,6 +74,14 @@
                 <label for="nama">Nama Resep:</label>
                 <input type="text" name="nama" id="nama" required>
             </div>
+            <div>
+                <label for="produk">Produk</label>
+                <select name="produk" id="produk">
+                    @foreach($produks as $produk)
+                    <option value="{{ $produk->id }}">{{ $produk->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit">Tambah Resep</button>
         </form>
     </div>

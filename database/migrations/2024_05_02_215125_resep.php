@@ -14,6 +14,7 @@ return new class extends Migration
         //
         Schema::create('reseps', function (Blueprint $table) {
             $table->id('id');
+            $table->foreignId('id_produk')->constrained('produks');
             $table->string('nama');
             $table->timestamps();
         });

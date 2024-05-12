@@ -28,8 +28,8 @@
         <button type="submit">Login</button>
         <hr>
         <p class="register"> Belum Punya Akun? <a href="{{route('register')}}">Sign Up</a></p>
-        
-        <p class="forgot"> Lupa Password? <a href="{{route('resetPassword')}}">Reset Password</a></p>
+
+        <p class="forgot"> Lupa Password? <a href="{{route('forgetPassword')}}">Reset Password</a></p>
     </form>
 </body>
 

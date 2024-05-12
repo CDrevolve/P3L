@@ -14,7 +14,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminDetailProduk;
-use App\Http\Controllers\Api\ResetPassword;
+use App\Http\Controllers\ForgetPasswordController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -25,12 +25,14 @@ Route::get('/register/verify/{verify_key}', [AuthController::class, 'verify'])->
 
 Route::get('logout', [AuthController::class, 'actionLogout'])->name('actionLogout')->middleware('auth');
 
-Route::get('forgetPassword', [ResetPassword::class, 'forgetPassword'])->name('forgetPassword');
-
+Route::get('forgetPassword', [ForgetPasswordController::class, 'forgetPassword'])->name('forgetPassword');
+Route::post('forgetPassword/sendEmail', [ForgetPasswordController::class, 'sendEmail'])->name('sendEmail');
+Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'verifyToken'])->name('verify');
+Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
 
 Route::get('/', function () {
     return view('dashboard.landingPage');
-});
+})->name('home');
 
 Route::get('/admin', function () {
     return view('admin.dashboard');

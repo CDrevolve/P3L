@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Resep;
 use App\Models\DetailProduk;
 use App\Models\BahanBaku;
+use App\Models\Produk;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
@@ -33,8 +34,9 @@ class AdminResepController extends Controller
 
     public function create()
     {
+        $produks = Produk::all();
         $bahanBaku = BahanBaku::all();
-        return view('admin.create_resep', compact('bahanBaku'));
+        return view('admin.create_resep', compact('bahanBaku', 'produks'));
     }
 
     public function store(Request $request)
@@ -93,8 +95,7 @@ class AdminResepController extends Controller
         // }
 
         // Update nama resep jika diinginkan
-        $resep->nama = $request->nama;
-        $resep->save();
+        $resep->update($request->all());
 
         // Redirect ke halaman daftar resep setelah berhasil mengupdate resep
         return redirect()->route('resep.index')->with('success', 'Resep berhasil diperbarui.');

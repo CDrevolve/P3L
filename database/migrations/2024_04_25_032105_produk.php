@@ -15,12 +15,12 @@ return new class extends Migration
         //
         Schema::create('produks', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('id_resep')->constrained('reseps');
             $table->foreignId('id_jenis')->constrained('jenis');
             $table->string('nama');
             $table->double('stok');
             $table->double('harga');
             $table->integer('kuota_harian');
+            $table->string('foto');
             $table->timestamps();
         });
     }
