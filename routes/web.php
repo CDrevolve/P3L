@@ -54,7 +54,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
 
-    Route::get('/profile', [ProfileAdminController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit_password', [ProfileAdminController::class, 'editPassword'])->name('profile.editPassword');
     Route::post('/profile/update_password', [ProfileAdminController::class, 'updatePassword'])->name('profile.updatePassword');
 });

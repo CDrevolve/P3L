@@ -64,28 +64,6 @@
                 <label for="nama">Nama Resep:</label>
                 <input type="text" name="nama" id="nama" value="{{ $resep->nama }}" required>
             </div>
-            <div>
-                <label for="id_bahan_baku">Bahan Baku:</label>
-                <select name="id_bahan_baku" id="id_bahan_baku" required>
-                    @foreach ($resep->detailProduks as $detailProduk)
-                        <option value="{{ $detailProduk->bahanBaku->id_bahan_baku }}" {{ $detailProduk->bahanBaku->id_bahan_baku == $detailProduk->id_bahan_baku ? 'selected' : '' }}>
-                            {{ $detailProduk->bahanBaku->id_bahan_baku }} - {{ $detailProduk->bahanBaku->nama_bahan_baku }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
-                <label for="bahan_baru">Bahan Baku Baru:</label>
-                <select name="bahan_baru" id="bahan_baru" required> <!-- Ubah nama input menjadi "bahan_baru" -->
-                    @foreach ($bahanBaku as $bb)
-                        <option value="{{ $bb->id_bahan_baku }}">{{ $bb->id_bahan_baku }} - {{ $bb->nama_bahan_baku }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
-                <label for="jumlah">Jumlah:</label>
-                <input type="text" name="jumlah" id="jumlah" value="{{ $detailProduk->jumlah }}" required>
-            </div>
             <button type="submit">Update Resep</button>
         </form>
     </div>

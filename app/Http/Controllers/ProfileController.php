@@ -73,4 +73,5 @@ class ProfileController extends Controller
         return view('profile.history', compact('user', 'orders', 'customer'));
     }
     
+    
 }

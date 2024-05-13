@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Resep Baru</title>
+    <title>tambahProduk</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -67,28 +67,42 @@
 
 <body>
     <div class="container">
-        <h1>Tambah Resep Baru</h1>
-        <form action="{{ route('resep.store') }}" method="POST">
+        <h1>Tambah Produk</h1>
+        <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
-                <label for="nama">Nama Resep:</label>
+                <label for="nama">Nama Produk:</label>
                 <input type="text" name="nama" id="nama" required>
             </div>
             <div>
-                <label for="id_bahan_baku">Bahan Baku:</label>
-                <select name="id_bahan_baku" id="id_bahan_baku" required>
-                    @foreach ($bahanBaku as $bb)
-                    <option value="{{ $bb->id }}">{{ $bb->id }} - {{ $bb->nama }}</option>
+                <label for="id_jenis">jenis:</label>
+                <select name="id_jenis" id="id_jenis" required>
+                    @foreach($jenis as $jenis)
+                    <option value="{{$jenis->id}}">{{$jenis->nama}}</option>
                     @endforeach
+                    <option value="null" selected hidden>Jenis</option>
                 </select>
+
             </div>
             <div>
-                <label for="jumlah">Jumlah:</label>
-                <input type="text" name="jumlah" id="jumlah" required>
+                <label for="stok">Stok Produk:</label>
+                <input type="numeric" name="stok" id="stok" required>
             </div>
-            <button type="submit">Tambah Resep</button>
-        </form>
+            <div>
+                <label for="harga">Harga:</label>
+                <input type="numeric" name="harga" id="harga" required>
+            </div>
+            <div>
+                <label for="kuota_harian">Kuota Harian:</label>
+                <input type="numeric" name="kuota_harian" id="kuota_harian" required>
+            </div>
+            <div>
+                <label for="foto">Foto:</label>
+                <input type="file" name="foto" id="foto" class="form-control" >
+            </div>
+            <button>Tambah Produk</button>
     </div>
+    </form>
 </body>
 
 </html>

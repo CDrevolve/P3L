@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -74,41 +75,49 @@
         }
     </style>
 </head>
-<body>
-<div class="container">
-    <div class="title">
-        <h5>User Information</h5>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="photo-profile">
-                <img src="{{ asset('images/ppUser/') }}" class="card-img-top rounded-circle" alt="Avatar">
-            </div>
-        </div>
 
-        <div class="col-md-3">
-            <div class="user-box">
-                <h5>Name</h5>
-                <p>{{ $user->username }}</p>
-                <h5>Email</h5>
-                <p>{{ $user->email }}</p>
+<body>
+    <div class="container">
+        <div class="title">
+            <h5>User Information</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="photo-profile">
+                    <img src="{{ $customer->foto }}" class="card-img-top rounded-circle" alt="Avatar">
+                </div>
             </div>
-            <a href="{{ route('profile.edit') }}">Edit Profil</a>
+
+            <div class="col-md-3">
+                <div class="user-box">
+                    <h5>Username</h5>
+                    <p>{{ $user->username }}</p>
+                    <h5>Email</h5>
+                    <p>{{ $user->email }}</p>
+                    <h5>Nama</h5>
+                    <p>{{ $customer->nama }}</p>
+                    <h5>Tanggal Lahir</h5>
+                    <p>{{ $customer->tanggal_lahir }}</p>
+                    <h5>No Telp</h5>
+                    <p>{{ $customer->no_telp }}</p>
+                </div>
+                <a href="{{ route('profile.edit') }}">Edit Profil</a>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="container">
-    <div class="title">
-        <h5>Order History</h5>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="order-history-btn">
-                <a href="{{ route('profile.history') }}" class="btn">Order History</a>
+        <div class="title">
+            <h5>Order History</h5>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="order-history-btn">
+                    <a href="{{ route('profile.history') }}" class="btn">Order History</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>

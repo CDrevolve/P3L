@@ -12,28 +12,6 @@ use Carbon\Carbon;
 
 class ProfileAdminController extends Controller
 {
-    public function show()
-    {
-        $user = auth()->user();
-        $customer = Customer::where('id_user', $user->id)->first();
-        return view('profile.show', compact('user', 'customer'));
-    }
-
-    public function edit()
-    {
-        $user = auth()->user();
-        return view('profile.edit', compact('user'));
-    }
-
-    public function update(Request $request)
-    {
-        $user = auth()->user();
-        $customer = Customer::where('id_user', $user->id)->first();
-
-        // Logika untuk mengupdate data karyawan
-
-        return redirect()->route('profile.show')->with('success', 'Profil berhasil diperbarui.');
-    }
 
     public function editPassword()
     {
