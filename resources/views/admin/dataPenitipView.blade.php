@@ -39,6 +39,7 @@
             <thead>
                 <tr>
                     <th>Nama</th>
+                    <th>Titipan</th>
                     <th>Alamat</th>
                     <th>Nomor Telepon</th>
                     <th>Aksi</th>
@@ -47,6 +48,7 @@
             <tfoot>
                 <tr>
                     <th>Nama</th>
+                    <th>Titipan</th>
                     <th>Alamat</th>
                     <th>Nomor Telepon</th>
                     <th>Aksi</th>
@@ -56,6 +58,7 @@
                 @forelse($dataPenitips as $dp)
                 <tr>
                     <td>{{$dp->nama}}</td>
+                    <td>{{$dp->produk->nama}}</td>
                     <td>{{$dp->alamat}}</td>
                     <td>{{$dp->notelp}}</td>
                     <td>
@@ -83,6 +86,13 @@
                                     @method('PUT')
                                     <label for="nama">Nama:</label>
                                     <input required type="text" class="form-control" id="nama" name="nama" value="{{$dp->nama}}">
+                                    <label for="id_produk">Produk Titipan</label>
+                                    <select name="id_produk" id="id_produk" class="form-control">
+                                        <option value="null" selected hidden>Pilih Produk</option>
+                                        @foreach($produks as $p)
+                                        <option value="{{$p->id}}">{{$p->nama}}</option>
+                                        @endforeach
+                                    </select>
                                     <label for="alamat">Alamat:</label>
                                     <input required type="text" class="form-control" id="alamat" name="alamat" value="{{$dp->alamat}}">
                                     <label for="notelp">Nomor Telepon:</label>
@@ -155,6 +165,13 @@
                         @method('POST')
                         <label for="namaPenitip">Name:</label>
                         <input required type="text" class="form-control" id="nama" name="nama">
+                        <label for="id_produk">Produk Titipan</label>
+                        <select name="id_produk" id="id_produk" class="form-control">
+                            <option value="null" selected hidden>Pilih Produk</option>
+                            @foreach($produks as $p)
+                            <option value="{{$p->id}}">{{$p->nama}}</option>
+                            @endforeach
+                        </select>
                         <label for="itemName">Alamat:</label>
                         <input required type="text" class="form-control" id="alamat" name="alamat">
                         <label for="itemName">Nomor telepon:</label>

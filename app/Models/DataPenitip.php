@@ -13,7 +13,13 @@ class DataPenitip extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'nama',
+        'id_produk',
         'alamat',
         'notelp',
     ];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk', 'id');
+    }
 }

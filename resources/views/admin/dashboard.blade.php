@@ -53,6 +53,7 @@
         <a href="{{ route('produk.index') }}" class="btn">Manage Products</a>
         <a href="{{ route('resep.index') }}" class="btn">Manage Recipes</a>
         <a href="{{ route('karyawan.index') }}" class="btn">Manage Employee</a>
+        <a href="{{ route('bahanbaku.index') }}" class="btn">Bahan Baku</a>
     </div>
 </body>
 

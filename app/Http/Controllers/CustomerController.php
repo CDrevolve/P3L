@@ -17,8 +17,9 @@ class CustomerController extends Controller
 
     public function fetchPemesanan($id)
     {
-        $customer = Customer::findOrFail($id)->first();
-        $pemesanans = Pemesanan::where('id_customer', $customer->id_customer)->get();
-        return view('admin.customerPemesananView', compact('pemesanans'));
+        $customer = Customer::findOrFail($id);
+        $pemesanans = Pemesanan::where('id_customer', $id)->get();
+
+        return view('admin.customerPemesananView', compact('customer', 'pemesanans'));
     }
 }
