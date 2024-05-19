@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>MO Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,12 +52,12 @@
         <button class="btn">
             <a href="{{route('actionLogout')}}">logout</a>
         </button>
-        <h1>Welcome to Admin Dashboard</h1>
-        <a href="{{ route('produk.index') }}" class="btn">Manage Products</a>
-        <a href="{{ route('resep.index') }}" class="btn">Manage Recipes</a>
-        <a href="{{ route('karyawan.index') }}" class="btn">Manage Employee</a>
-        <a href="{{ route('bahanbaku.index') }}" class="btn">Bahan Baku</a>
-        <a href="{{ route('customer.index')}}" class="btn">Manage Customer</a>
+
+        <h1>Welcome to MO Dashboard</h1>
+        <a href="{{ route('karyawan.index') }}" class="btn">Manage Karyawan</a>
+        <a href="{{ route('pembelian.index') }}" class="btn">Manage pembelian</a>
+        <a href="{{ route('datapenitip.index') }}" class="btn">Manage Penitip</a>
+        <a href="{{ route('pengeluaranlain.index') }}" class="btn">Pengeluaran Lain</a>
     </div>
 </body>
 

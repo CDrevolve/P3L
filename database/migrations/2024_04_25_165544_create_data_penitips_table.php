@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('data_penitips', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('id_produk')->constrained('produks');
             $table->string('nama');
             $table->string('alamat');
             $table->string('notelp');

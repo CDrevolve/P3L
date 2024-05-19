@@ -76,7 +76,7 @@
             </div>
             <div>
                 <label for="produk">Produk</label>
-                <select name="produk" id="produk">
+                <select name="id_produk" id="id_produk">
                     @foreach($produks as $produk)
                     <option value="{{ $produk->id }}">{{ $produk->nama }}</option>
                     @endforeach

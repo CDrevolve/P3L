@@ -15,8 +15,9 @@ class DataPenitipController extends Controller
     {
         //
         $dataPenitips = DataPenitip::all();
-        $produks = Produk::all();
-        return view('admin.dataPenitipview', compact('dataPenitips', 'produks'));
+        return view('admin.dataPenitipview', compact('dataPenitips'));
+        // $produks = Produk::all();
+        // return view('admin.dataPenitipview', compact('dataPenitips', 'produks'));
     }
 
 

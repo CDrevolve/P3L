@@ -102,15 +102,16 @@ class ForgetPasswordController extends Controller
 
     function sendEmailMobile(Request $request)
     {
-        
-        $request->validate([
-            'email' => 'required|email|exists:users'
-        ]);
+
+
+        // $request->validate([
+        //     'email' => 'required|email|exists:users'
+        // ]);
 
         $user = User::where('email', $request->email)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'We can not find a user with that email address'], 400);
+            return response(['message' => 'We can not find a user with that email address'], 400);
         }
         //send email
 
@@ -133,7 +134,7 @@ class ForgetPasswordController extends Controller
             'username' => $user->username,
             'website' => 'Atma Kitchen',
             'datetime' => now(),
-            'url' => request()->getHttpHost() . '/forgetPassword/verify/' . $token
+            'url' => 'http://127.0.0.1:8000' . '/forgetPassword/verify/' . $token
         ];
         Mail::to($request->email)->send(new ForgetPasswordMail($details));
 

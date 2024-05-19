@@ -29,7 +29,7 @@ Route::get('forgetPassword', [ForgetPasswordController::class, 'forgetPassword']
 Route::post('forgetPassword/sendEmail', [ForgetPasswordController::class, 'sendEmail'])->name('sendEmail');
 Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'verifyToken'])->name('verify');
 Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
-Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 'sendEmailMobile'])->name('sendEmailMobile');
+
 
 Route::get('/', function () {
     return view('dashboard.landingPage');
@@ -38,6 +38,10 @@ Route::get('/', function () {
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
+
+Route::get('/mo', function () {
+    return view('mo.dashboard');
+})->name('mo');
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -33,6 +33,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
                     </li>
+                    @if (Auth::user())
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('produk.index')}}">Produk</a>
                     </li>
@@ -40,10 +41,8 @@
                         <a class="nav-link" href="{{route('resep.index')}}">Resep</a>
                     </li>
                     <a href="{{ route('datapenitip.index') }}" class="btn">Data Penitip</a>
-                    @if (Auth::user())
-                    <li>
 
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('actionLogout')}}">Logout</a>
                     </li>

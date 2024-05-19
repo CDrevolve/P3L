@@ -36,8 +36,8 @@
                     <td>{{ $pembelian->harga }}</td>
                     <td>{{ $pembelian->tanggal }}</td>
                     <td>
-                        <a href="{{ route('pembelian.edit', $pembelian->id_pengeluaran) }}" class="btn btn-primary">Edit</a>
-                        <form action="{{ route('pembelian.destroy', $pembelian->id_pengeluaran) }}" method="POST" style="display: inline;">
+                        <a href="{{ route('pembelian.edit', $pembelian->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('pembelian.destroy', $pembelian->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Hapus</button>

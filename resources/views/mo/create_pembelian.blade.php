@@ -89,7 +89,14 @@
         <form action="{{ route('pembelian.store') }}" method="POST">
             @csrf
             <label for="id_bahanbaku">ID Bahan Baku:</label>
-            <input type="number" name="id_bahanbaku" id="id_bahanbaku" required><br>
+            <select name="id_bahanbaku" id="id_bahanbaku">
+                @foreach($bahanbakus as $bahanbaku)
+                <option value="{{ $bahanbaku->id }}">{{ $bahanbaku->nama }}</option>
+                @endforeach
+                </option>
+            </select>
+
+
 
             <label for="nama">Nama:</label>
             <input type="text" name="nama" id="nama" required><br>

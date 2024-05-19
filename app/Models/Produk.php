@@ -15,6 +15,7 @@ class Produk extends Model
 
     protected $fillable = [
         'id_jenis',
+        'id_penitip',
         'nama',
         'stok',
         'harga',
@@ -26,8 +27,8 @@ class Produk extends Model
     {
         return $this->belongsTo(Jenis::class, 'id_jenis');
     }
-    public function resep()
+    public function penitip()
     {
-        return $this->belongsTo(Resep::class, 'id_resep');
+        return $this->belongsTo(DataPenitip::class, 'id_penitip');
     }
 }

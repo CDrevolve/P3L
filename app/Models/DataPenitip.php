@@ -13,7 +13,6 @@ class DataPenitip extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'nama',
-        'id_produk',
         'alamat',
         'notelp',
     ];

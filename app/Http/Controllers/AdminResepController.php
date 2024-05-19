@@ -64,7 +64,8 @@ class AdminResepController extends Controller
     public function edit($id)
     {
         $resep = Resep::findOrFail($id);
-        return view('admin.edit_resep', compact('resep'));
+        $produks = Produk::all();
+        return view('admin.edit_resep', compact('resep', 'produks'));
         // $bahanBaku = BahanBaku::all();
         // // Ambil detail produk yang akan diedit
         // $detailProduk = $resep->detailProduks->first();
