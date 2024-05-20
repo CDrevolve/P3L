@@ -17,7 +17,8 @@ class PembelianBBController extends Controller
 
     public function create()
     {
-        return view('mo.create_pembelian');
+        $bahanbakus = BahanBaku::all();
+        return view('mo.create_pembelian', compact('bahanbakus'));
     }
 
     public function store(Request $request)
@@ -33,53 +34,81 @@ class PembelianBBController extends Controller
         // Simpan pembelian
         $pembelian = Pembelian::create($request->all());
 
-        // Kurangi stok bahan baku yang terkait
         $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
-        $bahanBaku->stok -= $request->input('jumlah');
+        $bahanBaku->stok += $request->input('jumlah');
         $bahanBaku->save();
 
-        return redirect()->route('mo.create_pembelian')->with('success', 'Data pembelian berhasil ditambahkan');
+        return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil ditambahkan');
     }
 
     public function edit($id_pengeluaran)
     {
+        $bahanbakus = BahanBaku::all();
         $pembelian = Pembelian::findOrFail($id_pengeluaran);
-        return view('mo.edit_pembelian', compact('pembelian'));
+        return view('mo.edit_pembelian', compact('pembelian','bahanbakus'));
     }
 
     public function update(Request $request, $id_pengeluaran)
-    {
-        $request->validate([
-            'id_bahanbaku' => 'required|numeric',
-            'nama' => 'required|string|max:255',
-            'jumlah' => 'required|numeric',
-            'harga' => 'required|numeric',
-            'tanggal' => 'required|date',
-        ]);
+{
+    $request->validate([
+        'id_bahanbaku' => 'required|numeric',
+        'nama' => 'required|string|max:255',
+        'jumlah' => 'required|numeric',
+        'harga' => 'required|numeric',
+        'tanggal' => 'required|date',
+    ]);
 
-        // Temukan pembelian
-        $pembelian = Pembelian::findOrFail($id_pengeluaran);
-        // Simpan jumlah pembelian sebelum diubah
-        $jumlahSebelumnya = $pembelian->jumlah;
-        // Update pembelian
-        $pembelian->update($request->all());
+    // Temukan pembelian
+    $pembelian = Pembelian::findOrFail($id_pengeluaran);
+    // Simpan jumlah pembelian sebelum diubah
+    $jumlahSebelumnya = $pembelian->jumlah;
+    
+    // Hitung perbedaan jumlah
+    $perbedaan = $request->input('jumlah') - $jumlahSebelumnya;
 
-        // Update stok bahan baku yang terkait
-        $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
-        // Kembalikan stok sebelumnya
-        $bahanBaku->stok += $jumlahSebelumnya;
-        // Kurangi stok baru
-        $bahanBaku->stok -= $request->input('jumlah');
-        $bahanBaku->save();
+    // Update pembelian
+    $pembelian->update($request->all());
 
-        return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil diperbarui');
+    // Update stok bahan baku yang terkait
+    $bahanBaku = BahanBaku::findOrFail($request->input('id_bahanbaku'));
+    // Jika ada penambahan, tambahkan perbedaan tersebut ke stok
+    if ($perbedaan > 0) {
+        $bahanBaku->stok += $perbedaan;
     }
+    // Jika ada pengurangan, kurangkan perbedaan tersebut dari stok
+    elseif ($perbedaan < 0) {
+        $bahanBaku->stok -= abs($perbedaan);
+    }
+    $bahanBaku->save();
+
+    return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil diperbarui');
+}
+
 
     public function destroy($id_pembelian)
     {
-        $pembelian = Pembelian::findOrFail($id_pembelian);
-        $pembelian->delete();
-
-        return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil dihapus');
+        try {
+            // Temukan pembelian yang akan dihapus
+            $pembelian = Pembelian::findOrFail($id_pembelian);
+            
+            // Simpan jumlah pembelian sebelum dihapus
+            $jumlahSebelumnya = $pembelian->jumlah;
+    
+            // Hapus pembelian
+            $pembelian->delete();
+    
+            // Temukan bahan baku yang terkait
+            $bahanBaku = BahanBaku::findOrFail($pembelian->id_bahanbaku);
+    
+            // Kurangi stok bahan baku dengan jumlah pembelian sebelumnya
+            $bahanBaku->stok -= $jumlahSebelumnya;
+            $bahanBaku->save();
+    
+            return redirect()->route('pembelian.index')->with('success', 'Data pembelian berhasil dihapus');
+        } catch (\Exception $e) {
+            // Tangani kesalahan jika pembelian tidak ditemukan
+            return redirect()->route('pembelian.index')->with('error', 'Gagal menghapus pembelian. ' . $e->getMessage());
+        }
     }
+    
 }

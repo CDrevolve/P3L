@@ -38,12 +38,14 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
 
+Route::get('/mo', function () {
+    return view('mo.dashboard');
+})->name('mo');
+
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
-
-
 
 
 Route::prefix('admin')->group(function () {
@@ -58,18 +60,19 @@ Route::prefix('admin')->group(function () {
     Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
 });
 
-
-
 Route::prefix('mo')->group(function () {
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+    Route::resource('/karyawan', KaryawanController::class);
 });
+
 
 Route::get('costumer/index', [CustomerController::class, 'index']);
 Route::get('costumer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan']);
 
 
+Route::get('/', [ProdukController::class, 'indexDashboard']);
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);
 Route::get('datapenitip/fetchAll', [DataPenitipController::class, 'fetchAll']);

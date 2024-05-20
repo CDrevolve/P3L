@@ -1,12 +1,10 @@
-<!-- resources/views/admin/dashboard.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>MO Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -49,11 +47,11 @@
 
 <body>
     <div class="container">
-        <h1>Welcome to Admin Dashboard</h1>
-        <a href="{{ route('produk.index') }}" class="btn">Manage Products</a>
-        <a href="{{ route('resep.index') }}" class="btn">Manage Recipes</a>
-        <a href="{{ route('karyawan.index') }}" class="btn">Manage Employee</a>
+        <h1>Welcome to MO Dashboard</h1>
+        <a href="{{ route('karyawan.index') }}" class="btn">Manage Karyawan</a>
+        <a href="{{ route('pembelian.index') }}" class="btn">Manage pembelian</a>
         <a href="{{route('actionLogout')}}">logout</a>
+
     </div>
 </body>
 

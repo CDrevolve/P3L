@@ -80,6 +80,7 @@
     <div class="container">
         <div class="title">
             <h5>User Information</h5>
+            <a href="{{route('actionLogout')}}">logout</a>
         </div>
         <div class="row">
             <div class="col-md-3">

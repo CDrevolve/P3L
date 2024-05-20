@@ -72,6 +72,7 @@
         <h1>Detail Produk: {{ $produk->nama }}</h1>
         @if($produk)
         <ul>
+        <li><img src="{{ asset('images/produk/' . $produk->foto) }}" alt="gambar"></li>
             <li><strong>Stok:</strong> {{ $produk->stok }}</li>
             <li><strong>Harga:</strong> {{ $produk->harga }}</li>
             <li><strong>Stok Harian:</strong> {{ $produk->kuota_harian }}</li>

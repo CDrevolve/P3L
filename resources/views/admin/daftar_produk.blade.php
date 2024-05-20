@@ -5,138 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Produk</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FEFAF6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background-color: #FFD9C0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            margin-bottom: 20px;
-            flex-basis: calc(20% - 20px);
-            /* Atur 20% untuk 5 kartu per baris atau 25% untuk 4 kartu per baris */
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .search-container {
-            margin-bottom: 20px;
-        }
-
-        .search-container input[type=text] {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            width: 300px;
-        }
-
-        .search-container button {
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
-    </style>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- //PENTING BANGET INI// -->
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.3.0/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+
+    <!-- sangat penting -->
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
 </head>
+<style>
+    .custom-card {
+        background-color: #FFD9C0;
+    }
+
+    .btn-action {
+        margin-right: 5px;
+    }
+</style>
 
 <body>
     <div class="container">
-        <a href="{{ route('admin') }}" class="button">Back</a>
-
-        <!-- Form pencarian -->
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Cari produk...">
-            <button onclick="search()">Search</button>
-        </div>
-        <a href="{{route('actionLogout')}}">logout</a>
+        <div class="row mb-3">
+            <div class="col">
+                <a href="{{ route('admin') }}" class="btn btn-secondary">Kembali</a>
 
         <!-- Daftar produk -->
-        <div id="productList" class="row">
-            @foreach ($produk as $produk)
-            <div class="card">
-                <h2><a href="{{ route('produk.show', $produk->id) }}">{{ $produk->nama }}</a></h2>
-                <!-- Tambahkan informasi produk lainnya di sini -->
-            </div>
-            @endforeach
-        </div>
+        <table class="table table-striped" id="tableFilter" >
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Jenis</th>
+                    <th>Stok Harian</th>
+                    <th>Stok</th>
+                    <th>Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($produk as $produk)
+                <tr>
+                    <td>{{ $produk->nama }}</td>
+                    <td>{{ $produk->jenis->nama }}</td>
+                    <td>{{ $produk->kuota_harian }}</td>
+                    <td>{{ $produk->stok }}</td>
+                    <td>{{ $produk->harga }}</td>
+                    <td>
+                        <a href="{{ route('produk.edit', $produk->id) }}" class="btn btn-primary btn-action">Edit</a>
+                        <form action="{{ route('produk.destroy', $produk->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-action">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
         <!-- Tombol untuk menambah produk -->
-        <a href="{{ route('produk.create') }}" class="btn">Tambah Produk</a>
+        <a href="{{ route('produk.create') }}" class="btn btn-success">Tambah Produk</a>
     </div>
-
     <script>
-        function search() {
-            var input, filter, cards, card, title, i, txtValue;
-            input = document.getElementById('searchInput');
-            filter = input.value.toUpperCase();
-            cards = document.getElementsByClassName('card');
+        window.addEventListener('DOMContentLoaded', event => {
+            // Simple-DataTables
+            // https://github.com/fiduswriter/Simple-DataTables/wiki
 
-            for (i = 0; i < cards.length; i++) {
-                card = cards[i];
-                title = card.getElementsByTagName("h2")[0];
-                txtValue = title.textContent || title.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    card.style.display = "";
-                } else {
-                    card.style.display = "none";
-                }
+            const datatablesSimple = document.getElementById('tableFilter');
+            if (datatablesSimple) {
+                new simpleDatatables.DataTable(datatablesSimple);
             }
-        }
+        });
     </script>
+    
 </body>
 
 </html>

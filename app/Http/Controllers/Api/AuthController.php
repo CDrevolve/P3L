@@ -60,16 +60,16 @@ class AuthController extends Controller
             $redirectPath = 'owner';
             break;
         case 2:
-            $redirectPath = 'admin/produk';
+            $redirectPath = 'admin';
             break;
         case 3:
-            $redirectPath = 'manager';
+            $redirectPath = 'mo';
             break;
         case 4:
             $redirectPath = 'karyawan';
             break;
         case 5:
-            $redirectPath = 'profile';
+            $redirectPath = '';
             break;
         default:
             $redirectPath = 'default';
