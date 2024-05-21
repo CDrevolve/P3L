@@ -31,9 +31,9 @@ Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'v
 Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
 
 
-Route::get('/', function () {
-    return view('dashboard.landingPage');
-})->name('home');
+Route::get('/dashboardKaryawan', function () {
+    return view('dashboard.landingPageKaryawan');
+})->name('landingPageKaryawan');
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
@@ -48,13 +48,14 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
-
+Route::get('/', function () {
+    return view('customer.pembayaran');
+})->name('pembayaran');
 
 
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
-    Route::resource('/karyawan', KaryawanController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
@@ -67,6 +68,7 @@ Route::prefix('admin')->group(function () {
 
 
 Route::prefix('mo')->group(function () {
+    Route::resource('/karyawan', KaryawanController::class);
     Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');

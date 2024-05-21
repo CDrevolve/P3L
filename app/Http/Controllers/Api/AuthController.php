@@ -57,16 +57,16 @@ class AuthController extends Controller
         // Lakukan redirect berdasarkan role pengguna
         switch ($user->id_role) {
             case 1:
-                $redirectPath = 'owner';
+                $redirectPath = 'dashboardKaryawan';
                 break;
             case 2:
-                $redirectPath = 'admin';
+                $redirectPath = 'dashboardKaryawan';
                 break;
             case 3:
-                $redirectPath = 'mo';
+                $redirectPath = 'dashboardKaryawan';
                 break;
             case 4:
-                $redirectPath = 'karyawan';
+                $redirectPath = 'dashboardKaryawan';
                 break;
             case 5:
                 $redirectPath = 'profile';
