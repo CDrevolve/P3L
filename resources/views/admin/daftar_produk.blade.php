@@ -49,22 +49,8 @@
         text-decoration: none;
     }
 
-    .btn {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        transition: background-color 0.3s;
-    }
 
-    .btn:hover {
-        background-color: #0056b3;
-    }
+
 
     .search-container {
         margin-bottom: 20px;
@@ -95,7 +81,7 @@
     <!-- Form pencarian -->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Cari produk...">
-        <button onclick="search()">Search</button>
+        <button onclick="search()" class="btn btn-primary">Search</button>
     </div>
     <a href="{{route('actionLogout')}}">logout</a>
 
@@ -110,7 +96,7 @@
     </div>
 
     <!-- Tombol untuk menambah produk -->
-    <a href="{{ route('produk.create') }}" class="btn">Tambah Produk</a>
+    <a href="{{ route('produk.create') }}" class="btn btn-success">Tambah Produk</a>
 </div>
 
 <script>

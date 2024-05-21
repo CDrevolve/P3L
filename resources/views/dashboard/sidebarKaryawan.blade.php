@@ -64,9 +64,9 @@
                 <div class="profile text-center">
                     <img src="http://via.placeholder.com/100x100" alt="Profile Photo">
                     <h3>{{Auth::user()->username}}</h3>
-                    <button class="btn">
-                        <a href="{{route('actionLogout')}}">Log Out</a>
-                    </button>
+
+                    <a class="btn btn-danger" href="{{route('actionLogout')}}">Log Out</a>
+
                 </div>
                 <ul class="nav flex-column">
                     <li class="nav-item"> <a href="{{route('landingPageKaryawan')}}" class="nav-link"><i class="fa fa-files-o"></i> <span class="nav-label">Home</span></a> </li>
