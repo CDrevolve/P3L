@@ -86,8 +86,8 @@ class ForgetPasswordController extends Controller
             $user = User::where('id', $userToken->id_user)->first();
 
             $user->update([
-                // 'password' => bcrypt($request->password),
-                'password' => $request->password,
+                'password' => bcrypt($request->password),
+                // 'password' => $request->password,
             ]);
 
             $userToken->delete();
@@ -96,5 +96,48 @@ class ForgetPasswordController extends Controller
         } else {
             return "Keys tidak valid.";
         }
+    }
+
+
+
+    function sendEmailMobile(Request $request)
+    {
+
+
+        // $request->validate([
+        //     'email' => 'required|email|exists:users'
+        // ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response(['message' => 'We can not find a user with that email address'], 400);
+        }
+        //send email
+
+        $token = Str::random(length: 64);
+
+        $update = PasswordReset::find($user->id);
+
+        if (!$update) {
+            PasswordReset::create([
+                'id_user' => $user->id,
+                'token' => $token,
+            ]);
+        } else {
+            $update->update([
+                'token' => $token,
+            ]);
+        }
+
+        $details = [
+            'username' => $user->username,
+            'website' => 'Atma Kitchen',
+            'datetime' => now(),
+            'url' => 'http://127.0.0.1:8000' . '/forgetPassword/verify/' . $token
+        ];
+        Mail::to($request->email)->send(new ForgetPasswordMail($details));
+
+        return response()->json(['message' => 'Email sent successfully'], 200);
     }
 }

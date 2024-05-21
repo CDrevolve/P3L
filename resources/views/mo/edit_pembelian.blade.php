@@ -74,7 +74,7 @@
     </div>
     @endif
 
-    <form action="{{ route('pembelian.update', $pembelian->id_pengeluaran) }}" method="POST">
+    <form action="{{ route('pembelian.update', $pembelian->id) }}" method="POST">
         @csrf
         @method('PUT')
 

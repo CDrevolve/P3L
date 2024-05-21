@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Resep</title>
     <style>
-    body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #FEFAF6;
             margin: 0;
@@ -20,6 +21,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             margin-top: 0;
             color: #333;
@@ -54,6 +56,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Edit Resep</h1>
@@ -64,8 +67,18 @@
                 <label for="nama">Nama Resep:</label>
                 <input type="text" name="nama" id="nama" value="{{ $resep->nama }}" required>
             </div>
+
+            <div>
+                <label for="produk">Produk</label>
+                <select name="id_produk" id="id_produk">
+                    @foreach($produks as $produk)
+                    <option value="{{ $produk->id }}">{{ $produk->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit">Update Resep</button>
         </form>
     </div>
 </body>
+
 </html>

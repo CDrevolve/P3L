@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPenitip;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class DataPenitipController extends Controller
@@ -14,7 +15,9 @@ class DataPenitipController extends Controller
     {
         //
         $dataPenitips = DataPenitip::all();
-        return view('admin.dataPenitipview', compact('dataPenitips'));
+        return view('mo.dataPenitipview', compact('dataPenitips'));
+        // $produks = Produk::all();
+        // return view('admin.dataPenitipview', compact('dataPenitips', 'produks'));
     }
 
 
@@ -25,6 +28,7 @@ class DataPenitipController extends Controller
     {
         //
         DataPenitip::create($request->all());
+
         return redirect()->route('datapenitip.index');
     }
 

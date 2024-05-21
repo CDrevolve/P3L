@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('produks', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('id_jenis')->constrained('jenis');
+            $table->foreignId('id_penitip')->constrained('penitips')->nullable();
             $table->string('nama');
             $table->double('stok');
             $table->double('harga');

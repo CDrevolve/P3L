@@ -16,4 +16,9 @@ class DataPenitip extends Model
         'alamat',
         'notelp',
     ];
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk', 'id');
+    }
 }

@@ -11,13 +11,16 @@ class PembelianBBController extends Controller
     public function index()
     {
         // Mengambil data pembelian yang memiliki id_bahanbaku
+        $bahanbakus = BahanBaku::all();
         $pembelian = Pembelian::whereNotNull('id_bahanbaku')->get();
-        return view('mo.pembelian', compact('pembelian'));
+        return view('mo.pembelian', compact('pembelian', 'bahanbakus'));
     }
 
     public function create()
     {
-        return view('mo.create_pembelian');
+        $bahanbakus = BahanBaku::all();
+
+        return view('mo.create_pembelian', compact('bahanbakus'));
     }
 
     public function store(Request $request)

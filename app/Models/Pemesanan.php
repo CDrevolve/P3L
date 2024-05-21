@@ -21,6 +21,7 @@ class Pemesanan extends Model
         'harga',
         'pickup',
         'tanggal',
+        'status',
     ];
 
     // Relasi dengan model User untuk menghubungkan id_customer dengan id_user di tabel users

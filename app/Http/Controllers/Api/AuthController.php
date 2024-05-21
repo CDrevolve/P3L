@@ -28,61 +28,56 @@ class AuthController extends Controller
 
     public function actionLogin(Request $request)
     {
-        $data = $request->only('email', 'password');
+        $loginData = $request->only('email', 'password');
 
         // Temukan user berdasarkan email
-        $user = User::where('email', $data['email'])->first();
+        $user = User::where('email', $loginData['email'])->first();
 
         // Periksa apakah user ditemukan
         if (!$user) {
-            Session::flash('Error', 'Email atau password Salah!');
-            return redirect('login');
+            Session::flash('Error', 'Email atau Password salah');
+            return redirect()->back(); // Kembali ke halaman login dengan pesan kesalahan
         }
 
         // Periksa apakah password cocok
-        if ($user->password !== $data['password']) {
-            Session::flash('Error', 'Email atau password Salah!');
-            return redirect('login');
-        }
-        // Periksa apakah password cocok
-        if ($user->password !== $data['password']) {
-            Session::flash('Error', 'Email atau password Salah!');
-            return redirect('login');
+        if (!Hash::check($loginData['password'], $user->password)) {
+            Session::flash('Error', 'Email atau Password salah');
+            return redirect()->back(); // Kembali ke halaman login dengan pesan kesalahan
         }
 
         // Periksa apakah user aktif
         if (!$user->active) {
-            Session::flash('Error', 'Akun anda belum diverifikasi. Silahkan cek email Anda!');
-            return redirect('login');
-        }
-        // Periksa apakah user aktif
-        if (!$user->active) {
-            Session::flash('Error', 'Akun anda belum diverifikasi. Silahkan cek email Anda!');
-            return redirect('login');
+            Session::flash('Error', 'Akun Anda belum diverifikasi. Silakan cek email Anda!');
+            return redirect()->back(); // Kembali ke halaman login dengan pesan kesalahan
         }
 
         // Lakukan login jika berhasil
         Auth::login($user);
-        // Lakukan login jika berhasil
-        Auth::login($user);
 
-        // Periksa role pengguna dan arahkan sesuai dengan rolenya
+        // Lakukan redirect berdasarkan role pengguna
         switch ($user->id_role) {
             case 1:
-                return redirect('owner');
+                $redirectPath = 'dashboardKaryawan';
+                break;
             case 2:
-                return redirect('admin');
+                $redirectPath = 'dashboardKaryawan';
+                break;
             case 3:
-                return redirect('manager');
+                $redirectPath = 'dashboardKaryawan';
+                break;
             case 4:
-                return redirect('karyawan');
+                $redirectPath = 'dashboardKaryawan';
+                break;
             case 5:
-                return redirect('profile');
+                $redirectPath = 'profile';
+                break;
             default:
-                return redirect('default');
+                $redirectPath = 'default';
+                break;
         }
-    }
 
+        return redirect($redirectPath);
+    }
 
     public function actionLogout()
     {
@@ -117,7 +112,7 @@ class AuthController extends Controller
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'id_role' => 5,
             'verify_key' => $str,
             'active' => 0,

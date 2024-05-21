@@ -1,11 +1,7 @@
-<head>
-    <title>tambahProduk</title>
-</head>
-
-@extends('dashboard.sidebarKaryawan')
+@extends('dashboard/sidebarKaryawan')
 @section('content')
 
-
+<title>Tambah Karyawan</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -40,7 +36,8 @@
     }
 
     input[type="text"],
-    select {
+    input[type="number"],
+    input[type="date"] {
         width: 100%;
         padding: 10px;
         margin-bottom: 20px;
@@ -64,46 +61,35 @@
         background-color: #0056b3;
     }
 </style>
-</head>
+
 
 
 <div class="container">
-    <h1>Tambah Produk</h1>
-    <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
+    <h1>Tambah Karyawan</h1>
+    <form action="{{ route('karyawan.store') }}" method="POST">
         @csrf
         <div>
-            <label for="nama">Nama Produk:</label>
+            <label for="nama">Nama Karyawan:</label>
             <input type="text" name="nama" id="nama" required>
         </div>
         <div>
-            <label for="id_jenis">jenis:</label>
-            <select name="id_jenis" id="id_jenis" required>
-                @foreach($jenis as $jenis)
-                <option value="{{$jenis->id}}">{{$jenis->nama}}</option>
-                @endforeach
-                <option value="null" selected hidden>Jenis</option>
-            </select>
-
+            <label for="tanggal_lahir">Tanggal Lahir:</label>
+            <input type="date" name="tanggal_lahir" id="tanggal_lahir" required>
         </div>
         <div>
-            <label for="stok">Stok Produk:</label>
-            <input type="numeric" name="stok" id="stok" required>
+            <label for="alamat">Alamat Karyawan:</label>
+            <input type="text" name="alamat" id="alamat" required>
         </div>
         <div>
-            <label for="harga">Harga:</label>
-            <input type="numeric" name="harga" id="harga" required>
+            <label for="no_telp">Nomor Telepon Karyawan:</label>
+            <input type="text" name="no_telp" id="no_telp" required>
         </div>
         <div>
-            <label for="kuota_harian">Kuota Harian:</label>
-            <input type="numeric" name="kuota_harian" id="kuota_harian" required>
+            <label for="gaji">Gaji:</label>
+            <input type="number" name="gaji" id="gaji" min="0" required>
         </div>
-        <div>
-            <label for="foto">Foto:</label>
-            <input type="file" name="foto" id="foto" class="form-control">
-        </div>
-        <button>Tambah Produk</button>
+        <button type="submit">Tambah Karyawan</button>
+    </form>
 </div>
-</form>
-
 
 @endsection

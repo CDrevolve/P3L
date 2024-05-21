@@ -30,44 +30,52 @@ Route::post('forgetPassword/sendEmail', [ForgetPasswordController::class, 'sendE
 Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'verifyToken'])->name('verify');
 Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
 
-Route::get('/', function () {
-    return view('dashboard.landingPage');
-})->name('home');
+
+Route::get('/dashboardKaryawan', function () {
+    return view('dashboard.landingPageKaryawan');
+})->name('landingPageKaryawan');
 
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
+
+Route::get('/mo', function () {
+    return view('mo.dashboard');
+})->name('mo');
 
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
-
+Route::get('/', function () {
+    return view('customer.pembayaran');
+})->name('pembayaran');
 
 
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
-    Route::resource('/karyawan', KaryawanController::class);
-    Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
     Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
+    Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('customer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan'])->name('customer.history');
 });
 
 
 
 Route::prefix('mo')->group(function () {
+    Route::resource('/karyawan', KaryawanController::class);
+    Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
 });
 
-Route::get('costumer/index', [CustomerController::class, 'index']);
-Route::get('costumer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan']);
+
 
 
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);

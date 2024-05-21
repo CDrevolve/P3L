@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('harga');
             $table->string('pickup');
             $table->date('tanggal');
-            // $table->string('status');
+            $table->string('status');
             $table->timestamps();
         });
     }

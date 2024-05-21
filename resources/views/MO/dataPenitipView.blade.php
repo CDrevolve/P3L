@@ -1,58 +1,56 @@
 <head>
-    <title>Bahan Baku</title>
+    <title>Data Penitip</title>
 </head>
+
 
 @extends('dashboard/sidebarKaryawan')
 @section('content')
 
-
-
 <div class="card-body">
-
     <h1>
-        Bahan Baku
+        Data Penitip
     </h1>
 
     <hr>
 
-    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahBahanModal">Tambah</button>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahPenitipModal">Tambah</button>
 
     <table id="tableFilter" class="table table-bordered">
 
         <thead>
             <tr>
-                <th>Nama Bahan</th>
-                <th>Stok</th>
-                <th>Satuan</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Nomor Telepon</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>Nama Bahan</th>
-                <th>Stok</th>
-                <th>Satuan</th>
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Nomor Telepon</th>
                 <th>Aksi</th>
             </tr>
         </tfoot>
         <tbody>
-            @forelse($bahanBakus as $bk)
+            @forelse($dataPenitips as $dp)
             <tr>
-                <td>{{$bk->nama}}</td>
-                <td>{{$bk->stok}}</td>
-                <td>{{$bk->satuan}}</td>
+                <td>{{$dp->nama}}</td>
+                <td>{{$dp->alamat}}</td>
+                <td>{{$dp->notelp}}</td>
                 <td>
                     <!-- Edit button -->
-                    <button class="btn btn-primary edit-btn" data-bs-toggle="modal" data-bs-target="#editBahanModal{{$bk->id}}" data-item-id="{{ $bk->id }}">Edit</button>
+                    <button class="btn btn-primary edit-btn" data-bs-toggle="modal" data-bs-target="#editPenitipModal{{$dp->id}}" data-item-id="{{ $dp->id }}">Edit</button>
 
                     <!-- Delete button -->
-                    <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{$bk->id}}" data-item-id="{{ $bk->id }}">Delete</button>
+                    <button class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal{{$dp->id}}" data-item-id="{{ $dp->id }}">Delete</button>
 
                 </td>
             </tr>
 
             <!-- Modal edit-->
-            <div class="modal fade" id="editBahanModal{{$bk->id}}" tabindex="-1" role="dialog" aria-labelledby="editBahanLabel" aria-hidden="true">
+            <div class="modal fade" id="editPenitipModal{{$dp->id}}" tabindex="-1" role="dialog" aria-labelledby="editPenitipLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -61,15 +59,15 @@
                         <div class="modal-body">
                             <!-- Form fields for editing item -->
                             <!-- Replace this with your form fields -->
-                            <form id="editForm" method="POST" action="{{route('bahanbaku.update', $bk->id)}}">
+                            <form id="editForm" method="POST" action="{{route('datapenitip.update', $dp->id)}}">
                                 @csrf
                                 @method('PUT')
-                                <label for="namaBahan">Nama:</label>
-                                <input required type="text" class="form-control" id="nama" name="nama" value="{{$bk->nama}}">
-                                <label for="itemName">Stok:</label>
-                                <input required type="number" step="any" class="form-control" id="stok" name="stok" value="{{$bk->stok}}">
-                                <label for="itemName">Satuan:</label>
-                                <input required type="text" class="form-control" id="satuan" name="satuan" value="{{$bk->satuan}}">
+                                <label for="nama">Nama:</label>
+                                <input required type="text" class="form-control" id="nama" name="nama" value="{{$dp->nama}}">
+                                <label for="alamat">Alamat:</label>
+                                <input required type="text" class="form-control" id="alamat" name="alamat" value="{{$dp->alamat}}">
+                                <label for="notelp">Nomor Telepon:</label>
+                                <input required type="text" class="form-control" id="notelp" name="notelp" value="{{$dp->notelp}}">
                                 <!-- Add more form fields as needed -->
 
                                 <div class="modal-footer">
@@ -84,7 +82,7 @@
             </div>
 
             <!-- Modal Hapus-->
-            <div class="modal fade" id="deleteModal{{$bk->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal fade" id="deleteModal{{$dp->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -95,7 +93,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form action="{{ route('bahanbaku.destroy', $bk->id) }}" method="POST">
+                            <form action="{{ route('datapenitip.destroy', $dp->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">Hapus</button>
@@ -123,7 +121,7 @@
 
 
 <!-- Modal add -->
-<div class="modal fade" id="tambahBahanModal" tabindex="-1" role="dialog" aria-labelledby="tambahBahanLabel" aria-hidden="true">
+<div class="modal fade" id="tambahPenitipModal" tabindex="-1" role="dialog" aria-labelledby="tambahPenitipLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -133,23 +131,26 @@
                 <!-- Form fields for add item -->
                 <!-- Replace this with your form fields -->
 
-                <form id="addForm" action="{{route('bahanbaku.store')}}" method="POST">
+                <form id="addForm" action="{{route('datapenitip.store')}}" method="POST">
                     @csrf
                     @method('POST')
-                    <label for="namaBahan">Name:</label>
+                    <label for="namaPenitip">Name:</label>
                     <input required type="text" class="form-control" id="nama" name="nama">
-                    <label for="itemName">Stok:</label>
-                    <input required type="number" step="any" class="form-control" id="stok" name="stok">
-                    <label for="itemName">Satuan:</label>
-                    <input required type="text" class="form-control" id="satuan" name="satuan">
+                    <label for="id_produk">Produk Titipan</label>
+                    <label for="itemName">Alamat:</label>
+                    <input required type="text" class="form-control" id="alamat" name="alamat">
+                    <label for="itemName">Nomor telepon:</label>
+                    <input required type="text" class="form-control" id="notelp" name="notelp">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success" id="addBtn">Add Bahan</button>
+                        <button type="submit" class="btn btn-success" id="addBtn">Add Penitip</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
 
 @endsection

@@ -20,13 +20,13 @@ class KaryawanController extends Controller
             $karyawan = Karyawan::all();
         }
 
-        return view('admin.daftar_karyawan', compact('karyawan', 'keyword'));
+        return view('mo.daftar_karyawan', compact('karyawan', 'keyword'));
     }
 
 
     public function create()
     {
-        return view('admin.create_karyawan');
+        return view('mo.create_karyawan');
     }
 
     public function store(Request $request)
@@ -55,13 +55,13 @@ class KaryawanController extends Controller
     public function show($id)
     {
         $karyawan = Karyawan::findOrFail($id);
-        return view('admin.detail_karyawan', compact('karyawan'));
+        return view('mo.detail_karyawan', compact('karyawan'));
     }
 
     public function edit($id)
     {
         $karyawan = Karyawan::findOrFail($id);
-        return view('admin.edit_karyawan', compact('karyawan'));
+        return view('mo.edit_karyawan', compact('karyawan'));
     }
 
     public function update(Request $request, $id)
