@@ -15,6 +15,7 @@ use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminDetailProduk;
 use App\Http\Controllers\ForgetPasswordController;
+use App\Http\Controllers\PembayaranCustomerController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -51,10 +52,9 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
-Route::get('/pembayaran', function () {
-    return view('customer.pembayaran');
-})->name('pembayaran');
 
+
+Route::resource('pesananBayar', PembayaranCustomerController::class);
 
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
@@ -77,6 +77,7 @@ Route::prefix('mo')->group(function () {
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
 });
+
 
 
 

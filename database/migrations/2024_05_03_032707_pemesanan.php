@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('pickup');
             $table->date('tanggal');
             $table->string('status');
+            $table->double('ongkir')->default(0);
+            $table->double('tips')->default(0);
+            $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
         });
     }
