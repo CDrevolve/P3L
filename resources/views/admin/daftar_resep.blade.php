@@ -1,132 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Resep</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #FEFAF6;
-        }
-
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #FFD9C0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-        }
-
-        .btn-edit {
-            background-color: #4caf50;
-        }
-
-        .btn-delete {
-            background-color: #f44336;
-        }
-
-        .search-form {
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-            width: 300px;
-        }
-
-        .search-btn {
-            padding: 8px 16px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-
-        .search-btn:hover {
-            background-color: #45a049;
+            margin-top: 50px;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <a href="{{ route('admin') }}" class="button">Back</a>
+        <a href="{{ route('admin') }}" class="btn btn-secondary mb-3">Back</a>
         <h1>Daftar Resep</h1>
 
         <!-- Form pencarian -->
-        <form action="{{ route('resep.index') }}" method="GET" class="search-form">
-            <input type="text" name="keyword" class="search-input" placeholder="Cari resep..." value="{{ $keyword }}">
-            <button type="submit" class="search-btn">Cari</button>
+        <form action="{{ route('resep.index') }}" method="GET" class="form-inline mb-3">
+            <input type="text" name="keyword" class="form-control mr-2" placeholder="Cari resep..." value="{{ $keyword }}">
+            <button type="submit" class="btn btn-success">Cari</button>
         </form>
 
-        <ul>
-            @foreach ($reseps as $resep)
-            <li>
-                <a href="{{ route('resep.show', $resep->id) }}">{{ $resep->nama }}</a>
-                <div>
-                    <a href="{{ route('resep.edit', $resep->id) }}" class="btn btn-edit">Edit</a>
-                    <a href="{{route('detail.resep', $resep->id) }}" class="btn btn-success">Detail</a>
-                    <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-delete">Hapus</button>
-                    </form>
-                </div>
-            </li>
-            @endforeach
-        </ul>
-        <a href="{{ route('resep.create') }}" class="btn">Tambah Resep</a>
-    </div>
-</body>
+        <a href="{{ route('resep.create') }}" class="btn btn-primary mb-3">Tambah Resep</a>
 
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($reseps as $resep)
+                <tr>
+                    <td>{{ $resep->nama }}</td>
+                    <td>
+                        <a href="{{ route('resep.show', $resep->id) }}" class="btn btn-success">Detail</a>
+                        <a href="{{ route('resep.edit', $resep->id) }}" class="btn btn-primary">Edit</a>
+                        <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>

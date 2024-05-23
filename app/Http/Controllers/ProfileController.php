@@ -63,11 +63,11 @@ class ProfileController extends Controller
         $keyword = $request->input('keyword');
 
         if ($keyword) {
-            $orders = Pemesanan::where('id_customer', $customer->id_customer)
-                                ->where('isi_pesanan', 'like', '%' . $keyword . '%')
+            $orders = Pemesanan::where('id_customer', $customer->id)
+                                ->where('isi', 'like', '%' . $keyword . '%')
                                 ->get();
         } else {
-            $orders = Pemesanan::where('id_customer', $customer->id_customer)->get();
+            $orders = Pemesanan::where('id_customer', $customer->id)->get();
         }
     
         return view('profile.history', compact('user', 'orders', 'customer'));

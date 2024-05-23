@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\file\UploadedFile;
 
 class ProfileMobile extends Controller
 {
-    public function show()
+    public function index()
     {
         $user = auth()->user();
         $customer = Customer::where('id_user', $user->id)->first();

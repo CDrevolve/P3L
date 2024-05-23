@@ -49,6 +49,7 @@
 
 <body>
     <div class="container">
+    <a href="{{route('actionLogout')}}">logout</a>
         <h1>Welcome to Admin Dashboard</h1>
         <a href="{{ route('produk.index') }}" class="btn">Manage Products</a>
         <a href="{{ route('resep.index') }}" class="btn">Manage Recipes</a>

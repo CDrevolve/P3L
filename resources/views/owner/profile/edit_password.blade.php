@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Password</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #FEFAF6;;
+            background-color: #FEFAF6;
             margin: 0;
             padding: 0;
         }
@@ -54,19 +55,25 @@
 <body>
     <div class="container">
         <h2>Edit Password</h2>
-        <form method="POST" action="{{ route('profile.updatePassword') }}">
+        <form method="POST" action="{{ route('owner.profile.updatePassword') }}">
             @csrf
 
-            <label for="current_password">Current Password:</label>
-            <input type="password" id="current_password" name="current_password" required>
+            <div class="mb-3">
+                <label for="current_password" class="form-label">Current Password:</label>
+                <input type="password" id="current_password" name="current_password" class="form-control" required>
+            </div>
 
-            <label for="new_password">New Password:</label>
-            <input type="password" id="new_password" name="new_password" required>
+            <div class="mb-3">
+                <label for="new_password" class="form-label">New Password:</label>
+                <input type="password" id="new_password" name="new_password" class="form-control" required>
+            </div>
 
-            <label for="new_password_confirmation">Confirm New Password:</label>
-            <input type="password" id="new_password_confirmation" name="new_password_confirmation" required>
+            <div class="mb-3">
+                <label for="new_password_confirmation" class="form-label">Confirm New Password:</label>
+                <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control" required>
+            </div>
 
-            <input type="submit" value="Update Password">
+            <button type="submit" class="btn btn-primary">Update Password</button>
         </form>
     </div>
 </body>

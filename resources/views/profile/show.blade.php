@@ -5,14 +5,14 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #FEFAF6;
         }
 
         .container {
             max-width: 800px;
             margin: 50px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color:#FFD9C0;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
@@ -79,6 +79,8 @@
 <body>
     <div class="container">
         <div class="title">
+        <a href="{{route('actionLogout')}}">logout</a>
+
             <h5>User Information</h5>
         </div>
         <div class="row">

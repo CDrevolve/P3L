@@ -11,9 +11,8 @@ class Resep extends Model
 
     protected $fillable = [
         'nama',
+        'id_produk',
     ];
-
-    public $timestamps = false;
 
     public function detailProduks()
     {

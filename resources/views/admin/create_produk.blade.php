@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,37 +64,45 @@
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-<h1>Tambah Produk</h1>
-    <form action="{{ route('produk.store') }}" method="POST">
-        @csrf
-        <div>
-            <label for="nama_produk">Nama Produk:</label>
-            <input type="text" name="nama_produk" id="nama_produk" required>
-        </div>
-        <div>
-            <label for="id_jenis">ID jenis:</label>
-            <input type="text" name="id_jenis" id="id_jenis" required>
-        </div>
-        <div>
-            <label for="id_resep">ID resep:</label>
-            <input type="text" name="id_resep" id="id_resep" required>
-        </div>
-        <div>
-            <label for="stok_produk">Stok Produk:</label>
-            <input type="text" name="stok_produk" id="stok_produk" required>
-        </div>
-        <div>
-            <label for="harga_produk">Harga:</label>
-            <input type="text" name="harga_produk" id="harga_produk" required>
-        </div>
-        <div>
-            <label for="kuota_harian">Kuota Harian:</label>
-            <input type="text" name="kuota_harian" id="kuota_harian" required>
-        </div>
-        <button>Tambah Produk</button>
+    <div class="container">
+        <h1>Tambah Produk</h1>
+        <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div>
+                <label for="nama">Nama Produk:</label>
+                <input type="text" name="nama" id="nama" required>
+            </div>
+            <div>
+                <label for="id_jenis">jenis:</label>
+                <select name="id_jenis" id="id_jenis" required>
+                    @foreach($jenis as $jenis)
+                    <option value="{{$jenis->id}}">{{$jenis->nama}}</option>
+                    @endforeach
+                    <option value="null" selected hidden>Jenis</option>
+                </select>
+
+            </div>
+            <div>
+                <label for="stok">Stok Produk:</label>
+                <input type="numeric" name="stok" id="stok" required>
+            </div>
+            <div>
+                <label for="harga">Harga:</label>
+                <input type="numeric" name="harga" id="harga" required>
+            </div>
+            <div>
+                <label for="kuota_harian">Kuota Harian:</label>
+                <input type="numeric" name="kuota_harian" id="kuota_harian" required>
+            </div>
+            <div>
+                <label for="foto">Foto:</label>
+                <input type="file" name="foto" id="foto" class="form-control" >
+            </div>
+            <button>Tambah Produk</button>
     </div>
     </form>
 </body>
+
 </html>

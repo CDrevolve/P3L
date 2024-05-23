@@ -8,6 +8,7 @@ use App\Http\Controllers\PengeluaranLainController;
 use App\Models\DataPenitip;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\AdminResepController;
+use App\Http\Controllers\AdminDetailProduk;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GajiController;
@@ -15,8 +16,12 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileAdminController;
+use App\Http\Controllers\ProfileMoController;
+use App\Http\Controllers\ProfileOwnerController;
+use App\Http\Controllers\PesananController;
 use App\Http\Controllers\KaryawanMobile;
 use App\Http\Controllers\PresensiMobile;
+use App\Http\Controllers\ProfileMobile;
 
 use App\Http\Controllers\Api\ResetPassword;
 
@@ -54,8 +59,18 @@ Route::prefix('admin')->group(function () {
     Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
 
+    Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
+    Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
+    Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
+    Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
+
     Route::get('/profile/edit_password', [ProfileAdminController::class, 'editPassword'])->name('profile.editPassword');
     Route::post('/profile/update_password', [ProfileAdminController::class, 'updatePassword'])->name('profile.updatePassword');
+
+Route::get('/pesanan_antar', [PesananController::class, 'index'])->name('pesanan.index');
+Route::put('/pesanan/{id}/update-jarak', [PesananController::class, 'updateJarak'])->name('pesanan.updateJarak');
+
+
 });
 
 Route::get('/', function () {
@@ -68,12 +83,17 @@ Route::prefix('mo')->group(function () {
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
     Route::resource('/karyawan', KaryawanController::class);
+    Route::get('/profile/edit_password', [ProfileMoController::class, 'editPassword'])->name('mo.profile.editPassword');
+    Route::post('/profile/update_password', [ProfileMoController::class, 'updatePassword'])->name('mo.profile.updatePassword');
+    
 });
 
 Route::prefix('owner')->group(function () {
     Route::get('/karyawann', [GajiController::class, 'index'])->name('owner.karyawann');
     Route::get('/edit_gaji/{karyawan}', [GajiController::class, 'editGaji'])->name('owner.edit_gaji');
     Route::put('/update_gaji/{karyawan}', [GajiController::class, 'updateGaji'])->name('owner.update_gaji');
+    Route::get('/profile/edit_password', [ProfileOwnerController::class, 'editPassword'])->name('owner.profile.editPassword');
+    Route::post('/profile/update_password', [ProfileOwnerController::class, 'updatePassword'])->name('owner.profile.updatePassword');
 });
 
 Route::get('costumer/index', [CustomerController::class, 'index']);
@@ -87,7 +107,7 @@ Route::get('pengeluaranlain/fetchAll', [PengeluaranLainController::class, 'fetch
 
 Route::resource('/karyawanMobile', KaryawanMobile::class);
 Route::resource('/presensiMobile', PresensiMobile::class);
-Route::resource('/profileMobile', PresensiMobile::class);
+Route::resource('/profileMobile', ProfileMobile::class);
 
 Route::get('resetPassword', function () {
     return view('resetPassword');

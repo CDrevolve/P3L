@@ -50,7 +50,10 @@
 <body>
     <div class="container">
         <h1>Welcome to Owner Dashboard</h1>
+         <a href="{{route('actionLogout')}}">logout</a>
         <a href="{{ route('owner.karyawann') }}" class="btn">Manage Gaji Karyawan</a>
+        <a href="{{ route('owner.profile.editPassword') }}" class="btn">Change Password</a>
+ 
 
     </div>
 </body>

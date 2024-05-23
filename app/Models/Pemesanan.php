@@ -16,22 +16,29 @@ class Pemesanan extends Model
     protected $fillable = [
         'id_customer',
         'id_karyawan',
+        'id_alamat',
         'nama',
         'isi',
         'harga',
         'pickup',
         'tanggal',
+        'jarak',
     ];
 
     // Relasi dengan model User untuk menghubungkan id_customer dengan id_user di tabel users
     public function customer()
     {
-        return $this->belongsTo(User::class, 'id_customer');
+        return $this->belongsTo(Customer::class, 'id_customer');
     }
 
     // Relasi dengan model User untuk menghubungkan id_karyawan dengan id_user di tabel users
     public function karyawan()
     {
-        return $this->belongsTo(User::class, 'id_karyawan');
+        return $this->belongsTo(karyawan::class, 'id_karyawan');
+    }
+
+    public function alamat()
+    {
+        return $this->belongsTo(Alamat::class, 'id_alamat');
     }
 }

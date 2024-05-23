@@ -49,9 +49,14 @@
 
 <body>
     <div class="container">
+    <a href="{{route('actionLogout')}}">logout</a>
+
         <h1>Welcome to MO Dashboard</h1>
+
         <a href="{{ route('karyawan.index') }}" class="btn">Manage Karyawan</a>
         <a href="{{ route('pembelian.index') }}" class="btn">Manage pembelian</a>
+        <a href="{{ route('mo.profile.editPassword') }}" class="btn">Change Password</a>
+
     </div>
 </body>
 
