@@ -16,6 +16,13 @@ class ProdukController extends Controller
         return view('admin.daftar_produk', compact('produk'));
     }
 
+    public function indexDashboard()
+    {
+        $produk = Produk::all();
+        return view('dashboard.landingpage', compact('produk'));
+    }
+
+
     public function show($id_produk)
     {
         $produk = Produk::findOrFail($id_produk);

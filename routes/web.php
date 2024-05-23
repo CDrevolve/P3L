@@ -31,6 +31,9 @@ Route::post('forgetPassword/sendEmail', [ForgetPasswordController::class, 'sendE
 Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'verifyToken'])->name('verify');
 Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
 
+Route::get('/', function () {
+    return view('dashboard.landingPage');
+})->name('home');
 
 Route::get('/dashboardKaryawan', function () {
     return view('dashboard.landingPageKaryawan');
@@ -49,9 +52,7 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
-Route::get('/', function () {
-    return view('loginview');
-})->name('login');
+
 
 Route::resource('pesananBayar', PembayaranCustomerController::class);
 
@@ -78,6 +79,9 @@ Route::prefix('mo')->group(function () {
 });
 
 
+
+
+Route::get('/', [ProdukController::class, 'indexDashboard']);
 
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);

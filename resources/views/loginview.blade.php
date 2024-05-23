@@ -4,52 +4,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Login - Atma Kitchen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F8F8F8;
+        }
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        .custom-card {
+            background-color: #FFD9C0;
+            border-radius: 15px;
+            padding: 2rem;
+        }
 
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- //PENTING BANGET INI// -->
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.3.0/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        .card-title {
+            font-size: 2rem;
+            font-weight: bold;
+        }
 
-    <!-- sangat penting -->
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #FFF5EB;
+        }
 
+        .left-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .left-section h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .left-section p {
+            font-size: 1.2rem;
+        }
+
+        .right-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #FFD9C0;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .background-image {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: -1;
+        }
+
+        .background-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .btn-custom {
+            background-color: #FFFFFF;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn-custom:hover {
+            background-color: #E0E0E0;
+        }
+
+        .form-control {
+            background-color: #FFF5EB;
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+        }
+
+        .form-control:focus {
+            background-color: #FFF5EB;
+            box-shadow: none;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #000;
+        }
+
+        .or-divider::before {
+            margin-right: .5em;
+        }
+
+        .or-divider::after {
+            margin-left: .5em;
+        }
+    </style>
 </head>
 
 <body>
-    @if(Session::has('Error'))
-    <div class="alert alert-danger">
-        {{ Session::get('Error') }}
+    <div class="login-container">
+        <div class="left-section col-md-5">
+            <h1>Atma Kitchen</h1>
+            <p>Every Bite, Every Sip, a Celebration of Taste!</p>
+        </div>
+        <div class="right-section col-md-5">
+            <h2 class="text-center mb-4">Welcome!</h2>
+            <p class="text-center">Enter your email / mobile number and password to login</p>
+            @if(Session::has('Error'))
+            <div class="alert alert-danger" role="alert">
+                {{ Session::get('Error') }}
+            </div>
+            @endif
+            <form method="post" action="{{ route('actionLogin') }}">
+                @csrf
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-custom mb-3">Log In</button>
+                <div class="or-divider">OR</div>
+                <a href="{{ route('register') }}" class="btn btn-custom mb-3">Sign up</a>
+            </form>
+            <p class="text-center"><a href="{{ route('forgetPassword') }}">Forgot password</a></p>
+            </form>
+        </div>
     </div>
-    @endif
-
-    <div class="container" style="background-color: #FFD9C0;">
-
-
-        <form method="post" action="{{route('actionLogin')}}">
-            @csrf
-            <div>
-                <label>Email</label>
-                <input class="email form-control" type="email" name="email" placeholder="Email" required>
-            </div>
-            <div>
-                <label>Password</label>
-                <input class="password form-control" type="password" name="password" placeholder="Password" required>
-            </div>
-            <hr>
-
-            <button type="submit" class="btn btn-primary">Login</button>
-            <hr>
-            <p class="register"> Belum Punya Akun? <a href="{{route('register')}}">Sign Up</a></p>
-
-            <p class="forgot"> Lupa Password? <a href="{{route('forgetPassword')}}">Reset Password</a></p>
-        </form>
-
+    <div class="background-image">
+        <img src="path_to_your_background_image.png" alt="Background Image">
     </div>
 </body>
 
