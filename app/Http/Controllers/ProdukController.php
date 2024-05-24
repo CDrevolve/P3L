@@ -15,19 +15,18 @@ class ProdukController extends Controller
         $produk = Produk::all();
         return view('admin.daftar_produk', compact('produk'));
     }
-
     public function indexDashboard()
     {
         $produk = Produk::all();
-        return view('dashboard.landingpage', compact('produk'));
+        return view('dashboard.landingpage', compact('produk'));  
     }
-
 
     public function show($id_produk)
     {
         $produk = Produk::findOrFail($id_produk);
         return view("admin.isi_produk", compact('produk'));
     }
+    
 
     public function create()
     {
@@ -62,7 +61,7 @@ class ProdukController extends Controller
         $imageName = $image->getClientOriginalName();
         $destinationPath = ('images/produk');
         $image->move($destinationPath, $imageName);
-        $destinationPath = 'images/produk' . $imageName;
+        $destinationPath = 'images/produk/' . $imageName;
 
         Produk::create([
             'id_jenis' => $request->input('id_jenis'),

@@ -4,38 +4,62 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Pemesanan extends Model
 {
     use HasFactory;
 
     protected $table = 'pemesanans'; // Sesuaikan dengan nama tabel Anda
-
     protected $primaryKey = 'id'; // Sesuaikan dengan nama primary key tabel Anda
-
     protected $fillable = [
         'id_customer',
         'id_karyawan',
+        'id_alamat',
         'nama',
         'isi',
         'harga',
         'pickup',
-        'tanggal',
         'status',
+        'tanggal',
+        'jarak',
         'ongkir',
-        'tips',
-        'bukti_pembayaran',
     ];
 
-    // Relasi dengan model User untuk menghubungkan id_customer dengan id_user di tabel users
+    protected $dates = ['tanggal']; // Casting tanggal to Carbon
+
     public function customer()
     {
-        return $this->belongsTo(User::class, 'id_customer');
+        return $this->belongsTo(customer::class, 'id_customer');
     }
 
-    // Relasi dengan model User untuk menghubungkan id_karyawan dengan id_user di tabel users
     public function karyawan()
     {
-        return $this->belongsTo(User::class, 'id_karyawan');
+        return $this->belongsTo(karyawan::class, 'id_karyawan');
+    }
+
+    public function alamat()
+    {
+        return $this->belongsTo(Alamat::class, 'id_alamat');
+    }
+
+    public function calculateOngkir()
+    {
+        if ($this->jarak <= 5) {
+            return 10000;
+        } elseif ($this->jarak <= 10) {
+            return 15000;
+        } elseif ($this->jarak <= 15) {
+            return 20000;
+        } else {
+            return 25000;
+        }
+    }
+
+    public function updateHarga()
+    {
+        $this->ongkir = $this->calculateOngkir();
+        $this->harga += $this->ongkir;
     }
 }
+

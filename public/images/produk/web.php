@@ -15,11 +15,10 @@ use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminDetailProduk;
 use App\Http\Controllers\ForgetPasswordController;
-use App\Http\Controllers\PembayaranCustomerController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\PesananController;
+
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -39,10 +38,6 @@ Route::get('/', function () {
     return view('dashboard.landingPage');
 })->name('home');
 
-Route::get('/dashboardKaryawan', function () {
-    return view('dashboard.landingPageKaryawan');
-})->name('landingPageKaryawan');
-
 Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin');
@@ -56,6 +51,7 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
+
 Route::resource('/pesanan',PesanController::class);
 Route::post('/order/complete/{id}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
 Route::post('/order/complete/{id}/{status}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
@@ -67,38 +63,31 @@ Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkou
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
 
-
-Route::resource('pesananBayar', PembayaranCustomerController::class);
-
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
+    Route::resource('/karyawan', KaryawanController::class);
+    Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
     Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
-    Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('customer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan'])->name('customer.history');   
-    Route::get('/pesanan_antar', [PesananController::class, 'index'])->name('pesanan.index');
-    Route::put('/pesanan/{id}/update-jarak', [PesananController::class, 'updateJarak'])->name('pesanan.updateJarak');
 });
 
-
-
 Route::prefix('mo')->group(function () {
-    Route::resource('/karyawan', KaryawanController::class);
-    Route::resource('/datapenitip', DataPenitipController::class);
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+    Route::resource('/karyawan', KaryawanController::class);
 });
 
 
+Route::get('costumer/index', [CustomerController::class, 'index']);
+Route::get('costumer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan']);
 
 
 Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
-
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);
 Route::get('datapenitip/fetchAll', [DataPenitipController::class, 'fetchAll']);

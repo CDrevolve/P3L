@@ -1,61 +1,43 @@
-@extends('dashboard/navbar')
+<title>ATMA KITCHEN - Produk</title>
+@extends('dashboard.navbar')
 @section('content')
 <style>
+
     .hero-section {
-        display: flex;
-        align-items: center;
-        background: linear-gradient(to right, #f8d7da 50%, #d1c4e9 50%);
         padding: 4rem 0;
+        text-align: left;
     }
 
-    .text-section {
-        padding: 2rem;
-    }
-
-    .text-section h1 {
+    .hero-section h1 {
+        font-family: 'Playfair Display', serif;
         font-size: 2.5rem;
         color: #5f4b8b;
-        font-family: 'Playfair Display', serif;
+        margin-bottom: 1rem;
     }
 
-    .text-section p {
-        font-size: 1rem;
-        color: #6c757d;
-        margin-bottom: 1.5rem;
+    .hero-section p {
+        font-size: 1.25rem;
+        color: #333;
+        margin-bottom: 2rem;
     }
 
-    .btn-primary {
-        background-color: #6f42c1;
-        border-color: #6f42c1;
-        color: #fff;
-        margin-right: 0.5rem;
-    }
-
-    .btn-secondary {
-        background-color: #f8d7da;
-        border-color: #f8d7da;
-        color: #5f4b8b;
-    }
-
-    .image-section {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .image-section img {
-        border-radius: 10px;
-        max-width: 100%;
-        height: auto;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    .products-section {
-        padding: 4rem 0;
+    .hero-section .btn {
+        margin-right: 1rem;
     }
 
     .card {
         height: 100%;
+        background-color: #fff;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
     }
 
     .card img {
@@ -66,6 +48,7 @@
     .card-title {
         font-family: 'Playfair Display', serif;
         font-size: 1.25rem;
+        color: #333;
     }
 
     .card-text {
@@ -73,14 +56,16 @@
         color: #6c757d;
     }
 
-    .btn-primary {
-        background-color: #6f42c1;
-        border-color: #6f42c1;
+    .product-price {
+        font-weight: bold;
+        color: #333;
     }
 </style>
 
-<!-- Hero Section -->
-<section class="hero-section">
+    
+
+    <!-- Hero Section -->
+    <section class="hero-section">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-6 text-section">
@@ -97,19 +82,16 @@
     </section>
 
     <!-- Products Section -->
-    <section class="products-section">
+    <section class="products-section py-5">
         <div class="container">
             <div class="row">
                 @foreach ($produk as $product)
                 <div class="col-md-4 mb-4">
-                    <div class="card">
+                    <div class="card" onclick="window.location.href='{{route('pesanan.show',$product->id)}}'">
                         <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->nama }}</h5>
-                            <p class="card-text">Stok Ready: {{ $product->stok }}</p>
-                            <p class="card-text">Stok Hari ini: {{ $product->kuota_harian}}</p>
-                            <p class="card-text">Harga: {{ $product->harga }}</p>
-                            <a href="#" class="btn btn-primary">Add to Cart</a>
+                            <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
                         </div>
                     </div>
                 </div>
@@ -118,5 +100,6 @@
         </div>
     </section>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 @endsection
+
