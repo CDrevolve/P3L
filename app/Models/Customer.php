@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Customer extends Model
 {
     use HasFactory;
 
     protected $table = 'customers';
-
     protected $primaryKey = 'id';
-
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,6 +23,8 @@ class Customer extends Model
         'poin',
         'foto',
     ];
+
+    protected $dates = ['tanggal_lahir']; // Casting tanggal_lahir to Carbon
 
     public function user()
     {

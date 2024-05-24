@@ -100,6 +100,8 @@
                     <p>{{ $customer->tanggal_lahir }}</p>
                     <h5>No Telp</h5>
                     <p>{{ $customer->no_telp }}</p>
+                    <h5>Poin</h5>
+                    <p>{{$customer->poin}}</p>
                 </div>
                 <a href="{{ route('profile.edit') }}">Edit Profil</a>
             </div>

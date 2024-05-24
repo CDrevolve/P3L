@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Pemesanan extends Model
 {
     use HasFactory;
 
     protected $table = 'pemesanans'; // Sesuaikan dengan nama tabel Anda
-
     protected $primaryKey = 'id'; // Sesuaikan dengan nama primary key tabel Anda
-
     protected $fillable = [
         'id_customer',
         'id_karyawan',
@@ -20,22 +19,20 @@ class Pemesanan extends Model
         'isi',
         'harga',
         'pickup',
-        'tanggal',
         'status',
-        'ongkir',
-        'tips',
-        'bukti_pembayaran',
+        'tanggal',
     ];
 
-    // Relasi dengan model User untuk menghubungkan id_customer dengan id_user di tabel users
+    protected $dates = ['tanggal']; // Casting tanggal to Carbon
+
     public function customer()
     {
         return $this->belongsTo(User::class, 'id_customer');
     }
 
-    // Relasi dengan model User untuk menghubungkan id_karyawan dengan id_user di tabel users
     public function karyawan()
     {
         return $this->belongsTo(User::class, 'id_karyawan');
     }
 }
+

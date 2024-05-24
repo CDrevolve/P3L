@@ -71,4 +71,14 @@ class ProfileController extends Controller
         // Ambil semua pesanan berdasarkan id_customer
         return view('profile.history', compact('user', 'orders', 'customer'));
     }
+    public function completeOrder($id)
+    {
+        $order = Pemesanan::find($id);
+        if ($order) {
+            $order->status = 'Selesai';
+            $order->save();
+            return redirect()->back()->with('success', 'Pesanan telah diselesaikan.');
+        }
+        return redirect()->back()->with('error', 'Pesanan tidak ditemukan.');
+    }
 }

@@ -5,9 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order History</title>
-    <!-- Tambahkan stylesheet atau style inline sesuai kebutuhan -->
     <style>
-        /* Gaya CSS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 
@@ -16,10 +26,8 @@
     <div class="container">
         <div class="title">
             <h3>Order History for {{ $user->username }}</h3>
-
         </div>
         <div class="order-list">
-
             <table>
                 <thead>
                     <tr>
@@ -28,35 +36,34 @@
                         <th>Isi Pesanan</th>
                         <th>Harga Pesanan</th>
                         <th>Pickup</th>
+                        <th>Status</th>
                         <th>Tanggal Pesanan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>No.</th>
-                        <th>Nama Pesanan</th>
-                        <th>Isi Pesanan</th>
-                        <th>Harga Pesanan</th>
-                        <th>Pickup</th>
-                        <th>Tanggal Pesanan</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @forelse($orders as $order)
                     <tr>
-                        <td>{{ $order->id_customer}}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $order->nama }}</td>
                         <td>{{ $order->isi }}</td>
                         <td>{{ $order->harga }}</td>
                         <td>{{ $order->pickup }}</td>
+                        <td>{{ $order->status }}</td>
                         <td>{{ $order->tanggal }}</td>
+                        <td>
+                            @if($order->status != 'Selesai')
+                            <form action="{{ route('order.complete', ['id' => $order->id, 'status' => 'Selesai']) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">Pesanan Selesai</button>
+                            </form>
+                            @endif
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td>
-                            <span>
-                                Belum ada Data
-                            </span>
+                        <td colspan="8">
+                            <span>Belum ada Data</span>
                         </td>
                     </tr>
                     @endforelse

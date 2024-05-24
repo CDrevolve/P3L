@@ -121,7 +121,7 @@
     </style>
 </head>
 
-<body>
+<body> 
     <div class="login-container">
         <div class="left-section col-md-5">
             <h1>Atma Kitchen</h1>
@@ -148,8 +148,8 @@
                 <button type="submit" class="btn btn-custom mb-3">Log In</button>
                 <div class="or-divider">OR</div>
                 <a href="{{ route('register') }}" class="btn btn-custom mb-3">Sign up</a>
-            </form>
-            <p class="text-center"><a href="{{ route('forgetPassword') }}">Forgot password</a></p>
+                </form>
+                <p class="text-center"><a href="{{ route('forgetPassword') }}">Forgot password</a></p>
             </form>
         </div>
     </div>
