@@ -69,7 +69,7 @@ class AuthController extends Controller
                 $redirectPath = 'dashboardKaryawan';
                 break;
             case 5:
-                $redirectPath = 'profile';
+                $redirectPath = '';
                 break;
             default:
                 $redirectPath = 'default';

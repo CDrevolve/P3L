@@ -19,6 +19,7 @@ use App\Http\Controllers\PembayaranCustomerController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PesananController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -78,7 +79,9 @@ Route::prefix('admin')->group(function () {
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
     Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('customer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan'])->name('customer.history');
+    Route::get('customer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan'])->name('customer.history');   
+    Route::get('/pesanan_antar', [PesananController::class, 'index'])->name('pesanan.index');
+    Route::put('/pesanan/{id}/update-jarak', [PesananController::class, 'updateJarak'])->name('pesanan.updateJarak');
 });
 
 
