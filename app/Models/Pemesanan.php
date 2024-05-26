@@ -64,7 +64,6 @@ class Pemesanan extends Model
     {
         $this->ongkir = $this->calculateOngkir();
         $this->jumlah_pembayaran += $this->ongkir;
-      dd($this);
     }
 
     public function calculateTips()
@@ -76,4 +75,3 @@ class Pemesanan extends Model
         }
     }
 }
-
