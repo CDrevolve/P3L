@@ -24,6 +24,9 @@ class Pemesanan extends Model
         'tanggal',
         'jarak',
         'ongkir',
+        'bukti_pembayaran',
+        'jumlah_pembayaran',
+        'poin',
     ];
 
     protected $dates = ['tanggal']; // Casting tanggal to Carbon

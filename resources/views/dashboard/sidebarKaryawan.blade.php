@@ -76,12 +76,16 @@
                     <li class="nav-item"> <a href="{{ route('bahanbaku.index') }}" class="nav-link">Bahan Baku</a> </li>
                     <li class="nav-item"> <a href="{{ route('customer.index')}}" class="nav-link">Customers</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.index') }}" class="nav-link">Input Jarak</a> </li>
-                    <li class="nav-item"> <a href="#" class="nav-link">Other Pages</a> </li>
+
                     @elseif(Auth::user()->role->id == '3')
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
+                    <li class="nav-item"> <a href="{{ route('confirmMo.index') }}" class="nav-link">Confirm Pesanan</a> </li>
+
                     @endif
+                    <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
+
                 </ul>
             </div>
             <div class="col-md-10 content">

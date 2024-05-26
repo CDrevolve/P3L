@@ -2,7 +2,6 @@
 @extends('dashboard.navbar')
 @section('content')
 <style>
-
     .hero-section {
         padding: 4rem 0;
         text-align: left;
@@ -62,44 +61,43 @@
     }
 </style>
 
-    
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-section">
-                    <h1>Celebrate Life's Sweet Moments with the Perfect Cake</h1>
-                    <p>Choose from our lovingly curated selection or pour your heart into designing a cake that's as special as your occasion. Let's make every slice resonate with joy and connection.</p>
-                    <button class="btn btn-primary">Shop Now</button>
-                    <button class="btn btn-secondary">Customize Now</button>
-                </div>
-                <div class="col-md-6 image-section">
-                    <img src="https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-e51521742121f6c85d23df07c7fc3d95_600x400.jpg" alt="Cake Image" class="img-fluid">
-                </div>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-section">
+                <h1>Celebrate Life's Sweet Moments with the Perfect Cake</h1>
+                <p>Choose from our lovingly curated selection or pour your heart into designing a cake that's as special as your occasion. Let's make every slice resonate with joy and connection.</p>
+                <button class="btn btn-primary">Shop Now</button>
+                <button class="btn btn-secondary">Customize Now</button>
+            </div>
+            <div class="col-md-6 image-section">
+                <img src="https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-e51521742121f6c85d23df07c7fc3d95_600x400.jpg" alt="Cake Image" class="img-fluid">
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Products Section -->
-    <section class="products-section py-5">
-        <div class="container">
-            <div class="row">
-                @foreach ($produk as $product)
-                <div class="col-md-4 mb-4">
-                    <div class="card" onclick="window.location.href='{{route('pesanan.show',$product->id)}}'">
-                        <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->nama }}</h5>
-                            <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
-                        </div>
+<!-- Products Section -->
+<section class="products-section py-5">
+    <div class="container">
+        <div class="row">
+            @foreach ($produk as $product)
+            <div class="col-md-4 mb-4">
+                <div class="card" onclick="window.location.href='{{ route('pesanan.show' , $product->id) }}'">
+                    <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->nama }}</h5>
+                        <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
                     </div>
                 </div>
-                @endforeach
             </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 @endsection
-

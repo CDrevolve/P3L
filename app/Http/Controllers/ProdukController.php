@@ -18,7 +18,7 @@ class ProdukController extends Controller
     public function indexDashboard()
     {
         $produk = Produk::all();
-        return view('dashboard.landingpage', compact('produk'));  
+        return view('dashboard.landingpage', compact('produk'));
     }
 
     public function show($id_produk)
@@ -26,7 +26,7 @@ class ProdukController extends Controller
         $produk = Produk::findOrFail($id_produk);
         return view("admin.isi_produk", compact('produk'));
     }
-    
+
 
     public function create()
     {
@@ -69,6 +69,7 @@ class ProdukController extends Controller
             'stok' => $request->input('stok'),
             'harga' => $request->input('harga'),
             'kuota_harian' => $request->input('kuota_harian'),
+            'kuota_harian_terpakai' => 0, // Set default value to '0
             'foto' => $destinationPath
         ]);
 
