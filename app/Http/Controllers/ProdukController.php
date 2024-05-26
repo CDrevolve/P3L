@@ -44,6 +44,7 @@ class ProdukController extends Controller
             'harga' => 'required|numeric',
             'kuota_harian' => 'required|numeric',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
@@ -69,8 +70,9 @@ class ProdukController extends Controller
             'stok' => $request->input('stok'),
             'harga' => $request->input('harga'),
             'kuota_harian' => $request->input('kuota_harian'),
+
             'kuota_harian_terpakai' => 0, // Set default value to '0
-            'foto' => $destinationPath
+            'foto' => $destinationPath,
         ]);
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');

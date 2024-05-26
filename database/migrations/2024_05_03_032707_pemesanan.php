@@ -22,12 +22,15 @@ return new class extends Migration
             $table->double('harga');
             $table->string('pickup');
             $table->date('tanggal');
+            $table->int('jarak')->nullable();
             $table->string('status');
             $table->integer('jarak');
             $table->double('ongkir')->default(0);
             $table->double('tips')->default(0);
+            $table->string('no_nota');
             $table->string('bukti_pembayaran')->nullable();
             $table->int('poin')->default(0);
+            $table->string('no_nota')->unique()->after('id');
             $table->timestamps();
         });
     }
