@@ -10,11 +10,13 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
@@ -38,6 +40,8 @@
                         <th>Pickup</th>
                         <th>Status</th>
                         <th>Tanggal Pesanan</th>
+                        <th>Ongkir</th>
+                        <th>Jumlah Pembayaran</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -47,22 +51,27 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $order->nama }}</td>
                         <td>{{ $order->isi }}</td>
-                        <td>{{ $order->harga }}</td>
+                        <td>Rp {{ number_format($order->harga, 0, ',', '.') }}</td>
                         <td>{{ $order->pickup }}</td>
                         <td>{{ $order->status }}</td>
                         <td>{{ $order->tanggal }}</td>
+                        <td>Rp {{ number_format($order->ongkir, 0, ',', '.') }}</td>
+                        <td>Rp {{ number_format($order->jumlah_pembayaran, 0, ',', '.') }}</td>
                         <td>
-                            @if($order->status != 'Selesai')
+                            @if($order->status == 'Diterima')
                             <form action="{{ route('order.complete', ['id' => $order->id, 'status' => 'Selesai']) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">Pesanan Selesai</button>
+                            </form>
+                            <form action="{{ route('checkout.printReceipt', ['id' => $order->id]) }}" method="GET" style="margin-top: 10px;">
+                                <button type="submit" class="btn btn-secondary">Cetak Nota</button>
                             </form>
                             @endif
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="8">
+                        <td colspan="10">
                             <span>Belum ada Data</span>
                         </td>
                     </tr>
