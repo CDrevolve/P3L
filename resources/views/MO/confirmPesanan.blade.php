@@ -2,12 +2,16 @@
 @section('content')
 
 <div class="card-body">
-    <table id="tableFilter1" class="table table-bordered">
+    <h1>Terima Pesanan</h1>
+
+    <hr>
+
+    <table id="tableFilter" class="table table-bordered">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama Pemesanan</th>
-                <th>Jumlah</th>
+                <th>Isi</th>
                 <th>Harga</th>
                 <th>Total Harga</th>
                 <th>Status</th>
@@ -18,7 +22,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Pemesanan</th>
-                <th>Jumlah</th>
+                <th>Isi</th>
                 <th>Harga</th>
                 <th>Total Harga</th>
                 <th>Status</th>
@@ -29,10 +33,10 @@
             @foreach($pesanans as $p)
             <tr>
                 <td>{{ $loop->iteration }}</td> <!-- Add an iteration for No column -->
-                <td>{{$p->nama_pemesanan}}</td>
-                <td>{{$p->jumlah}}</td>
+                <td>{{$p->nama}}</td>
+                <td>{{$p->isi}}</td>
                 <td>{{$p->harga}}</td>
-                <td>{{$p->total_harga}}</td>
+                <td>{{$p->jumlah_pembayaran}}</td>
                 <td>{{$p->status}}</td>
                 <td>
                     <a class="btn btn-success" href="{{ route('confirmMo.terima', $p->id)}}">

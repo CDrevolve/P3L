@@ -23,6 +23,7 @@ class PesananController extends Controller
 
         $pesanan = Pemesanan::findOrFail($id);
         $pesanan->jarak = $request->input('jarak');
+        $pesanan->status = 'Belum Bayar';
         $pesanan->updateHarga();
         $pesanan->save();
 
@@ -55,4 +56,3 @@ class PesananController extends Controller
         return redirect()->back()->with('success', 'Pembayaran telah berhasil dikonfirmasi.');
     }
 }
-
