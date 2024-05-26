@@ -18,6 +18,10 @@
     color: white;
 }
 
+.alert-success{
+        background-color: #B0A3C1;
+        color: white;
+    }
 
 </style>
 <div class="container my-5">

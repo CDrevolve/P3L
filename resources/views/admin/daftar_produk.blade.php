@@ -76,14 +76,12 @@
 
 
 <div class="container">
-    <a href="{{ route('admin') }}" class="button">Back</a>
 
     <!-- Form pencarian -->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Cari produk...">
         <button onclick="search()" class="btn btn-primary">Search</button>
     </div>
-    <a href="{{route('actionLogout')}}">logout</a>
 
     <!-- Daftar produk -->
     <div id="productList" class="row">
