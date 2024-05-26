@@ -64,7 +64,7 @@
         Ongkos Kirim: Rp {{ number_format($order->ongkir, 0, ',', '.') }}<br>
         Total Pembayaran: Rp {{ number_format($order->jumlah_pembayaran, 0, ',', '.') }}</p>
         <p>Poin dari pesanan ini: {{ $order->poin_diperoleh }}<br>
-        Total poin customer: {{ optional($order->customer)->poin }}</p>
+        Total poin customer: {{ optional($order->customer)->poin + $order->poin_diperoleh }} </p>
     </div>
 </body>
 </html>
