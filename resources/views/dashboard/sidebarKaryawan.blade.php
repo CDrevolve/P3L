@@ -76,6 +76,7 @@
                     <li class="nav-item"> <a href="{{ route('bahanbaku.index') }}" class="nav-link">Bahan Baku</a> </li>
                     <li class="nav-item"> <a href="{{ route('customer.index')}}" class="nav-link">Customers</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.index') }}" class="nav-link">Input Jarak</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pesanan.sudahDibayar') }}" class="nav-link">Konfirmasi Pesanan</a> </li>
                     <li class="nav-item"> <a href="#" class="nav-link">Other Pages</a> </li>
                     @elseif(Auth::user()->role->id == '3')
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>
