@@ -29,6 +29,7 @@ class PesananController extends Controller
         return redirect()->route('pesanan.index')->with('success', 'Jarak dan harga berhasil diperbarui.');
     }
 
+
     public function pesananSudahDibayar()
     {
         $pesanans = Pemesanan::where('status', 'sudah dibayar')->get();

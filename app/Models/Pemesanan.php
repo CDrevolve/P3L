@@ -26,6 +26,7 @@ class Pemesanan extends Model
         'ongkir',
         'bukti_pembayaran',
         'jumlah_pembayaran',
+        'poin',
         'tips',
         'no_nota',
     ];

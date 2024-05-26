@@ -20,6 +20,7 @@ use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\MoKonfirPesanan;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -35,9 +36,11 @@ Route::post('forgetPassword/sendEmail', [ForgetPasswordController::class, 'sendE
 Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'verifyToken'])->name('verify');
 Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
 
-Route::get('/', function () {
-    return view('dashboard.landingPage');
-})->name('home');
+// Route::get('/', function () {
+//     return view('dashboard.landingPage');
+// })->name('home');
+Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
+
 
 Route::get('/dashboardKaryawan', function () {
     return view('dashboard.landingPageKaryawan');
@@ -56,9 +59,11 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
-Route::resource('/pesanan',PesanController::class);
+Route::resource('/pesanan', PesanController::class);
 Route::post('/order/complete/{id}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
 Route::post('/order/complete/{id}/{status}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
+
+
 
 Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
 Route::post('/chart/add-to-chart/{id}', [ChartController::class, 'addToChart'])->name('chart.add_to_chart');
@@ -72,6 +77,9 @@ Route::get('/checkout/receipt/{id}', [CheckoutController::class, 'printReceipt']
 
 
 Route::resource('pesananBayar', PembayaranCustomerController::class);
+Route::resource('confirmMo', MoKonfirPesanan::class);
+Route::put('confirmMo/terima/{id}', [MoKonfirPesanan::class, 'terima'])->name('confimMo.terima');
+Route::put('confirmMo/tolak/{id}', [MoKonfirPesanan::class, 'tolak'])->name('confimMo.tolak');
 
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
@@ -82,7 +90,7 @@ Route::prefix('admin')->group(function () {
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
     Route::delete('detailproduk/{id}/{id_resep}/delete', [AdminDetailProduk::class, 'destroy'])->name('detailProduk.destroy');
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
-    Route::get('customer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan'])->name('customer.history');   
+    Route::get('customer/fetchPemesanan/{id}', [CustomerController::class, 'fetchPemesanan'])->name('customer.history');
     Route::get('/pesanan_antar', [PesananController::class, 'index'])->name('pesanan.index');
     Route::put('/pesanan/{id}/update-jarak', [PesananController::class, 'updateJarak'])->name('pesanan.updateJarak');
     Route::get('/sudah-dibayar', [PesananController::class, 'pesananSudahDibayar'])->name('pesanan.sudahDibayar');
@@ -102,7 +110,6 @@ Route::prefix('mo')->group(function () {
 
 
 
-Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
 
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);

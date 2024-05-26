@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATMA KITCHEN - Produk</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
+<title>ATMA KITCHEN - Produk</title>
+@extends('dashboard.navbar')
+@section('content')
+<style>
+    .hero-section {
+        padding: 4rem 0;
+        text-align: left;
+    }
+
         .hero-section {
             padding: 4rem 0;
             text-align: left;
         }
+
 
         .hero-section h1 {
             font-family: 'Playfair Display', serif;
@@ -67,28 +67,25 @@
             color: #333;
         }
     </style>
-</head>
 
-<body>
-    @extends('dashboard.navbar')
-    @section('content')
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6 text-section">
-                    <h1>Celebrate Life's Sweet Moments with the Perfect Cake</h1>
-                    <p>Choose from our lovingly curated selection or pour your heart into designing a cake that's as special as your occasion. Let's make every slice resonate with joy and connection.</p>
-                    <button class="btn btn-primary">Shop Now</button>
-                    <button class="btn btn-secondary">Customize Now</button>
-                </div>
-                <div class="col-md-6 image-section">
-                    <img src="https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-e51521742121f6c85d23df07c7fc3d95_600x400.jpg" alt="Cake Image" class="img-fluid">
-                </div>
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-section">
+                <h1>Celebrate Life's Sweet Moments with the Perfect Cake</h1>
+                <p>Choose from our lovingly curated selection or pour your heart into designing a cake that's as special as your occasion. Let's make every slice resonate with joy and connection.</p>
+                <button class="btn btn-primary">Shop Now</button>
+                <button class="btn btn-secondary">Customize Now</button>
+            </div>
+            <div class="col-md-6 image-section">
+                <img src="https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-e51521742121f6c85d23df07c7fc3d95_600x400.jpg" alt="Cake Image" class="img-fluid">
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Products Section -->
     <section class="products-section py-5">
@@ -104,13 +101,12 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
             </div>
+            @endforeach
         </div>
-    </section>
+    </div>
+</section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    @endsection
-</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+@endsection
 
-</html>

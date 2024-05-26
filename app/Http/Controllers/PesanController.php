@@ -29,4 +29,3 @@ class PesanController extends Controller
         return view('customer.productPage', compact('produk'));
     }
 }
-
