@@ -80,7 +80,7 @@
                     </li>
                     @else
                     <li class="nav-item">
-                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('profile.history') }}">
+                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('profile.show') }}">
                             <i class="fas fa-user"></i> Profile
                         </a>
                     </li>
