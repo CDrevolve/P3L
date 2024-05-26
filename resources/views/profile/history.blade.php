@@ -11,7 +11,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
@@ -65,7 +66,7 @@
                             </form>
                             <form action="{{ route('checkout.printReceipt', ['id' => $order->id]) }}" method="GET">
                                 <button type="submit" class="btn btn-secondary">Cetak Nota</button>
-                            </form>                    
+                            </form>
                             @endif
                         </td>
                     </tr>

@@ -78,8 +78,11 @@ Route::get('/checkout/receipt/{id}', [CheckoutController::class, 'printReceipt']
 
 Route::resource('pesananBayar', PembayaranCustomerController::class);
 Route::resource('confirmMo', MoKonfirPesanan::class);
-Route::put('confirmMo/terima/{id}', [MoKonfirPesanan::class, 'terima'])->name('confimMo.terima');
-Route::put('confirmMo/tolak/{id}', [MoKonfirPesanan::class, 'tolak'])->name('confimMo.tolak');
+Route::put('confirmMo/terima/{id}', [MoKonfirPesanan::class, 'terima'])->name('confirmMo.terima');
+Route::put('confirmMo/tolak/{id}', [MoKonfirPesanan::class, 'tolak'])->name('confirmMo.tolak');
+
+Route::get('confirmMo/terima/{id}', [MoKonfirPesanan::class, 'terima'])->name('confimMo.terima');
+Route::get('confirmMo/tolak/{id}', [MoKonfirPesanan::class, 'tolak'])->name('confimMo.tolak');
 
 Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);

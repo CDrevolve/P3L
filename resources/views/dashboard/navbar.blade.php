@@ -84,12 +84,21 @@
                             <i class="fas fa-user"></i> Profile
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('pesananBayar.index') }}">
+                            Pesanan
+                        </a>
+                    </li>
+
+
                     <li class="nav-item">
                         <form id="logoutForm" action="{{ route('actionLogout') }}" method="GET" style="display: none;">
                             @csrf
                         </form>
                         <a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();" class="btn btn-primary">Logout</a>
                     </li>
+
                     @endguest
                 </ul>
             </div>
