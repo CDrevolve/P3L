@@ -9,7 +9,7 @@ use App\Models\Alamat;
 
 class PesananController extends Controller
 {
-    public function pesananAntar()
+    public function index()
     {
         $pesanans = Pemesanan::where('pickup', 0)->whereNull('jarak')->get();
         return view('admin.pesanan_antar', compact('pesanans'));
@@ -46,10 +46,9 @@ class PesananController extends Controller
 
         // Update jumlah_pembayaran dan status pada pesanan
         $pesanan->jumlah_pembayaran = $request->jumlah_pembayaran;
+        $pesanan->calculateTips();
         $pesanan->status = 'pembayaran valid';
         $pesanan->save();
-
-        // Tambahkan log atau lakukan tindakan lain sesuai kebutuhan
 
         // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Pembayaran telah berhasil dikonfirmasi.');

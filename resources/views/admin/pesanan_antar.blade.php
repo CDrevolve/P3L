@@ -1,6 +1,25 @@
 @extends('dashboard.sidebarKaryawan')
 
 @section('content')
+
+<style>
+
+    h1 {
+        color: #fff;
+        text-align: center;
+    }
+
+    .btn-primary{
+        background-color:#B0A3C1;
+    }
+
+    .btn-primary:hover {
+    background-color: #FFD9C0;
+    color: white;
+}
+
+
+</style>
 <div class="container my-5">
     <h1>Daftar pesanan perlu input jarak</h1>
 

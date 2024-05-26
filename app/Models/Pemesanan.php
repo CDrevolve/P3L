@@ -24,6 +24,8 @@ class Pemesanan extends Model
         'tanggal',
         'jarak',
         'ongkir',
+        'jumlah_pembayaran',
+        'tips',
     ];
 
     protected $dates = ['tanggal']; // Casting tanggal to Carbon
@@ -60,6 +62,15 @@ class Pemesanan extends Model
     {
         $this->ongkir = $this->calculateOngkir();
         $this->harga += $this->ongkir;
+    }
+
+    public function calculateTips()
+    {
+        if ($this->jumlah_pembayaran > $this->harga) {
+            $this->tips = $this->jumlah_pembayaran - $this->harga;
+        } else {
+            $this->tips = 0;
+        }
     }
 }
 

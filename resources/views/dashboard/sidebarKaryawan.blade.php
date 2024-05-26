@@ -28,7 +28,7 @@
         .sidebar {
 
             height: 100vh;
-            background-color: #8CC0DE;
+            background-color: #B0A3C1;
             padding: 15px;
             color: #fff;
         }
@@ -40,13 +40,13 @@
         }
 
         .nav-link {
-            color: #FFD9C0;
+            color: #FDC4CB;
             padding: 10px;
             border-radius: 10px;
         }
 
         .nav-link:hover {
-            background-color: #568DAD;
+            background-color: #FFD9C0;
             color: #fff;
         }
 
