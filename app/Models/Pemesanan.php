@@ -24,7 +24,6 @@ class Pemesanan extends Model
         'tanggal',
         'jarak',
         'ongkir',
-        'id_alamat',
         'bukti_pembayaran',
         'jumlah_pembayaran',
         'tips',
@@ -64,6 +63,15 @@ class Pemesanan extends Model
     {
         $this->ongkir = $this->calculateOngkir();
         $this->harga += $this->ongkir;
+    }
+
+    public function calculateTips()
+    {
+        if ($this->jumlah_pembayaran > $this->harga) {
+            $this->tips = $this->jumlah_pembayaran - $this->harga;
+        } else {
+            $this->tips = 0;
+        }
     }
 }
 

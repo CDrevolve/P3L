@@ -90,7 +90,6 @@
 </style>
 
 <div class="container">
-    <a href="{{ route('admin') }}" class="button">Back</a>
     <h1>Daftar Resep</h1>
 
     <!-- Form pencarian -->
@@ -98,7 +97,6 @@
         <input type="text" id="searchInput" placeholder="Cari resep...">
         <button onclick="search()" class="btn btn-primary">Cari</button>
     </div>
-    <a href="{{route('actionLogout')}}">logout</a>
 
     <!-- Daftar resep -->
     <div id="recipeList" class="row">
