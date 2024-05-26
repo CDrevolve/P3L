@@ -61,11 +61,11 @@
                             @if($order->status == 'Diterima')
                             <form action="{{ route('order.complete', ['id' => $order->id, 'status' => 'Selesai']) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-primary">Pesanan Selesai</button>
+                                <button type="submit" class="btn btn-primary">Selesaikan Pesanan</button>
                             </form>
-                            <form action="{{ route('checkout.printReceipt', ['id' => $order->id]) }}" method="GET" style="margin-top: 10px;">
+                            <form action="{{ route('checkout.printReceipt', ['id' => $order->id]) }}" method="GET">
                                 <button type="submit" class="btn btn-secondary">Cetak Nota</button>
-                            </form>
+                            </form>                    
                             @endif
                         </td>
                     </tr>

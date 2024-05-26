@@ -27,6 +27,7 @@ class Pemesanan extends Model
         'bukti_pembayaran',
         'jumlah_pembayaran',
         'tips',
+        'no_nota',
     ];
 
     protected $dates = ['tanggal'];
@@ -62,7 +63,8 @@ class Pemesanan extends Model
     public function updateHarga()
     {
         $this->ongkir = $this->calculateOngkir();
-        $this->harga += $this->ongkir;
+        $this->jumlah_pembayaran += $this->ongkir;
+      dd($this);
     }
 
     public function calculateTips()

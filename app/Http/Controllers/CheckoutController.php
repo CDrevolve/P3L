@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -51,6 +52,7 @@ class CheckoutController extends Controller
                     return redirect()->back()->withErrors(['msg' => 'Stok atau kuota harian tidak mencukupi untuk produk: ' . $produk->nama]);
                 }
                 $produk->kuota_harian_terpakai += $chart->jumlah;
+                $produk->kuota_harian -= $chart->jumlah;
                 $produk->stok = 0;
             }
             $produk->save();
@@ -71,8 +73,15 @@ class CheckoutController extends Controller
         $customer->poin -= $poinDigunakan;
         $customer->save();
 
+        // Generate No Nota
+        $currentYearMonth = Carbon::now()->format('y.m');
+        $lastOrder = Pemesanan::orderBy('id', 'desc')->first();
+        $lastNumber = $lastOrder ? intval(substr($lastOrder->no_nota, 8)) : 0;
+        $newNumber = $lastNumber + 1;
+        $noNota = $currentYearMonth . '.' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
 
         $pemesanan = new Pemesanan();
+        $pemesanan->no_nota = $noNota;
         $pemesanan->id_customer = $customer->id;
         $pemesanan->id_karyawan = 1;
         $pemesanan->nama = $customer->nama;
@@ -84,8 +93,9 @@ class CheckoutController extends Controller
         $pemesanan->ongkir = 0;
         $pemesanan->id_alamat = $idAlamat;
         $pemesanan->bukti_pembayaran = null;
-        $pemesanan->jumlah_pembayaran = $totalPrice;
+        $pemesanan->jumlah_pembayaran = $totalPrice + $pemesanan->ongkir;
         $pemesanan->tips = 0;
+ 
         $pemesanan->save();
 
         foreach ($charts as $chart) {
@@ -95,8 +105,7 @@ class CheckoutController extends Controller
             $detail->jumlah = $chart->jumlah;
             $detail->save();
         }
-        return redirect()->route('checkout.success')->with('success', 'Pesanan berhasil diajukan'); 
-
+        return redirect()->route('checkout.success')->with('success', 'Pesanan berhasil diajukan');
     }
 
     public function success()
@@ -144,12 +153,13 @@ class CheckoutController extends Controller
         $customer->poin += $poin;
         $customer->save();
     }
+
     public function printReceipt($id)
     {
         $order = Pemesanan::findOrFail($id);
         $customer = Customer::findOrFail($order->id_customer);
         $user = User::findOrFail($customer->id_user);
-        $details = DetailPemesanan::where('id_pemesanan',$order->id)->get();
+        $details = DetailPemesanan::where('id_pemesanan', $order->id)->get();
         $produks = [];
 
         // Iterate over each detail to get the related product
@@ -157,7 +167,6 @@ class CheckoutController extends Controller
             $produks[] = Produk::findOrFail($detail->id_produk);
         }
     
-        return view('customer.nota', compact('order','details','produks','user'));
+        return view('customer.nota', compact('order', 'details', 'produks', 'user'));
     }
-
 }

@@ -33,7 +33,7 @@
         <h2>Nota Pemesanan</h2>
         <p>Atma Kitchen<br>
         Jl. Centralpark No. 10 Yogyakarta</p>
-        <p>No Nota: {{ $order->transaction_number }}<br>
+        <p>No Nota: {{ $order->no_nota }}<br>
         Tanggal pesan: {{ \Carbon\Carbon::parse($order->tanggal)->format('d/m/Y H:i') }}<br>
         Lunas pada: {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}<br>
         Tanggal ambil: {{ \Carbon\Carbon::parse($order->tanggal)->addDays(3)->format('d/m/Y H:i') }}</p>
