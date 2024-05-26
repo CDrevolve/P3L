@@ -62,9 +62,12 @@ Route::post('/order/complete/{id}/{status}', [CheckoutController::class, 'update
 
 Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
 Route::post('/chart/add-to-chart/{id}', [ChartController::class, 'addToChart'])->name('chart.add_to_chart');
+Route::delete('/chart/{id}', [ChartController::class, 'removeFromChart'])->name('chart.remove');
+
 
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/receipt/{id}', [CheckoutController::class, 'printReceipt'])->name('checkout.printReceipt');
 
 
 

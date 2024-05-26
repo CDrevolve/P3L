@@ -1,54 +1,102 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Chart;
 use App\Models\Customer;
+use App\Models\User;
 use App\Models\Produk;
 use App\Models\Pemesanan;
+use App\Models\Alamat;
+use App\Models\DetailPemesanan;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class CheckoutController extends Controller
 {
-    public function checkout()
+    public function checkout(Request $request)
     {
         $customer = Customer::findOrFail(Auth::id());
-
-        // Mengambil data chart (keranjang belanja) berdasarkan ID customer
         $charts = Chart::where('id_customer', $customer->id)->get();
 
-        // Initialize total price and product names
         $totalPrice = 0;
         $productNames = [];
+        $tanggalPesanan = $request->input('tanggal');
+        $metode = $request->input('metode');
+        $alamat = $request->input('alamat');
+        $alamatBaru = $request->input('alamat_baru');
+        $idAlamat = null;
+        $poinDigunakan = (int) $request->input('poin');
+
+        // Handle alamat baru
+        if ($metode === 'delivery' && $alamat === 'new') {
+            $alamatBaru = new Alamat();
+            $alamatBaru->id_customer = $customer->id;
+            $alamatBaru->nama = $request->input('alamat_baru');
+            $alamatBaru->save();
+            $idAlamat = $alamatBaru->id;
+        } elseif ($metode === 'delivery') {
+            $idAlamat = $alamat;
+        }
 
         foreach ($charts as $chart) {
             $produk = Produk::findOrFail($chart->id_produk);
-
-            // Sum up the total price
             $totalPrice += $produk->harga * $chart->jumlah;
-
-            // Append product names to the list
             $productNames[] = $produk->nama;
 
-            // Hapus entri di chart karena sudah di-checkout
+            if ($produk->stok >= $chart->jumlah) {
+                $produk->stok -= $chart->jumlah;
+            } else {
+                if ($produk->kuota_harian_terpakai > $produk->kuota_harian) {
+                    return redirect()->back()->withErrors(['msg' => 'Stok atau kuota harian tidak mencukupi untuk produk: ' . $produk->nama]);
+                }
+                $produk->kuota_harian_terpakai += $chart->jumlah;
+                $produk->stok = 0;
+            }
+            $produk->save();
             $chart->delete();
         }
 
-        // Create a single order
+        // Kurangi harga total dengan poin yang digunakan (1 poin = Rp 100)
+        $discount = $poinDigunakan * 100;
+        if ($discount > $totalPrice) {
+            return redirect()->back()->withErrors(['msg' => 'Poin yang digunakan melebihi total harga.']);
+        }
+        $totalPrice -= $discount;
+
+        // Kurangi poin pelanggan
+        if ($poinDigunakan > $customer->poin) {
+            return redirect()->back()->withErrors(['msg' => 'Poin yang digunakan melebihi jumlah poin yang dimiliki.']);
+        }
+        $customer->poin -= $poinDigunakan;
+        $customer->save();
+
+
         $pemesanan = new Pemesanan();
         $pemesanan->id_customer = $customer->id;
-        $pemesanan->id_karyawan = 1; // This can be dynamically set as needed
+        $pemesanan->id_karyawan = 1;
         $pemesanan->nama = $customer->nama;
-        $pemesanan->isi = implode(', ', $productNames); // Concatenate product names
-        $pemesanan->harga = $totalPrice; // Total price
-        $pemesanan->pickup = null;
-        $pemesanan->status = 'Belum Bayar';
-        $pemesanan->tanggal = now();
+        $pemesanan->isi = implode(', ', $productNames);
+        $pemesanan->harga = $totalPrice;
+        $pemesanan->pickup = $metode === 'pickup' ? 1 : 0;
+        $pemesanan->status = 'Checkout';
+        $pemesanan->tanggal = $tanggalPesanan;
+        $pemesanan->ongkir = 0;
+        $pemesanan->id_alamat = $idAlamat;
+        $pemesanan->bukti_pembayaran = null;
+        $pemesanan->jumlah_pembayaran = $totalPrice;
+        $pemesanan->tips = 0;
         $pemesanan->save();
 
-        return redirect()->route('checkout.success')->with('success', 'Pesanan berhasil diajukan');
+        foreach ($charts as $chart) {
+            $detail = new DetailPemesanan();
+            $detail->id_pemesanan = $pemesanan->id;
+            $detail->id_produk = $chart->id_produk;
+            $detail->jumlah = $chart->jumlah;
+            $detail->save();
+        }
+        return redirect()->route('checkout.success')->with('success', 'Pesanan berhasil diajukan'); 
+
     }
 
     public function success()
@@ -62,7 +110,7 @@ class CheckoutController extends Controller
         $pemesanan->status = $status;
         $pemesanan->save();
 
-        if ($status == 'Selesai') {
+        if ($status == 'Checkout') {
             $this->addPoints($pemesanan);
         }
 
@@ -74,7 +122,6 @@ class CheckoutController extends Controller
         $customer = Customer::findOrFail($pemesanan->id_customer);
         $totalPrice = $pemesanan->harga;
 
-        // Calculate points
         $poin = 0;
 
         if ($totalPrice >= 1000000) {
@@ -87,16 +134,30 @@ class CheckoutController extends Controller
             $poin = floor($totalPrice / 10000);
         }
 
-        // Ensure the order date and customer's birthday are Carbon instances
         $orderDate = Carbon::parse($pemesanan->tanggal)->format('m-d');
         $birthday = Carbon::parse($customer->tanggal_lahir)->format('m-d');
 
         if ($orderDate == $birthday) {
-            $poin *= 2; // Double the points if it's the customer's birthday
+            $poin *= 2;
         }
 
-        // Update customer points
         $customer->poin += $poin;
         $customer->save();
     }
+    public function printReceipt($id)
+    {
+        $order = Pemesanan::findOrFail($id);
+        $customer = Customer::findOrFail($order->id_customer);
+        $user = User::findOrFail($customer->id_user);
+        $details = DetailPemesanan::where('id_pemesanan',$order->id)->get();
+        $produks = [];
+
+        // Iterate over each detail to get the related product
+        foreach ($details as $detail) {
+            $produks[] = Produk::findOrFail($detail->id_produk);
+        }
+    
+        return view('customer.nota', compact('order','details','produks','user'));
+    }
+
 }
