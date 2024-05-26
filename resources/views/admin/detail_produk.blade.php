@@ -1,163 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('dashboard.sidebarKaryawan')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Resep: {{ $resep->nama_resep }}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #FEFAF6;
-            margin: 0;
-            padding: 0;
-        }
+@section('content')
 
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #FFD9C0;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+<style>
+    h1 {
+        color: #fff;
+        text-align: center;
+    }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    .btn-primary{
+        background-color:#B0A3C1;
+    }
 
-        h2 {
-            margin-bottom: 10px;
-        }
+    .btn-primary:hover {
+    background-color: #FFD9C0;
+    color: white;
+}
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
+.alert-success{
+        background-color: #B0A3C1;
+        color: white;
+    }
+</style>
 
-        li {
-            margin-bottom: 10px;
-        }
-    </style>
+<div class="container my-5">
+    <h1>Detail Resep: {{ $resep->nama }}</h1>
+    <a href="{{ route('resep.index') }}" class="btn btn-secondary mb-3">Back</a>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <h2>Bahan-bahan:</h2>
+    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahDetailModal">Tambah</button>
 
-</head>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Nama Bahan</th>
+                <th>Jumlah</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($detailProduks as $detail)
+            <tr>
+                <td>{{ $detail->bahanBaku->nama }}</td>
+                <td>{{ $detail->jumlah }}</td>
+                <td>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editDetailModal{{ $detail->id }}">Edit</button>
 
-<body>
-    <div class="container">
-        <a href="{{ route('resep.index') }}">back</a>
-        <h1>Detail Resep: {{ $resep->nama }}</h1>
-        <h2>Bahan-bahan:</h2>
-        <button>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#tambahDetailModal">Tambah</button>
-        </button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nama Bahan</th>
-                    <th>Jumlah</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th>Nama Bahan</th>
-                    <th>Jumlah</th>
-                    <th>Aksi</th>
-                </tr>
-            </tfoot>
-            <tbody>
-                @foreach ($detailProduks as $detail)
-                <tr>
-                    <td>{{ $detail->bahanBaku->nama }}</td>
-                    <td>{{ $detail->jumlah }}</td>
+                    <form action="{{ route('detailProduk.destroy', ['id'=> $detail->id, 'id_resep'=>$resep->id]) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
 
-                    <td>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editDetailModal{{$detail->id}}">Edit</button>
-
-                        <form action="{{ route('detailProduk.destroy', ['id'=> $detail->id, 'id_resep'=>$resep->id] )}}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-
-                <div class="modal fade" id="editDetailModal{{$detail->id}}" tabindex="-1" role="dialog" aria-labelledby="editDetailLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Form fields for add item -->
-                                <!-- Replace this with your form fields -->
-                                <form id="addForm" action="{{route('detailProduk.update', ['id'=> $detail->id, 'id_resep'=>$resep->id])}}" method="POST">
-                                    @csrf
-                                    @method('PUT')
-                                    <label for="namaBahan">Name:</label>
-                                    <select name="id_bahan_baku" id="id_bahan_baku" class="form-control">
-                                        @foreach ($bahanBakus as $bb)
-                                        <option value="{{$bb->id}}">{{$bb->nama}}</option>
-                                        @endforeach
-                                        <option value="null" hidden selected>Nama Bahan</option>
-                                    </select>
-                                    <label for="itemName">Jumlah:</label>
-                                    <input required type="number" class="form-control" id="jumlah" name="jumlah">
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" id="addBtn">Add Bahan</button>
-                                    </div>
-                                </form>
-                            </div>
+            <!-- Modal Edit Detail -->
+            <div class="modal fade" id="editDetailModal{{ $detail->id }}" tabindex="-1" role="dialog" aria-labelledby="editDetailLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('detailProduk.update', ['id'=> $detail->id, 'id_resep'=>$resep->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <label for="id_bahan_baku">Name:</label>
+                                <select name="id_bahan_baku" id="id_bahan_baku" class="form-control">
+                                    @foreach ($bahanBakus as $bb)
+                                    <option value="{{ $bb->id }}" {{ $bb->id == $detail->bahan_baku_id ? 'selected' : '' }}>{{ $bb->nama }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="jumlah">Jumlah:</label>
+                                <input type="number" class="form-control" id="jumlah" name="jumlah" value="{{ $detail->jumlah }}" required>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Save changes</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
+            </div>
+            @endforeach
+        </tbody>
+    </table>
 
-
-                @endforeach
-        </table>
-
-    </div>
-
-
-
-
-
+    <!-- Modal Tambah Detail -->
     <div class="modal fade" id="tambahDetailModal" tabindex="-1" role="dialog" aria-labelledby="tambahDetailLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="tambahModalLabel">Tambah Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- Form fields for add item -->
-                    <!-- Replace this with your form fields -->
-
-                    <form id="addForm" action="{{route('detailProduk.store', $resep->id)}}" method="POST">
+                    <form action="{{ route('detailProduk.store', $resep->id) }}" method="POST">
                         @csrf
-                        @method('POST')
-                        <label for="namaBahan">Name:</label>
+                        <label for="id_bahan_baku">Name:</label>
                         <select name="id_bahan_baku" id="id_bahan_baku" class="form-control">
                             @foreach ($bahanBakus as $bb)
-                            <option value="{{$bb->id}}">{{$bb->nama}}</option>
+                            <option value="{{ $bb->id }}">{{ $bb->nama }}</option>
                             @endforeach
-                            <option value="null" hidden selected>Nama Bahan</option>
                         </select>
-                        <label for="itemName">Jumlah:</label>
-                        <input required type="number" class="form-control" id="jumlah" name="jumlah">
+                        <label for="jumlah">Jumlah:</label>
+                        <input type="number" class="form-control" id="jumlah" name="jumlah" required>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" id="addBtn">Add Bahan</button>
+                            <button type="submit" class="btn btn-success">Add Bahan</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</div>
 
-</html>
+@endsection

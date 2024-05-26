@@ -26,7 +26,7 @@ class PesananController extends Controller
         $pesanan->updateHarga();
         $pesanan->save();
 
-        return redirect()->route('pesanan.antar')->with('success', 'Jarak dan harga berhasil diperbarui.');
+        return redirect()->route('pesanan.index')->with('success', 'Jarak dan harga berhasil diperbarui.');
     }
 
     public function pesananSudahDibayar()
