@@ -75,8 +75,6 @@
             <div class="col-md-6 text-section">
                 <h1>Celebrate Life's Sweet Moments with the Perfect Cake</h1>
                 <p>Choose from our lovingly curated selection or pour your heart into designing a cake that's as special as your occasion. Let's make every slice resonate with joy and connection.</p>
-                <button class="btn btn-primary">Shop Now</button>
-                <button class="btn btn-secondary">Customize Now</button>
             </div>
             <div class="col-md-6 image-section">
                 <img src="https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-e51521742121f6c85d23df07c7fc3d95_600x400.jpg" alt="Cake Image" class="img-fluid">

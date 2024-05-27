@@ -43,7 +43,7 @@
                         <th>Tanggal Pesanan</th>
                         <th>Ongkir</th>
                         <th>Jumlah Pembayaran</th>
-                        <th>Aksi</th>
+                        <th>Cetak Nota</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,14 +59,11 @@
                         <td>Rp {{ number_format($order->ongkir, 0, ',', '.') }}</td>
                         <td>Rp {{ number_format($order->jumlah_pembayaran, 0, ',', '.') }}</td>
                         <td>
-                            @if($order->status == 'Diterima')
-                            <form action="{{ route('order.complete', ['id' => $order->id, 'status' => 'Selesai']) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary">Selesaikan Pesanan</button>
-                            </form>
+                        @if($order->status != 'Checkout' && $order->status != 'BelumBayar')
                             <form action="{{ route('checkout.printReceipt', ['id' => $order->id]) }}" method="GET">
+                            @csrf
                                 <button type="submit" class="btn btn-secondary">Cetak Nota</button>
-                            </form>
+                            </form>                    
                             @endif
                         </td>
                     </tr>
