@@ -53,7 +53,7 @@
 
     <!-- Error display section -->
     @if(session('error'))
-    <div style="color: red; margin-top: 20px;">
+    <div style="color: red; margin-top: 20px;" class="alert alert-danger">>
         <ul>
             @foreach(session('error') as $error)
             <li>{{ $error }}</li>
@@ -63,7 +63,7 @@
     @endif
 
     @if(session('success'))
-    <div style="color: green; margin-top: 20px;">
+    <div style="color: green; margin-top: 20px;" class="alert alert-success">
         {{ session('success') }}
     </div>
     @endif
