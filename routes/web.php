@@ -13,6 +13,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\PembelianBBController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProfileAdminController;
+use App\Http\Controllers\ProfileMoController;
+use App\Http\Controllers\ProfileOwnerController;
+use App\Http\Controllers\GajiController;
 use App\Http\Controllers\AdminDetailProduk;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\PembayaranCustomerController;
@@ -84,6 +88,8 @@ Route::prefix('admin')->group(function () {
     Route::put('/pesanan/{id}/update-jarak', [PesananController::class, 'updateJarak'])->name('pesanan.updateJarak');
     Route::get('/sudah-dibayar', [PesananController::class, 'pesananSudahDibayar'])->name('pesanan.sudahDibayar');
     Route::post('/pesanan/konfirmasi-pembayaran/{id}', [PesananController::class, 'konfirmasiPembayaran'])->name('pesanan.konfirmasi');
+    Route::get('/profile/edit_password', [ProfileAdminController::class, 'editPassword'])->name('profile.editPassword');
+    Route::post('/profile/update_password', [ProfileAdminController::class, 'updatePassword'])->name('profile.updatePassword');
 });
 
 
@@ -94,9 +100,17 @@ Route::prefix('mo')->group(function () {
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+    Route::get('/profile/edit_password', [ProfileMoController::class, 'editPassword'])->name('mo.profile.editPassword');
+    Route::post('/profile/update_password', [ProfileMoController::class, 'updatePassword'])->name('mo.profile.updatePassword');
 });
 
-
+Route::prefix('owner')->group(function () {
+    Route::get('/karyawann', [GajiController::class, 'index'])->name('owner.karyawann');
+    Route::get('/edit_gaji/{karyawan}', [GajiController::class, 'editGaji'])->name('owner.edit_gaji');
+    Route::put('/update_gaji/{karyawan}', [GajiController::class, 'updateGaji'])->name('owner.update_gaji');
+    Route::get('/profile/edit_password', [ProfileOwnerController::class, 'editPassword'])->name('owner.profile.editPassword');
+    Route::post('/profile/update_password', [ProfileOwnerController::class, 'updatePassword'])->name('owner.profile.updatePassword');
+});
 
 
 Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');

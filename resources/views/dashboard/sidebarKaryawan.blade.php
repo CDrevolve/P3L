@@ -31,6 +31,8 @@
             background-color: #B0A3C1;
             padding: 15px;
             color: #fff;
+            font-family: 'Arial', sans-serif; 
+            font-weight: bold;
         }
 
         .profile img {
@@ -77,11 +79,16 @@
                     <li class="nav-item"> <a href="{{ route('customer.index')}}" class="nav-link">Customers</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.index') }}" class="nav-link">Input Jarak</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.sudahDibayar') }}" class="nav-link">Konfirmasi Pesanan</a> </li>
+                    <li class="nav-item"> <a href="{{ route('profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
                     <li class="nav-item"> <a href="#" class="nav-link">Other Pages</a> </li>
                     @elseif(Auth::user()->role->id == '3')
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
+                    <li class="nav-item"> <a href="{{ route('mo.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
+                    @elseif(Auth::user()->role->id == '1')
+                    <li class="nav-item"> <a href="{{ route('owner.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
+                    <li class="nav-item"> <a href="{{ route('owner.karyawann') }}" class="nav-link">Kelola Gaji Karyawan</a> </li>
                     @endif
                 </ul>
             </div>
