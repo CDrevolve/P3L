@@ -90,6 +90,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/pesanan/konfirmasi-pembayaran/{id}', [PesananController::class, 'konfirmasiPembayaran'])->name('pesanan.konfirmasi');
     Route::get('/profile/edit_password', [ProfileAdminController::class, 'editPassword'])->name('profile.editPassword');
     Route::post('/profile/update_password', [ProfileAdminController::class, 'updatePassword'])->name('profile.updatePassword');
+    Route::get('/pesanan/sedang-diproses', [PesananController::class, 'pesananSedangDiproses'])->name('pesanan.sedangDiproses');
+    Route::get('/pesanan/sudah-dipickup', [PesananController::class, 'pesananSudahDipickup'])->name('pesanan.sudahDipickup');
+    Route::post('/pesanan/update-status/{id}', [PesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
+    Route::post('/pesanan/update-pickup-status/{id}', [PesananController::class, 'updatePickupStatus'])->name('pesanan.updatePickupStatus');
 });
 
 

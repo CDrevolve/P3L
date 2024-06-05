@@ -80,6 +80,8 @@
                     <li class="nav-item"> <a href="{{ route('pesanan.index') }}" class="nav-link">Input Jarak</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.sudahDibayar') }}" class="nav-link">Konfirmasi Pesanan</a> </li>
                     <li class="nav-item"> <a href="{{ route('profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pesanan.sedangDiproses') }}" class="nav-link">Pesanan diproses</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pesanan.sudahDipickup') }}" class="nav-link">Pesanan dipickup</a> </li>
                     <li class="nav-item"> <a href="#" class="nav-link">Other Pages</a> </li>
                     @elseif(Auth::user()->role->id == '3')
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>

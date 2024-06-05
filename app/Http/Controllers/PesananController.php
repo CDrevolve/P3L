@@ -53,5 +53,47 @@ class PesananController extends Controller
         // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Pembayaran telah berhasil dikonfirmasi.');
     }
+
+    public function pesananSedangDiproses()
+    {
+        $pesanans = Pemesanan::where('status', 'sedang diproses')->get();
+        return view('admin.pesanan_sedang_diproses', compact('pesanans'));
+    }
+
+    public function updateStatus($id)
+    {
+        $pesanan = Pemesanan::findOrFail($id);
+        
+        if ($pesanan->pickup == 1) {
+            $pesanan->status = 'siap dipick-up';
+        } else {
+            $pesanan->status = 'sedang dikirim';
+        }
+
+        $pesanan->save();
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui.');
+    }
+
+    public function pesananSudahDipickup()
+    {
+        $pesanans = Pemesanan::where('status', 'siap dipick-up')->get();
+        return view('admin.pesanan_sudah_dipickup', compact('pesanans'));
+    }
+
+    public function updatePickupStatus(Request $request, $id)
+    {
+        $pesanan = Pemesanan::findOrFail($id);
+
+        if ($request->input('pickup_option') == 'pihak_ketiga') {
+            $pesanan->status = 'sudah di-pickup';
+        } else {
+            $pesanan->status = 'selesai';
+        }
+
+        $pesanan->save();
+
+        return redirect()->route('pesanan.sudahDipickup')->with('success', 'Status pesanan berhasil diperbarui.');
+    }
 }
 
