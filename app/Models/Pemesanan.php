@@ -24,11 +24,14 @@ class Pemesanan extends Model
         'tanggal',
         'jarak',
         'ongkir',
+        'bukti_pembayaran',
         'jumlah_pembayaran',
+        'poin',
         'tips',
+        'no_nota',
     ];
 
-    protected $dates = ['tanggal']; // Casting tanggal to Carbon
+    protected $dates = ['tanggal'];
 
     public function customer()
     {
@@ -61,7 +64,7 @@ class Pemesanan extends Model
     public function updateHarga()
     {
         $this->ongkir = $this->calculateOngkir();
-        $this->harga += $this->ongkir;
+        $this->jumlah_pembayaran += $this->ongkir;
     }
 
     public function calculateTips()
@@ -73,4 +76,3 @@ class Pemesanan extends Model
         }
     }
 }
-

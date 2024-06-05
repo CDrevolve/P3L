@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthMobileController;
 use App\Http\Controllers\ForgetPasswordController;
-
+use App\Http\Controllers\Api\ProdukMobileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +24,7 @@ Route::post('/loginMobile', [AuthMobileController::class, 'login']);
 
 Route::post('fetchAll', [AuthController::class, 'fetchAll']);
 Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 'sendEmailMobile'])->name('sendEmailMobile');
+
+
+Route::get('/produk', [ProdukMobileController::class, 'index']);
+Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);

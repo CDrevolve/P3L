@@ -83,6 +83,7 @@
                     <li class="nav-item"> <a href="{{ route('pesanan.sedangDiproses') }}" class="nav-link">Pesanan diproses</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.sudahDipickup') }}" class="nav-link">Pesanan dipickup</a> </li>
                     <li class="nav-item"> <a href="#" class="nav-link">Other Pages</a> </li>
+
                     @elseif(Auth::user()->role->id == '3')
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
@@ -91,7 +92,10 @@
                     @elseif(Auth::user()->role->id == '1')
                     <li class="nav-item"> <a href="{{ route('owner.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
                     <li class="nav-item"> <a href="{{ route('owner.karyawann') }}" class="nav-link">Kelola Gaji Karyawan</a> </li>
+                    <li class="nav-item"> <a href="{{ route('confirmMo.index') }}" class="nav-link">Confirm Pesanan</a> </li>
                     @endif
+
+
                 </ul>
             </div>
             <div class="col-md-10 content">

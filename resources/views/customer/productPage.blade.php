@@ -1,5 +1,3 @@
-<!-- resources/views/customer/productDetail.blade.php -->
-
 <title>{{ $produk->nama }} - ATMA KITCHEN</title>
 @extends('dashboard.navbar')
 

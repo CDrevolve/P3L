@@ -2,33 +2,32 @@
 
 @section('content')
 <style>
-
     h1 {
         color: #fff;
         text-align: center;
     }
 
-    .btn-primary{
-        background-color:#B0A3C1;
-    }
-    .btn-primary:hover {
-    background-color: #FFD9C0;
-    color: white;
+    .btn-primary {
+        background-color: #B0A3C1;
     }
 
-    .alert-success{
-        background-color: #B0A3C1;
+    .btn-primary:hover {
+        background-color: #FFD9C0;
         color: white;
     }
 
+    .alert-success {
+        background-color: #B0A3C1;
+        color: white;
+    }
 </style>
 <div class="container my-5">
     <h1>Daftar Pesanan Perlu Konfirmasi</h1>
 
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
     @endif
 
     <table id="tableFilter" class="table table-bordered">
@@ -37,7 +36,7 @@
                 <th>Customer</th>
                 <th>Nama</th>
                 <th>Isi</th>
-                <th>Harga</th>
+                <th>Total Harga</th>
                 <th>Tanggal</th>
                 <th>Status</th>
                 <th>Aksi</th>
@@ -49,7 +48,7 @@
                 <td>{{ $pesanan->customer->nama }}</td>
                 <td>{{ $pesanan->nama }}</td>
                 <td>{{ $pesanan->isi }}</td>
-                <td>{{ $pesanan->harga }}</td>
+                <td>{{ $pesanan->jumlah_pembayaran }}</td>
                 <td>{{ $pesanan->tanggal }}</td>
                 <td>{{ $pesanan->status }}</td>
                 <td>
@@ -68,6 +67,8 @@
                         <div class="modal-body">
                             <p>Bukti Pembayaran:</p>
                             <img src="{{ asset($pesanan->bukti_pembayaran) }}" alt="Bukti Pembayaran" style="max-width: 50%; height: auto;">
+                            <h3>Jumlah yang harus dibayar:</h3>
+                            <h5>{{$pesanan->jumlah_pembayaran}}</h5>
                             <form method="POST" action="{{ route('pesanan.konfirmasi', $pesanan->id) }}">
                                 @csrf
                                 <div class="mb-3">

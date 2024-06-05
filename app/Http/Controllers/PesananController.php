@@ -23,11 +23,13 @@ class PesananController extends Controller
 
         $pesanan = Pemesanan::findOrFail($id);
         $pesanan->jarak = $request->input('jarak');
+        $pesanan->status = 'Belum Bayar';
         $pesanan->updateHarga();
         $pesanan->save();
 
         return redirect()->route('pesanan.index')->with('success', 'Jarak dan harga berhasil diperbarui.');
     }
+
 
     public function pesananSudahDibayar()
     {
@@ -96,4 +98,3 @@ class PesananController extends Controller
         return redirect()->route('pesanan.sudahDipickup')->with('success', 'Status pesanan berhasil diperbarui.');
     }
 }
-
