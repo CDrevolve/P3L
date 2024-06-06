@@ -21,6 +21,7 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MoKonfirPesanan;
+use App\Http\Controllers\AjuanSaldoController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -88,6 +89,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
+    Route::resource('/AjuanSaldo', AjuanSaldoController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
@@ -99,6 +101,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/sudah-dibayar', [PesananController::class, 'pesananSudahDibayar'])->name('pesanan.sudahDibayar');
     Route::post('/pesanan/konfirmasi-pembayaran/{id}', [PesananController::class, 'konfirmasiPembayaran'])->name('pesanan.konfirmasi');
 });
+
+
 
 
 
