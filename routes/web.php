@@ -17,6 +17,7 @@ use App\Http\Controllers\ProfileAdminController;
 use App\Http\Controllers\ProfileMoController;
 use App\Http\Controllers\ProfileOwnerController;
 use App\Http\Controllers\GajiController;
+use App\Http\Controllers\PesananPengirimanController;
 use App\Http\Controllers\AdminDetailProduk;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\PembayaranCustomerController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MoKonfirPesanan;
+use App\Http\Controllers\PesananMobileController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -45,6 +47,7 @@ Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPass
 // })->name('home');
 Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
 
+Route::resource('/pesananMobile', PesananMobileController::class);
 
 Route::get('/dashboardKaryawan', function () {
     return view('dashboard.landingPageKaryawan');
@@ -81,6 +84,8 @@ Route::get('/checkout/receipt/{id}', [CheckoutController::class, 'printReceipt']
 
 
 Route::resource('pesananBayar', PembayaranCustomerController::class);
+Route::get('/pesanan-pengiriman', [PesananPengirimanController::class, 'index'])->name('pesananPengiriman.index');
+Route::put('/status-pesanan/{id}', [PesananPengirimanController::class, 'updateStatus'])->name('pesananPengiriman.update');
 Route::resource('confirmMo', MoKonfirPesanan::class);
 Route::put('confirmMo/terima/{id}', [MoKonfirPesanan::class, 'terima'])->name('confirmMo.terima');
 Route::put('confirmMo/tolak/{id}', [MoKonfirPesanan::class, 'tolak'])->name('confirmMo.tolak');
