@@ -93,7 +93,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
-    Route::resource('/AjuanSaldo', AjuanSaldoController::class);
+    Route::resource('/ajuanSaldo', AjuanSaldoController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');

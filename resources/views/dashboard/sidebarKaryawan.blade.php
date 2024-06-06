@@ -31,7 +31,7 @@
             background-color: #B0A3C1;
             padding: 15px;
             color: #fff;
-            font-family: 'Arial', sans-serif; 
+            font-family: 'Arial', sans-serif;
             font-weight: bold;
         }
 
@@ -79,7 +79,7 @@
                     <li class="nav-item"> <a href="{{ route('customer.index')}}" class="nav-link">Customers</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.index') }}" class="nav-link">Input Jarak</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.sudahDibayar') }}" class="nav-link">Konfirmasi Pesanan</a> </li>
-                    <li class="nav-item"> <a href="{{ route('pesanan.sudahDibayar') }}" class="nav-link">Penarikan Saldo</a> </li>
+                    <li class="nav-item"> <a href="{{ route('ajuanSaldo.index') }}" class="nav-link">Penarikan Saldo</a> </li>
                     <li class="nav-item"> <a href="{{ route('profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.sedangDiproses') }}" class="nav-link">Pesanan diproses</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.sudahDipickup') }}" class="nav-link">Pesanan dipickup</a> </li>
