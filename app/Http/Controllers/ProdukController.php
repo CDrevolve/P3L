@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Jenis;
-// use Dotenv\Validator;
+use App\Models\Hampers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,20 +13,23 @@ class ProdukController extends Controller
     public function index()
     {
         $produk = Produk::all();
-        return view('admin.daftar_produk', compact('produk'));
+        $hampers = Hampers::all();
+        return view('admin.daftar_produk', compact('produk', 'hampers'));
     }
+
     public function indexDashboard()
     {
         $produk = Produk::all();
-        return view('dashboard.landingpage', compact('produk'));  
+        $hampers = Hampers::all();
+        return view('dashboard.landingpage', compact('produk', 'hampers'));
     }
 
     public function show($id_produk)
     {
         $produk = Produk::findOrFail($id_produk);
-        return view("admin.isi_produk", compact('produk'));
+        $hampers = Hampers::all(); 
+        return view("admin.isi_produk", compact('produk', 'hampers'));
     }
-    
 
     public function create()
     {
@@ -36,7 +39,6 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'id_jenis' => 'required|numeric',
             'nama' => 'required|string|max:255',
@@ -44,19 +46,11 @@ class ProdukController extends Controller
             'harga' => 'required|numeric',
             'kuota_harian' => 'required|numeric',
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
         ]);
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
         }
-        // $request->validate([
-        //     'id_jenis' => 'required|numeric',
-        //     'nama' => 'required|string|max:255',
-        //     'stok' => 'required|numeric',
-        //     'harga' => 'required|numeric',
-        //     'kuota_harian' => 'required|numeric',
-        //     'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
 
         $image = $request->file('foto');
         $imageName = $image->getClientOriginalName();
@@ -71,11 +65,12 @@ class ProdukController extends Controller
             'harga' => $request->input('harga'),
             'kuota_harian' => $request->input('kuota_harian'),
             'foto' => $destinationPath,
-            'kuota_harian_terpakai' =>'0',
+            'kuota_harian_terpakai' => '0',
         ]);
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan');
     }
+
     public function edit($id_produk)
     {
         $produk = Produk::findOrFail($id_produk);
@@ -104,13 +99,11 @@ class ProdukController extends Controller
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus');
     }
+
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-
-        // Lakukan pencarian berdasarkan keyword
         $produk = Produk::where('nama', 'like', '%' . $keyword . '%')->get();
-
         return view('admin.daftar_produk', compact('produk'));
     }
 }

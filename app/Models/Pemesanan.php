@@ -28,6 +28,7 @@ class Pemesanan extends Model
         'jumlah_pembayaran',
         'tips',
         'no_nota',
+        'poin_diperoleh',
     ];
 
     protected $dates = ['tanggal'];
@@ -47,6 +48,11 @@ class Pemesanan extends Model
         return $this->belongsTo(Alamat::class, 'id_alamat');
     }
 
+    public function detailpemesanans()
+    {
+        return $this->hasMany(DetailPemesanan::class, 'id_pemesanan');
+    }
+    
     public function calculateOngkir()
     {
         if ($this->jarak <= 5) {

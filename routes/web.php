@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\Hampers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataPenitipController;
 use App\Http\Controllers\BahanBakuController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
+use App\Http\Controllers\HampersController;
+use App\Http\Controllers\TanggalController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -57,6 +60,7 @@ Route::put('/profile/update', [ProfileController::class, 'update'])->name('profi
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
 Route::resource('/pesanan',PesanController::class);
+Route::get('/pesanhampers/{id}',[PesanController::class, 'showHampers'])->name('pesanan.showHampers');
 Route::post('/order/complete/{id}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
 Route::post('/order/complete/{id}/{status}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
 
@@ -74,8 +78,10 @@ Route::get('/checkout/receipt/{id}', [CheckoutController::class, 'printReceipt']
 Route::resource('pesananBayar', PembayaranCustomerController::class);
 
 Route::prefix('admin')->group(function () {
+    Route::resource('/hampers', HampersController::class);
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
+    Route::get('/hampers/{id}', [HampersController::class, 'show'])->name('hampers.show');
     Route::resource('/bahanbaku', BahanBakuController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
@@ -97,12 +103,13 @@ Route::prefix('mo')->group(function () {
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+    Route::get('/pemesanans', [PesananController::class, 'prosesIndex'])->name('pemesanans.index');
+    Route::post('/pemesanans/{id}/proses', 'PesananController@prosesPesanan')->name('pemesanans.proses');
 });
 
 
-
-
 Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
+Route::post('/select-tanggal', [TanggalController::class, 'selectTanggal'])->name('select.tanggal');
 
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);
 Route::get('bahanbaku/fetchAll', [BahanBakuController::class, 'fetchAll']);

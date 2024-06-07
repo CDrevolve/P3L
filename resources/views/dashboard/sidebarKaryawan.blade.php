@@ -82,6 +82,7 @@
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pemesanans.index') }}" class="nav-link">Pemesanan</a> </li>
                     @endif
                 </ul>
             </div>

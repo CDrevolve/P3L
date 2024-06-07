@@ -38,6 +38,7 @@
     h1 {
         color: #333;
         text-align: center;
+        margin-bottom: 20px;
     }
 
     h2 {
@@ -49,11 +50,10 @@
         text-decoration: none;
     }
 
-
-
-
     .search-container {
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
     }
 
     .search-container input[type=text] {
@@ -61,6 +61,7 @@
         border-radius: 5px;
         border: 1px solid #ccc;
         width: 300px;
+        margin-right: 10px;
     }
 
     .search-container button {
@@ -70,20 +71,48 @@
         background-color: #007bff;
         color: #fff;
         cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-container button:hover {
+        background-color: #0056b3;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .action-buttons a {
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-buttons a:hover {
+        background-color: #28a745;
     }
 </style>
 
-
-
 <div class="container">
-
     <!-- Form pencarian -->
     <div class="search-container">
         <input type="text" id="searchInput" placeholder="Cari produk...">
-        <button onclick="search()" class="btn btn-primary">Search</button>
+        <button onclick="search()">Search</button>
+    </div>
+
+    <!-- Tombol untuk menambah produk dan hampers -->
+    <div class="action-buttons">
+        <a href="{{ route('produk.create') }}">Tambah Produk</a>
+        <a href="{{ route('hampers.create') }}">Tambah Hampers</a>
     </div>
 
     <!-- Daftar produk -->
+    <h1>Daftar Produk</h1>
     <div id="productList" class="row">
         @foreach ($produk as $produk)
         <div class="card">
@@ -93,8 +122,16 @@
         @endforeach
     </div>
 
-    <!-- Tombol untuk menambah produk -->
-    <a href="{{ route('produk.create') }}" class="btn btn-success">Tambah Produk</a>
+    <!-- Daftar hampers -->
+    <h1>Daftar Hampers</h1>
+    <div id="hampersList" class="row">
+        @foreach ($hampers as $hampers)
+        <div class="card">
+            <h2><a href="{{ route('hampers.show', $hampers->id) }}">{{ $hampers->nama }}</a></h2>
+            <!-- Tambahkan informasi hampers lainnya di sini -->
+        </div>
+        @endforeach
+    </div>
 </div>
 
 <script>

@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATMA KITCHEN - Produk</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+@extends('dashboard.navbar')
+@section('content')
     <style>
         .hero-section {
             padding: 4rem 0;
@@ -70,8 +62,6 @@
 </head>
 
 <body>
-    @extends('dashboard.navbar')
-    @section('content')
 
     <!-- Hero Section -->
     <section class="hero-section">
@@ -88,27 +78,78 @@
         </div>
     </section>
 
-    <!-- Products Section -->
-    <section class="products-section py-5">
-        <div class="container">
-            <div class="row">
-                @foreach ($produk as $product)
-                <div class="col-md-4 mb-4">
-                    <div class="card" onclick="window.location.href='{{ route('pesanan.show', $product->id) }}'">
-                        <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $product->nama }}</h5>
-                            <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
+    <!-- Shop Now Button -->
+    <div class="container mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tanggalModal">
+            Shop Now
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="tanggalModal" tabindex="-1" aria-labelledby="tanggalModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('select.tanggal') }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tanggalModalLabel">Pilih Tanggal Pesanan</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="tanggal" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                         </div>
                     </div>
-                </div>
-                @endforeach
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Pilih</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    @endsection
-</body>
+    @if(isset($tanggal) && isset($produk) && isset($hampers))
+<section class="products-section py-5">
+    <div class="container">
+        <div class="row">
+            @foreach ($produk as $product)
+            <div class="col-md-4 mb-4">
+                <div class="card" onclick="window.location.href='{{ route('pesanan.show', $product->id) }}'">
+                    <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $product->nama }}</h5>
+                        <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
 
-</html>
+<!-- Hampers Section -->
+@if(isset($tanggal) && isset($produk) && isset($hampers))
+<section class="hampers-section py-5">
+    <div class="container">
+        <div class="row">
+            @foreach ($hampers as $hamper)
+            <div class="col-md-4 mb-4">
+                <div class="card" onclick="window.location.href='{{ route('pesanan.showHampers', $hamper->id) }}'">
+                    <img src="{{ asset($hamper->foto) }}" class="card-img-top" alt="{{ $hamper->nama }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $hamper->nama }}</h5>
+                        <p class="card-text product-price">Rp {{ number_format($hamper->harga, 0, ',', '.') }}</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz
+@endsection

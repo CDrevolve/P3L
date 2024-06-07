@@ -22,7 +22,6 @@ class Produk extends Model
         'harga',
         'kuota_harian',
         'foto',
-        'kuota_harian_terpakai',
     ];
     public function updateStokAndKuota($jumlah, $tanggal)
     {
