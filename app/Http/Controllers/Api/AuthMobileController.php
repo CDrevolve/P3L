@@ -35,7 +35,7 @@ class AuthMobileController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('Authentication Token')->plainTextToken;
+        $token = $user->createToken('Authentication Token')->accessToken;
 
         return response()->json([
             'message' => 'Authenticated',

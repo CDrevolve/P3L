@@ -23,6 +23,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\HampersController;
 use App\Http\Controllers\TanggalController;
+use App\Http\Controllers\LaporanController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -103,8 +104,12 @@ Route::prefix('mo')->group(function () {
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
-    Route::get('/pemesanans', [PesananController::class, 'prosesIndex'])->name('pemesanans.index');
-    Route::post('/pemesanans/{id}/proses', 'PesananController@prosesPesanan')->name('pemesanans.proses');
+    Route::get('/pesanan/prosesIndex', [PesananController::class, 'prosesIndex'])->name('pesanan.prosesIndex');
+    Route::post('/pesanan/proses/{id}', [PesananController::class, 'prosesPesanan'])->name('pemesanans.proses');
+    Route::post('/pemesanans/prosesSemua', [PesananController::class, 'prosesSemua'])->name('pemesanans.prosesSemua');
+    Route::get('/pemesanans/riwayat-pemakaian', [PesananController::class, 'riwayatIndex'])->name('pemesanans.riwayatIndex');
+    Route::get('/laporan/penjualan-bulanan', [LaporanController::class, 'laporanPenjualanBulanan'])->name('laporan.penjualanBulanan');
+Route::get('/laporan/stok-bahan-baku', [LaporanController::class, 'laporanStokBahanBaku'])->name('laporan.stokBahanBaku');
 });
 
 
