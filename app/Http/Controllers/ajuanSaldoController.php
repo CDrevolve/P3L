@@ -10,7 +10,7 @@ class ajuanSaldoController extends Controller
     //
     public function index()
     {
-        $ajuanSaldo = AjuanSaldo::all();
+        $ajuanSaldo = AjuanSaldo::where('status', 'Menunggu Konfirmasi')->get;
 
         return view('admin.ajuanSaldo', compact('ajuanSaldo'));
     }

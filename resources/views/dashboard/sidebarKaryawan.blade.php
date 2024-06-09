@@ -92,10 +92,18 @@
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
                     <li class="nav-item"> <a href="{{ route('mo.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Laporan Presensi & Gaji</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Laporan Pengeluaran Pemasukan</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Laporan Rekap Transaksi Penitip</a> </li>
+
                     @elseif(Auth::user()->role->id == '1')
                     <li class="nav-item"> <a href="{{ route('owner.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
                     <li class="nav-item"> <a href="{{ route('owner.karyawann') }}" class="nav-link">Kelola Gaji Karyawan</a> </li>
                     <li class="nav-item"> <a href="{{ route('confirmMo.index') }}" class="nav-link">Confirm Pesanan</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Laporan Presensi & Gaji</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Laporan Pengeluaran Pemasukan</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Laporan Rekap Transaksi Penitip</a> </li>
+
                     @endif
 
 
