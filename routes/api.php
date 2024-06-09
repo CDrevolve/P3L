@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthMobileController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Api\ProdukMobileController;
+use App\Http\Controllers\api\ajuanSaldoMobile;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,3 +29,5 @@ Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 
 
 Route::get('/produk', [ProdukMobileController::class, 'index']);
 Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
+
+Route::get('/ajuanSaldo', [ajuanSaldoMobile::class, 'index']);

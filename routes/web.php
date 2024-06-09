@@ -26,7 +26,9 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MoKonfirPesanan;
 use App\Http\Controllers\AjuanSaldoController;
+use App\Http\Controllers\LaporanPemasukandanPengeluaranController;
 use App\Http\Controllers\LaporanPresensiController;
+use App\Http\Controllers\LaporanTransaksiPenitipController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -129,6 +131,8 @@ Route::prefix('mo')->group(function () {
 
 Route::prefix('owner')->group(function () {
     Route::resource('laporanPresensi', LaporanPresensiController::class);
+    Route::resource('laporanPemasukandanPengeluaran', LaporanPemasukandanPengeluaranController::class);
+    Route::resource('laporanTransaksiPenitip', LaporanTransaksiPenitipController::class);
     Route::get('/karyawann', [GajiController::class, 'index'])->name('owner.karyawann');
     Route::get('/edit_gaji/{karyawan}', [GajiController::class, 'editGaji'])->name('owner.edit_gaji');
     Route::put('/update_gaji/{karyawan}', [GajiController::class, 'updateGaji'])->name('owner.update_gaji');
