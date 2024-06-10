@@ -32,7 +32,7 @@ Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 
 
 
 
-Route::resource('laporanPPMobile', LaporanPPMobile::class);
+
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
@@ -41,4 +41,5 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
     Route::resource('ajuanSaldoMobile', ajuanSaldoMobile::class);
     Route::get('showCustomer', [AuthMobileController::class, 'showCustomer']);
+    Route::post('laporanPPMobile/laporan', [LaporanPPMobile::class, 'laporan'])->name('laporanPPMobile.laporan');
 });

@@ -10,7 +10,7 @@ class ajuanSaldoController extends Controller
     //
     public function index()
     {
-        $ajuanSaldo = AjuanSaldo::where('status', 'Menunggu Konfirmasi')->get;
+        $ajuanSaldo = AjuanSaldo::where('status', 'Menunggu Konfirmasi')->get();
 
         return view('admin.ajuanSaldo', compact('ajuanSaldo'));
     }
@@ -21,7 +21,7 @@ class ajuanSaldoController extends Controller
         return redirect()->route('ajuanSaldo.index');
     }
 
-    public function konfirmasi($id)
+    public function update($id)
     {
         $ajuanSaldo = AjuanSaldo::find($id);
         $ajuanSaldo->status = 'Dikonfirmasi';

@@ -86,6 +86,7 @@
                 <th class="center">Deskripsi</th>
                 <th class="center">Pemasukan</th>
                 <th class="center">Pengeluaran</th>
+
             </tr>
         </thead>
 
@@ -105,7 +106,12 @@
                 <td></td>
                 <td>{{ number_format($gaji, 0, ',', '.') }}</td>
             </tr>
-            @foreach($pengeluaran as $keluar)
+            <tr>
+                <td>Bahan Baku</td>
+                <td></td>
+                <td>{{ number_format($totalbahanbaku, 0, ',', '.') }}</td>
+            </tr>
+            @foreach($pengeluaranlain as $keluar)
             <tr>
                 <td>{{ $keluar->nama }}</td>
                 <td></td>

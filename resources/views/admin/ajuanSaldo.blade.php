@@ -41,30 +41,43 @@
                 <td>{{ $ajuan->no_rekening }}</td>
                 <td>{{ $ajuan->status }}</td>
 
-                <td> <button class="btn btn-success">
+                <td>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#terimaModal{{$ajuan->id}}" data-item-id="{{ $ajuan->id }}">
                         Konfirmasi
-                    </button><a class="btn btn-success" href="">Konfirmasi</a>
-                </td>
+                    </button>
 
-                <div>
-                    <!-- Modal edit-->
-                    <div class="modal fade">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Edit Item</h5>
-                                </div>
-                                <div class="modal-body  ">
-                                    <form action="{{ route('ajuanSaldo.update', $ajuan->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="form-group">
-                                    </form>
+                    <div>
+                        <!-- Modal edit-->
+                        <div class="modal fade" id="terimaModal{{$ajuan->id}}" tabindex="-1" role="dialog" aria-labelledby="terimaModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Konfirmasi</h5>
+                                    </div>
+                                    <div class="modal-body  ">
+                                        <form action="{{ route('ajuanSaldo.update', $ajuan->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <p>
+                                                Nama Customer: {{ $ajuan->customer->nama }} <br>
+                                                Tarik Saldo : {{ $ajuan->saldo }} <br>
+                                                Bank : {{ $ajuan->bank }} <br>
+
+                                                Nomor Rekening : {{ $ajuan->no_rekening }}
+
+                                            </p>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" id="saveChangesBtn">Save changes</button>
+                                            </div>
+                                        </form>
+
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </tr>
             @empty
             <td>Data tidak ditemukan</td>

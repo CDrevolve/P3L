@@ -24,6 +24,7 @@ class LaporanPemasukandanPengeluaranController extends Controller
 
     public function laporan(Request $request)
     {
+
         $bulan = date('m', strtotime($request->dates));
         $tahun = date('Y', strtotime($request->dates));
 
@@ -34,9 +35,19 @@ class LaporanPemasukandanPengeluaranController extends Controller
             ->get(['tanggal', 'jumlah_pembayaran', 'tips', 'status']);
 
         // Pengeluaran
-        $pengeluaran = PengeluaranLain::whereYear('tanggal', $tahun)
+        $pengeluaranlain = PengeluaranLain::whereYear('tanggal', $tahun)
             ->whereMonth('tanggal', $bulan)
             ->get(['tanggal', 'nama', 'jumlah', 'harga', DB::raw('(jumlah * harga) as total')]);
+
+        $pengeluaran = Pembelian::whereYear('tanggal', $tahun)
+            ->whereMonth('tanggal', $bulan)
+            ->get(['tanggal', 'nama', 'harga', 'jumlah', DB::raw('(harga * jumlah) as total')]);
+        $totalbahanbaku = 0;
+
+        foreach ($pengeluaran as $pengeluaran) {
+            $totalbahanbaku += $pengeluaran->total;
+        }
+
 
 
         $gaji = $this->getGaji($bulan, $tahun);
@@ -52,11 +63,11 @@ class LaporanPemasukandanPengeluaranController extends Controller
 
         // Menghitung total pemasukan dan pengeluaran
         $totalPemasukan = $pemasukan->sum('jumlah_pembayaran') + $pemasukan->sum('tips');
-        $totalPengeluaran = $pengeluaran->sum('total');
+        $totalPengeluaran = $pengeluaranlain->sum('total') + $totalbahanbaku + $gaji;
 
         // dd($pemasukan, $pengeluaran, $totalPemasukan, $totalPengeluaran, $bulanFormatted, $tahun);
 
-        return view('MO.laporan.laporanPemasukandanPengeluaran', compact('pemasukan', 'pengeluaran', 'totalPemasukan', 'totalPengeluaran', 'bulanFormatted', 'tahun', 'gaji'));
+        return view('MO.laporan.laporanPemasukandanPengeluaran', compact('pemasukan', 'totalbahanbaku', 'pengeluaranlain', 'totalPemasukan', 'totalPengeluaran', 'bulanFormatted', 'tahun', 'gaji'));
     }
 
     public function getGaji($bulan, $tahun)
