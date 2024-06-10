@@ -7,12 +7,6 @@
         text-align: left;
     }
 
-    .hero-section {
-        padding: 4rem 0;
-        text-align: left;
-    }
-
-
     .hero-section h1 {
         font-family: 'Playfair Display', serif;
         font-size: 2.5rem;
@@ -67,7 +61,6 @@
     }
 </style>
 
-
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
@@ -83,7 +76,6 @@
     </div>
 </section>
 
-
 <!-- Products Section -->
 <section class="products-section py-5">
     <div class="container">
@@ -98,9 +90,8 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
     </div>
 </section>
 

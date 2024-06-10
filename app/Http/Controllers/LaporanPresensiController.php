@@ -3,65 +3,79 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\LaporanPresensi;
 use App\Models\Presensi;
-use App\Models\Karyawan;
+use App\Models\LaporanPresensi;
 use Carbon\Carbon;
 
 class LaporanPresensiController extends Controller
 {
-    //
+
     public function index()
     {
-        return view('owner.laporanPresensiKaryawan');
+        return view('MO.laporan.laporanPresensi');
     }
 
-    public function store(Request $request)
+    public function laporan(Request $request)
     {
-        $karyawan = Karyawan::all();
+        $bulan = date('m', strtotime($request->dates));
+        $tahun = date('Y', strtotime($request->dates));
 
-        foreach ($karyawan as $karyawan) {
+        $presensi = Presensi::whereYear('tanggal', $tahun)
+            ->whereMonth('tanggal', $bulan)
+            ->get();
 
-            $totalhadir = 0;
-            $totalbolos = 0;
-            $presensi = Presensi::where('id_karyawan', $karyawan->id)->where('tanggal', 'like', '%' . $request->tanggal . '/' . $request->bulan)->get();
+        if ($presensi->isEmpty()) {
+            return redirect()->route('laporanPresensi.index')->with('error', 'Data tidak ditemukan');
+        }
 
-            $checkLaporan = LaporanPresensi::where('id_karyawan', $karyawan->id)->where('bulan', $request->bulan)->where('tahun', $request->tahun)->get();
-            foreach ($checkLaporan as $checkLaporan) {
-                $checkLaporan->delete();
-            }
+        $absen = [];
 
-            $laporanPresensi = new LaporanPresensi;
-            $laporanPresensi->nama = $karyawan->nama;
-            $laporanPresensi->bulan = $request->bulan;
-            $laporanPresensi->tahun = $request->tahun;
-
-            foreach ($presensi as $presensi) {
-                if ($presensi->status == 'hadir') {
-                    $totalhadir++;
-                } else if ($presensi->status == 'bolos') {
-                    $totalbolos++;
+        foreach ($presensi as $p) {
+            if (!isset($absen[$p->id_karyawan])) {
+                if ($p->status == 'masuk') {
+                    $absen[$p->id_karyawan] = [
+                        'nama' => $p->karyawan->nama,
+                        'masuk' => 1,
+                        'bolos' => 0,
+                        'honor_harian' => $p->karyawan->gaji,
+                        'bonus_rajin' => 0,
+                        'total' => $p->karyawan->gaji
+                    ];
+                } else {
+                    $absen[$p->id_karyawan] = [
+                        'nama' => $p->karyawan->nama,
+                        'masuk' => 0,
+                        'bolos' => 1,
+                        'honor_harian' => 0,
+                        'bonus_rajin' => 0,
+                        'total' => 0
+                    ];
+                }
+            } else {
+                if ($p->status == 'masuk') {
+                    $absen[$p->id_karyawan]['masuk']++;
+                    $absen[$p->id_karyawan]['honor_harian'] += $p->karyawan->gaji;
+                    $absen[$p->id_karyawan]['total'] = $absen[$p->id_karyawan]['honor_harian'] + $absen[$p->id_karyawan]['bonus_rajin'];
+                } else {
+                    $absen[$p->id_karyawan]['bolos']++;
                 }
             }
-
-            $laporanPresensi->jumlah_hadir = $totalhadir;
-            $laporanPresensi->jumlah_bolos = $totalbolos;
-            $laporanPresensi->honor_harian = $karyawan->gaji * $totalhadir;
-
-            if ($laporanPresensi->jumlah_bolos <= 4) {
-                $laporanPresensi->bonus_rajin = $laporanPresensi->honor_harian * 0.1;
-            } else {
-                $laporanPresensi->bonus_rajin = 0;
-            }
-
-            $laporanPresensi->total = $laporanPresensi->honor_harian + $laporanPresensi->bonus_rajin;
         }
-        return redirect()->route('laporanPresensi.index');
+        $total = 0;
+        foreach ($absen as &$a) {
+            if ($a['bolos'] <= 4) {
+                $a['bonus_rajin'] = $a['honor_harian'] * 0.2;
+                $a['total'] = $a['honor_harian'] + $a['bonus_rajin'];
+            }
+            $total += $a['total'];
+        }
+        unset($a);
+        // dd($absen);
+
+        $bulan = Carbon::parse($request->tanggal)->format('F');
+
+        return view('MO.laporan.laporanPresensi', compact('absen', 'bulan', 'tahun', 'total'));
     }
 
-    public function show($id)
-    {
-        $laporanPresensi = LaporanPresensi::find($id);
-        return view('owner.detailLaporanPresensi', compact('laporanPresensi'));
-    }
+
 }

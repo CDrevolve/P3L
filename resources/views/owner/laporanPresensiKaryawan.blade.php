@@ -1,5 +1,5 @@
 @extends('dashboard.sidebarKaryawan')
-@section('section')
+@section('content')
 <div class="card-body">
     <h1>Laporan Presensi dan Gaji Karyawan Perbulan</h1>
 

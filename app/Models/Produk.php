@@ -51,4 +51,5 @@ class Produk extends Model
     {
         return $this->belongsTo(DataPenitip::class, 'id_penitip');
     }
+    
 }

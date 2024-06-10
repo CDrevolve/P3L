@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use App\Models\LaporanPemasukandanPengeluaran;
 use App\Models\LaporanPresensi;
 use App\Models\Pembelian;
 use App\Models\PengeluaranLain;
 use App\Models\Pemesanan;
-use App\Models\Presensi;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
-class LaporanPemasukandanPengeluaranController extends Controller
+class LaporanPPMobile extends Controller
 {
+    //
+
     /**
      * Display a listing of the resource.
      */
@@ -38,14 +40,10 @@ class LaporanPemasukandanPengeluaranController extends Controller
             ->whereMonth('tanggal', $bulan)
             ->get(['tanggal', 'nama', 'jumlah', 'harga', DB::raw('(jumlah * harga) as total')]);
 
-
-        $gaji = $this->getGaji($bulan, $tahun);
-
         // dd($pengeluaran);
-        if ($pemasukan->isEmpty() && $pengeluaran->isEmpty() && $gaji->isEmpty()) {
+        if ($pemasukan->isEmpty() && $pengeluaran->isEmpty()) {
             return redirect()->route('laporanPemasukandanPengeluaran.index')->with('error', 'Data tidak ditemukan');
         }
-
 
         // Format bulan untuk tampilan
         $bulanFormatted = Carbon::parse($request->datePemasukan)->format('F');
@@ -56,65 +54,9 @@ class LaporanPemasukandanPengeluaranController extends Controller
 
         // dd($pemasukan, $pengeluaran, $totalPemasukan, $totalPengeluaran, $bulanFormatted, $tahun);
 
-        return view('MO.laporan.laporanPemasukandanPengeluaran', compact('pemasukan', 'pengeluaran', 'totalPemasukan', 'totalPengeluaran', 'bulanFormatted', 'tahun', 'gaji'));
+        return view('MO.laporan.laporanPemasukandanPengeluaran', compact('pemasukan', 'pengeluaran', 'totalPemasukan', 'totalPengeluaran', 'bulanFormatted', 'tahun'));
     }
 
-    public function getGaji($bulan, $tahun)
-    {
-        $presensi = Presensi::whereYear('tanggal', $tahun)
-            ->whereMonth('tanggal', $bulan)
-            ->get();
-
-        if ($presensi->isEmpty()) {
-            return 0;
-        }
-
-        $absen = [];
-
-        foreach ($presensi as $p) {
-            if (!isset($absen[$p->id_karyawan])) {
-                if ($p->status == 'masuk') {
-                    $absen[$p->id_karyawan] = [
-                        'nama' => $p->karyawan->nama,
-                        'masuk' => 1,
-                        'bolos' => 0,
-                        'honor_harian' => $p->karyawan->gaji,
-                        'bonus_rajin' => 0,
-                        'total' => $p->karyawan->gaji
-                    ];
-                } else {
-                    $absen[$p->id_karyawan] = [
-                        'nama' => $p->karyawan->nama,
-                        'masuk' => 0,
-                        'bolos' => 1,
-                        'honor_harian' => 0,
-                        'bonus_rajin' => 0,
-                        'total' => 0
-                    ];
-                }
-            } else {
-                if ($p->status == 'masuk') {
-                    $absen[$p->id_karyawan]['masuk']++;
-                    $absen[$p->id_karyawan]['honor_harian'] += $p->karyawan->gaji;
-                    $absen[$p->id_karyawan]['total'] = $absen[$p->id_karyawan]['honor_harian'] + $absen[$p->id_karyawan]['bonus_rajin'];
-                } else {
-                    $absen[$p->id_karyawan]['bolos']++;
-                }
-            }
-        }
-        $total = 0;
-        foreach ($absen as &$a) {
-            if ($a['bolos'] <= 4) {
-                $a['bonus_rajin'] = $a['honor_harian'] * 0.2;
-                $a['total'] = $a['honor_harian'] + $a['bonus_rajin'];
-            }
-            $total += $a['total'];
-        }
-        unset($a);
-        // dd($absen);
-
-        return $total;
-    }
     /**
      * Show the form for creating a new resource.
      */
