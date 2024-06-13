@@ -22,6 +22,7 @@ class ProdukController extends Controller
         $produk = Produk::all();
         $hampers = Hampers::all();
         return view('dashboard.landingpage', compact('produk', 'hampers'));
+
     }
 
     public function show($id_produk)

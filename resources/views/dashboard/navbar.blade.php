@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATMA KITCHEN</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet">
@@ -14,7 +14,7 @@
 
     <!-- FontAwesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <style>
         body {
             background-color: #FFE5E8;
@@ -61,7 +61,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('home') }}">
-                <img src="images/logo.PNG" alt="ATMA KITCHEN" class="navbar-logo">
+                <img src="{{asset('images/logo.PNG')}}" alt="ATMA KITCHEN" class="navbar-logo" style="margin-right: 0px;">
                 ATMA KITCHEN
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,27 +69,42 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('chart.index') }}">
-                            <i class="fas fa-shopping-cart"></i> Cart
-                        </a>
-                    </li>
                     @guest
                     <li class="nav-item">
                         <a class="nav-link btn btn-primary" href="{{ route('login') }}">Login</a>
                     </li>
                     @else
                     <li class="nav-item">
+                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('chart.index') }}">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('profile.show') }}">
                             <i class="fas fa-user"></i> Profile
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('pesananBayar.index') }}">
+                            Pembayaran Pesanan
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('pesananPengiriman.index') }}">
+                            Status Pesanan
+                        </a>
+                    </li>
+
+
                     <li class="nav-item">
                         <form id="logoutForm" action="{{ route('actionLogout') }}" method="GET" style="display: none;">
                             @csrf
                         </form>
                         <a href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();" class="btn btn-primary">Logout</a>
                     </li>
+
                     @endguest
                 </ul>
             </div>

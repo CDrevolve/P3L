@@ -26,6 +26,7 @@ class Pemesanan extends Model
         'ongkir',
         'bukti_pembayaran',
         'jumlah_pembayaran',
+        'poin',
         'tips',
         'no_nota',
         'poin_diperoleh',
@@ -70,7 +71,6 @@ class Pemesanan extends Model
     {
         $this->ongkir = $this->calculateOngkir();
         $this->jumlah_pembayaran += $this->ongkir;
-      dd($this);
     }
 
     public function calculateTips()
@@ -82,4 +82,3 @@ class Pemesanan extends Model
         }
     }
 }
-

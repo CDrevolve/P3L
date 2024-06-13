@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('nama');
             $table->date('tanggal_lahir');
             $table->string('no_telp');
-            $table->string('saldo');
-            $table->string('poin');
+            $table->double('saldo');
+            $table->integer('poin');
             $table->string('foto')->nullable();
             $table->timestamps();
         });

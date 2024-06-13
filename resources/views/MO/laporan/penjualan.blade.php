@@ -1,3 +1,4 @@
+
 @extends('dashboard/sidebarKaryawan')
 @section('content')
     <div class="container">
@@ -49,4 +50,5 @@
         </table>
         <h3>Total Penjualan: {{ number_format($totalPenjualan, 0, ',', '.') }}</h3>
     </div>
+
 @endsection

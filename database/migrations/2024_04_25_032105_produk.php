@@ -21,7 +21,7 @@ return new class extends Migration
             $table->double('stok');
             $table->double('harga');
             $table->integer('kuota_harian');
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->integer('kuota_harian_terpakai')->default(0);
             $table->timestamps();
         });

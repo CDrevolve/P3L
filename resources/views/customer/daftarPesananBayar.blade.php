@@ -59,8 +59,8 @@
                                     <br>
                                     <label for="bukti_pembayaran">Bukti Pembayaran</label>
                                     <input class="form-control" type="file" name="bukti_pembayaran" id="bukti_pembayaran" required>
-                                    <br>
 
+                                    <br>
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

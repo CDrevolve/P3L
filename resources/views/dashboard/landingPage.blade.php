@@ -1,3 +1,4 @@
+
 @extends('dashboard.navbar')
 @section('content')
     <style>
@@ -6,53 +7,52 @@
             text-align: left;
         }
 
-        .hero-section h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: #5f4b8b;
-            margin-bottom: 1rem;
-        }
+    .hero-section p {
+        font-size: 1.25rem;
+        color: #333;
+        margin-bottom: 2rem;
+    }
 
-        .hero-section p {
-            font-size: 1.25rem;
-            color: #333;
-            margin-bottom: 2rem;
-        }
+    .hero-section .btn {
+        margin-right: 1rem;
+    }
 
-        .hero-section .btn {
-            margin-right: 1rem;
-        }
+    .card {
+        height: 100%;
+        background-color: #fff;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.2s;
+    }
 
-        .card {
-            height: 100%;
-            background-color: #fff;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            overflow: hidden;
-            text-align: center;
-            transition: transform 0.2s;
-        }
+    .card:hover {
+        transform: translateY(-5px);
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .card img {
+        max-height: 200px;
+        object-fit: cover;
+    }
 
-        .card img {
-            max-height: 200px;
-            object-fit: cover;
-        }
+    .card-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        color: #333;
+    }
 
-        .card-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            color: #333;
-        }
+    .card-text {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
 
-        .card-text {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
+    .product-price {
+        font-weight: bold;
+        color: #333;
+    }
+</style>
 
         .product-price {
             font-weight: bold;
@@ -74,9 +74,12 @@
                 <div class="col-md-6 image-section">
                     <img src="https://cdn.idntimes.com/content-images/community/2022/07/fromandroid-e51521742121f6c85d23df07c7fc3d95_600x400.jpg" alt="Cake Image" class="img-fluid">
                 </div>
+
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Shop Now Button -->
     <div class="container mt-4">
@@ -99,6 +102,7 @@
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
                             <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -123,11 +127,14 @@
                         <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
                     </div>
                 </div>
+
             </div>
+
             @endforeach
         </div>
     </div>
 </section>
+
 @endif
 
 <!-- Hampers Section -->
@@ -153,3 +160,4 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz
 @endsection
+

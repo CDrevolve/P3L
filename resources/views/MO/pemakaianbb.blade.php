@@ -15,7 +15,9 @@
             <tbody>
                 @foreach ($riwayatPemakaian as $pemakaian)
                     <tr>
+
                         <td>{{ \Carbon\Carbon::parse($pemakaian->created_at)->format('d-m-Y') }}</td>
+
                         <td>{{ $pemakaian->bahan_baku->nama }}</td>
                         <td>{{ $pemakaian->jumlah }}</td>
                     </tr>
@@ -23,4 +25,5 @@
             </tbody>
         </table>
     </div>
+
 @endsection
