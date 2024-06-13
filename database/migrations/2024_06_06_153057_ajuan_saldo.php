@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("chart", function (Blueprint $table){
+        //
+        Schema::create('ajuan_saldos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_customer')->constrained('customers');
-            $table->foreignId('id_produk')->constrained('produks');
-            $table->double('jumlah');
+            $table->integer('saldo');
+            $table->string('bank');
+            $table->string('no_rekening');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::dropIfExists('chart');
+        Schema::dropIfExists('ajuan_saldos');
     }
 };

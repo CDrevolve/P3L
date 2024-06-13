@@ -28,6 +28,8 @@ use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MoKonfirPesanan;
 use App\Http\Controllers\laporanpenggunaanbahanbakuController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\AjuanSaldoController;
+
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -96,6 +98,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
     Route::resource('/bahanbaku', BahanBakuController::class);
+    Route::resource('/ajuanSaldo', AjuanSaldoController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
     Route::post('detailproduk/{id}', [AdminDetailProduk::class, 'store'])->name('detailProduk.store');
     Route::put('detailproduk/{id}/{id_resep}/update', [AdminDetailProduk::class, 'update'])->name('detailProduk.update');
@@ -115,6 +118,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/pesanan-telat-bayar', [PesananController::class, 'pesananTelatBayar'])->name('pesanan.telatBayar');
     Route::put('/pesanan/batalkan/{id}', [PesananController::class, 'batalkanPesanan'])->name('pesanan.batalkan');
 });
+
+
 
 
 

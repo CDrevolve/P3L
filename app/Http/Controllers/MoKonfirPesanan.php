@@ -56,41 +56,53 @@ class MoKonfirPesanan extends Controller
                 ->with('error', $insufficientStockItems);
         }
 
-        foreach ($detailPemesanan as $dpn) {
+        // foreach ($detailPemesanan as $dpn) {
 
-            $resep = Resep::where('id_produk', $dpn->id_produk)->first();
+        //     $resep = Resep::where('id_produk', $dpn->id_produk)->first();
 
-            $detailProduk = DetailProduk::where('id_resep', $resep->id)->get();
+        //     $detailProduk = DetailProduk::where('id_resep', $resep->id)->get();
 
-            foreach ($detailProduk as $dp) {
-                $bahanBaku = BahanBaku::findOrFail($dp->id_bahan_baku);
+        //     foreach ($detailProduk as $dp) {
+        //         $bahanBaku = BahanBaku::findOrFail($dp->id_bahan_baku);
 
-                $bahanBaku->stok -= $dp->jumlah;
+        //         $bahanBaku->stok -= $dp->jumlah;
 
-                $bahanBaku->save();
-            }
-        }
+        //         $bahanBaku->save();
+        //     }
+        // }
 
         $pesanan->status = 'Diterima';
         $pesanan->save();
 
         $customer = Customer::findOrFail($pesanan->id_customer);
         $poin = 0;
+        $jumlah = $pesanan->harga;
 
-        if ($pesanan->harga >= 1000000) {
-            $poin = 200 * floor($pesanan->harga / 1000000);
-        } elseif ($pesanan->harga >= 500000) {
-            $poin = 75 * floor($pesanan->harga / 500000);
-        } elseif ($pesanan->harga >= 100000) {
-            $poin = 15 * floor($pesanan->harga / 100000);
-        } elseif ($pesanan->harga >= 10000) {
-            $poin = floor($pesanan->harga / 10000);
+        while ($jumlah >= 10000) {
+            if ($jumlah >= 1000000) {
+                $poin += 200;
+                $jumlah -= 1000000;
+            } else if ($jumlah >= 500000) {
+                $poin += 75;
+                $jumlah -= 500000;
+            } else if ($jumlah >= 100000) {
+                $poin += 15;
+                $jumlah -= 100000;
+            } else if ($jumlah >= 10000) {
+                $poin += 1;
+                $jumlah -= 10000;
+            }
         }
 
-        $orderDate = Carbon::parse($pesanan->tanggal)->format('m-d');
-        $birthday = Carbon::parse($customer->tanggal_lahir)->format('m-d');
+        $orderDateObj = Carbon::parse($pesanan->tanggal);
+        $birthdayObj = Carbon::parse($customer->tanggal_lahir);
 
-        if ($orderDate == $birthday) {
+
+        $rangeStart = $birthdayObj->copy()->subYears(1)->subDays(3);
+        $rangeEnd = $birthdayObj->copy()->addYears(1)->addDays(3);
+
+
+        if ($orderDateObj->between($rangeStart, $rangeEnd)) {
             $poin *= 2;
         }
 
