@@ -6,8 +6,13 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthMobileController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Api\ProdukMobileController;
+
+
+use App\Http\Controllers\api\ajuanSaldoMobile;
+use App\Http\Controllers\api\LaporanPPMobile;
 use App\Http\Controllers\Api\PesanannMobileController;
 use App\Http\Controllers\Api\LaporanMobileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +33,15 @@ Route::post('/loginMobile', [AuthMobileController::class, 'login']);
 Route::post('fetchAll', [AuthController::class, 'fetchAll']);
 Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 'sendEmailMobile'])->name('sendEmailMobile');
 
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('/produk', [ProdukMobileController::class, 'index']);
+    Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
+    Route::resource('ajuanSaldoMobile', ajuanSaldoMobile::class);
+    Route::get('showCustomer', [AuthMobileController::class, 'showCustomer']);
+    Route::post('laporanPPMobile/laporan', [LaporanPPMobile::class, 'laporan'])->name('laporanPPMobile.laporan');
+});
+
 
 Route::get('/produk', [ProdukMobileController::class, 'index']);
 Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
@@ -41,3 +55,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/laporan-penggunaan-bahan-baku', [LaporanMobileController::class, 'laporanPenggunaanBahanBaku']);
     Route::get('/download-penggunaan-bahan-baku-pdf', [LaporanMobileController::class, 'downloadPenggunaanBahanBakuPDF']);
 });
+
+

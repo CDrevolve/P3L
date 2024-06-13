@@ -48,6 +48,10 @@ class Pemesanan extends Model
         return $this->belongsTo(Alamat::class, 'id_alamat');
     }
 
+    function detail_pemesanan(){
+        return $this->hasMany(DetailPemesanan::class, 'id_pemesanan', 'id');
+    }
+
     public function calculateOngkir()
     {
         if ($this->jarak <= 5) {

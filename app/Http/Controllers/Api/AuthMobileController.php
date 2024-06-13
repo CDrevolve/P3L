@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Customer;
+
 
 class AuthMobileController extends Controller
 {
@@ -35,13 +37,33 @@ class AuthMobileController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('Authentication Token')->accessToken;
+
+        $token = $user->createToken('Authentication Token')->plainTextToken;
+        $data = [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'password' => $user->password,
+            'id_role' => $user->id_role,
+            'verify_key' => $user->verify_key,
+            'active' => $user->active,
+            'token' => $token,
+        ];
 
         return response()->json([
             'message' => 'Authenticated',
-            'data' => $user,
-            'token_type' => 'Bearer',
-            'access_token' => $token,
+            'data' => $data,
+
         ]);
+    }
+
+    public function showCustomer()
+    {
+        $customer = Customer::where('id_user', Auth::user()->id)->first();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $customer,
+        ], 200);
     }
 }

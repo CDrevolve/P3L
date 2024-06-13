@@ -29,6 +29,9 @@ use App\Http\Controllers\MoKonfirPesanan;
 use App\Http\Controllers\laporanpenggunaanbahanbakuController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AjuanSaldoController;
+use App\Http\Controllers\LaporanPemasukandanPengeluaranController;
+use App\Http\Controllers\LaporanPresensiController;
+use App\Http\Controllers\LaporanTransaksiPenitipController;
 
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
@@ -46,7 +49,7 @@ Route::get('forgetPassword/verify/{token}', [ForgetPasswordController::class, 'v
 Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('newPassPost');
 
 // Route::get('/', function () {
-//     return view('dashboard.landingPage');
+// return view('dashboard.landingPage');
 // })->name('home');
 Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
 
@@ -140,6 +143,12 @@ Route::prefix('mo')->group(function () {
 });
 
 Route::prefix('owner')->group(function () {
+    Route::get('laporanPresensi', [LaporanPresensiController::class, 'index'])->name('laporanPresensi.index');
+    Route::get('laporanPresensi/laporan', [LaporanPresensiController::class, 'laporan'])->name('laporanPresensi.laporan');
+    Route::get('laporanPemasukandanPengeluaran', [LaporanPemasukandanPengeluaranController::class, 'index'])->name('laporanPemasukandanPengeluaran.index');
+    Route::get('laporanPemasukandanPengeluaran/laporan', [LaporanPemasukandanPengeluaranController::class, 'laporan'])->name('laporanPemasukandanPengeluaran.laporan');
+    Route::get('laporanTransaksiPenitip', [LaporanTransaksiPenitipController::class, 'index'])->name('laporanTransaksiPenitip.index');
+    Route::get('laporanTransaksiPenitip/laporan', [LaporanTransaksiPenitipController::class, 'laporan'])->name('laporanTransaksiPenitip.laporan');
     Route::get('/karyawann', [GajiController::class, 'index'])->name('owner.karyawann');
     Route::get('/edit_gaji/{karyawan}', [GajiController::class, 'editGaji'])->name('owner.edit_gaji');
     Route::put('/update_gaji/{karyawan}', [GajiController::class, 'updateGaji'])->name('owner.update_gaji');

@@ -93,15 +93,27 @@
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
                     <li class="nav-item"> <a href="{{ route('mo.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
+
+                    <li class="nav-item"> <a href="{{ route('laporanPresensi.index') }}" class="nav-link">Laporan Presensi & Gaji</a> </li>
+                    <li class="nav-item"> <a href="{{ route('laporanTransaksiPenitip.index') }}" class="nav-link">Laporan Rekap Transaksi Penitip</a> </li>
+                    <li class="nav-item"> <a href="{{ route('laporanPemasukandanPengeluaran.index') }}" class="nav-link">Laporan Pemasukan dan Pengeluaran Bulanan</a> </li>
+
                     <li class="nav-item"> <a href="{{ route('laporan-penjualan-tahunan') }}" class="nav-link">Laporan penjualan tahunan</a> </li>
                     <li class="nav-item"> <a href="{{ route('pemesanans.riwayatIndex') }}" class="nav-link">Riwayat</a></li>
                     <li class="nav-item"> <a href="{{ route('laporan.penggunaan_bahan_baku') }}" class="nav-link">Laporan Penggunaan Bahan Baku</a></li>
+
                     @elseif(Auth::user()->role->id == '1')
                     <li class="nav-item"> <a href="{{ route('owner.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
                     <li class="nav-item"> <a href="{{ route('owner.karyawann') }}" class="nav-link">Kelola Gaji Karyawan</a> </li>
                     <li class="nav-item"> <a href="{{ route('confirmMo.index') }}" class="nav-link">Confirm Pesanan</a> </li>
+                    
+                    <li class="nav-item"> <a href="{{ route('laporanPresensi.index') }}" class="nav-link">Laporan Presensi & Gaji</a> </li>
+                    <li class="nav-item"> <a href="{{ route('laporanTransaksiPenitip.index') }}" class="nav-link">Laporan Rekap Transaksi Penitip</a> </li>
+                    <li class="nav-item"> <a href="{{ route('laporanPemasukandanPengeluaran.index') }}" class="nav-link">Laporan Pemasukan dan Pengeluaran Bulanan</a> </li>
+                    
                     <li class="nav-item"> <a href="{{ route('laporan-penjualan-tahunanOwner') }}" class="nav-link">Laporan penjualan tahunan</a> </li>
                     <li class="nav-item"> <a href="{{ route('laporan.penggunaan_bahan_bakuOwner') }}" class="nav-link">Laporan Penggunaan Bahan Baku</a></li>
+
                     @endif
 
 
