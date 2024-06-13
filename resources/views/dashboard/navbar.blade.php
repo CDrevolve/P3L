@@ -87,7 +87,13 @@
 
                     <li class="nav-item">
                         <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('pesananBayar.index') }}">
-                            Pesanan
+                            Pembayaran Pesanan
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary d-flex align-items-center" href="{{ route('pesananPengiriman.index') }}">
+                            Status Pesanan
                         </a>
                     </li>
 
