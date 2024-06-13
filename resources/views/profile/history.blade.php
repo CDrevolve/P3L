@@ -59,7 +59,9 @@
                         <td>Rp {{ number_format($order->ongkir, 0, ',', '.') }}</td>
                         <td>Rp {{ number_format($order->jumlah_pembayaran, 0, ',', '.') }}</td>
                         <td>
-                        @if($order->status != 'Checkout' && $order->status != 'BelumBayar')
+
+                            @if($order->status != 'Checkout' && $order->status != 'BelumBayar')
+
                             <form action="{{ route('checkout.printReceipt', ['id' => $order->id]) }}" method="GET">
                             @csrf
                                 <button type="submit" class="btn btn-secondary">Cetak Nota</button>
