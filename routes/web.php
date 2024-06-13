@@ -26,7 +26,8 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\MoKonfirPesanan;
-use App\Http\Controllers\PesananMobileController;
+use App\Http\Controllers\laporanpenggunaanbahanbakuController;
+use App\Http\Controllers\LaporanController;
 
 Route::get("login", [AuthController::class, 'login'])->name('login');
 Route::post('actionLogin', [AuthController::class, 'actionLogin'])->name('actionLogin');
@@ -46,8 +47,6 @@ Route::post('forgetPassword/post', [ForgetPasswordController::class, 'forgetPass
 //     return view('dashboard.landingPage');
 // })->name('home');
 Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
-
-Route::resource('/pesananMobile', PesananMobileController::class);
 
 Route::get('/dashboardKaryawan', function () {
     return view('dashboard.landingPageKaryawan');
@@ -113,6 +112,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/pesanan/sudah-dipickup', [PesananController::class, 'pesananSudahDipickup'])->name('pesanan.sudahDipickup');
     Route::post('/pesanan/update-status/{id}', [PesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
     Route::post('/pesanan/update-pickup-status/{id}', [PesananController::class, 'updatePickupStatus'])->name('pesanan.updatePickupStatus');
+    Route::get('/pesanan-telat-bayar', [PesananController::class, 'pesananTelatBayar'])->name('pesanan.telatBayar');
+    Route::put('/pesanan/batalkan/{id}', [PesananController::class, 'batalkanPesanan'])->name('pesanan.batalkan');
 });
 
 
@@ -125,6 +126,12 @@ Route::prefix('mo')->group(function () {
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
     Route::get('/profile/edit_password', [ProfileMoController::class, 'editPassword'])->name('mo.profile.editPassword');
     Route::post('/profile/update_password', [ProfileMoController::class, 'updatePassword'])->name('mo.profile.updatePassword');
+    Route::get('/laporan-penjualan-tahunan', [LaporanController::class, 'laporanPenjualanTahunan'])->name('laporan-penjualan-tahunan');
+    Route::post('/laporan-penjualan-tahunan/download-pdf', [LaporanController::class, 'downloadPDF'])->name('laporan-penjualan-tahunan.download-pdf');
+    Route::get('/pemesanans/riwayat-pemakaian', [PesananController::class, 'riwayatIndex'])->name('pemesanans.riwayatIndex');
+    Route::get('/laporan-penggunaan-bahan-baku', [LaporanController::class, 'laporanPenggunaanBahanBaku'])->name('laporan.penggunaan_bahan_baku');
+    Route::post('/laporan-penggunaan-bahan-baku/download', [LaporanController::class, 'downloadPenggunaanBahanBakuPDF'])->name('laporan.penggunaan_bahan_baku.download');
+
 });
 
 Route::prefix('owner')->group(function () {
@@ -133,6 +140,9 @@ Route::prefix('owner')->group(function () {
     Route::put('/update_gaji/{karyawan}', [GajiController::class, 'updateGaji'])->name('owner.update_gaji');
     Route::get('/profile/edit_password', [ProfileOwnerController::class, 'editPassword'])->name('owner.profile.editPassword');
     Route::post('/profile/update_password', [ProfileOwnerController::class, 'updatePassword'])->name('owner.profile.updatePassword');
+    Route::get('/laporan-penjualan-tahunan', [LaporanController::class, 'laporanPenjualanTahunanOwner'])->name('laporan-penjualan-tahunanOwner');
+    Route::post('/laporan-penjualan-tahunan/download-pdf', [LaporanController::class, 'downloadPDFOwner'])->name('laporan-penjualan-tahunan.download-pdfOwner');
+    Route::get('/laporan-penggunaan-bahan-baku', [LaporanController::class, 'laporanPenggunaanBahanBakuOwner'])->name('laporan.penggunaan_bahan_bakuOwner');
 });
 
 

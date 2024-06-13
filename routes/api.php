@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthMobileController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Api\ProdukMobileController;
-use App\Http\Controllers\Api\PesananMobileController;
+use App\Http\Controllers\Api\PesanannMobileController;
+use App\Http\Controllers\Api\LaporanMobileController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,7 +32,12 @@ Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 
 Route::get('/produk', [ProdukMobileController::class, 'index']);
 Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
 
+
 Route::middleware('auth:api')->group(function () {
-    Route::get('/pesananMobile', [PesananMobileController::class, 'index']);
-    Route::put('/pesananMobile/{id}', [PesananMobileController::class, 'updateStatus']);
+    Route::get('/pesanannMobile', [PesanannMobileController::class, 'index']);
+    Route::put('/pesanannMobile/{id}', [PesanannMobileController::class, 'updateStatus']);
+    Route::get('/laporan-penjualan-tahunan', [LaporanMobileController::class, 'laporanPenjualanTahunan']);
+    Route::get('/download-pdf', [LaporanMobileController::class, 'downloadPDF']);
+    Route::get('/laporan-penggunaan-bahan-baku', [LaporanMobileController::class, 'laporanPenggunaanBahanBaku']);
+    Route::get('/download-penggunaan-bahan-baku-pdf', [LaporanMobileController::class, 'downloadPenggunaanBahanBakuPDF']);
 });
