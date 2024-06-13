@@ -81,15 +81,15 @@
     <div class="container">
         <div class="row">
             @foreach ($produk as $product)
-            <div class="col-md-4 mb-4">
-                <div class="card" onclick="window.location.href='{{ route('pesanan.show', $product->id) }}'">
-                    <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $product->nama }}</h5>
-                        <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
+                <div class="col-md-4 mb-4">
+                    <div class="card" onclick="window.location.href='{{ route('pesanan.show', $product->id) }}'">
+                        <img src="{{ asset($product->foto) }}" class="card-img-top" alt="{{ $product->nama }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->nama }}</h5>
+                            <p class="card-text product-price">Rp {{ number_format($product->harga, 0, ',', '.') }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </div>

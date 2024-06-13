@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Pemesanan;
 use App\Models\Customer;
 use App\Models\Alamat;
+use App\Models\DetailPemesanan;
+use App\Models\PemakaianBahanBaku;
+use App\Models\BahanBaku;
+use App\Models\DetailProduk;
+use App\Models\Produk;
+use App\Models\Resep;
+use Carbon\Carbon;
 
 class PesananController extends Controller
 {
@@ -97,4 +104,38 @@ class PesananController extends Controller
 
         return redirect()->route('pesanan.sudahDipickup')->with('success', 'Status pesanan berhasil diperbarui.');
     }
+
+    public function pesananTelatBayar()
+    {
+        $now = Carbon::now();
+        $pesanans = Pemesanan::where('status', 'belum bayar')
+            ->where('created_at', '<', $now->subDay())
+            ->get();
+
+        return view('admin.pesanan_telat_bayar', compact('pesanans'));
+    }
+
+    public function batalkanPesanan($id)
+{
+    $pesanan = Pemesanan::findOrFail($id);
+
+    $detailPemesanan = DetailPemesanan::where('id_pemesanan', $pesanan->id)->get();
+
+    foreach ($detailPemesanan as $dp) {
+        $produk = Produk::findOrFail($dp->id_produk);
+        $produk->kuota_harian_terpakai -= $dp->jumlah;
+        $produk->save(); 
+    }
+
+    $pesanan->status = 'dibatalkan';
+    $pesanan->save(); 
+
+    return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui menjadi dibatalkan.');
+}
+
+public function riwayatIndex()
+{
+    $riwayatPemakaian = PemakaianBahanBaku::all();
+    return view('mo.pemakaianbb', compact('riwayatPemakaian'));
+}
 }

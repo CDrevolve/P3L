@@ -37,6 +37,7 @@ class AuthMobileController extends Controller
             ], 401);
         }
 
+
         $token = $user->createToken('Authentication Token')->plainTextToken;
         $data = [
             'id' => $user->id,
@@ -48,6 +49,7 @@ class AuthMobileController extends Controller
             'active' => $user->active,
             'token' => $token,
         ];
+
         return response()->json([
             'message' => 'Authenticated',
             'data' => $data,
