@@ -118,7 +118,7 @@
         <p class="product-price">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
         <p>{{ $produk->deskripsi }}</p>
         <p class="card-text">Stok: {{ $produk->stok }}</p>
-        <p class="card-text">Kuota Harian: {{ $produk->kuota_harian }}</p>
+        <p class="card-text">Kuota Harian: {{ $produk->kuota_harian - $detailtanggal->kuota_terpakai}}</p>
     </div>
     <div class="add-to-cart">
         <div class="quantity-control">

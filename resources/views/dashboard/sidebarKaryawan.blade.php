@@ -70,6 +70,7 @@
                     @elseif(Auth::user()->role->id == '3')
                     <li class="nav-item"> <a href="{{ route('karyawan.index') }}" class="nav-link">Employee</a> </li>
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pembelian.index') }}" class="nav-link">Pembelian</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
                     <li class="nav-item"> <a href="{{ route('pesanan.prosesIndex') }}" class="nav-link">Pemesanan</a> </li>
                     <li class="nav-item"> <a href="{{ route('pemesanans.riwayatIndex') }}" class="nav-link">Riwayat</a></li>
@@ -78,8 +79,8 @@
                             Laporan
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('laporan.penjualanBulanan') }}">Laporan Penjualan Bulanan</a></li>
-                            <li><a class="dropdown-item" href="{{ route('laporan.stokBahanBaku') }}">Laporan Stok</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporan.penjualanBulanan') }}">Laporan Penjualan Bulanan</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporan.stokBahanBaku') }}">Laporan Stok Bahan Baku</a></li>
                         </ul>
                     </li>
                     @endif

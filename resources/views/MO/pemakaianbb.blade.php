@@ -15,7 +15,7 @@
             <tbody>
                 @foreach ($riwayatPemakaian as $pemakaian)
                     <tr>
-                        <td>{{ $pemakaian->created_at }}</td>
+                        <td>{{ \Carbon\Carbon::parse($pemakaian->created_at)->format('d-m-Y') }}</td>
                         <td>{{ $pemakaian->bahan_baku->nama }}</td>
                         <td>{{ $pemakaian->jumlah }}</td>
                     </tr>

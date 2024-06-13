@@ -22,7 +22,13 @@ class CheckoutController extends Controller
     $customer = Customer::findOrFail(Auth::id());
     $charts = Chart::where('id_customer', $customer->id)->get();
 
-    $tanggal = Tanggal::findOrFail($request->date);
+    $tanggal = Tanggal::where('tanggal',$request->date)->first();
+    if($tanggal == null){
+        $tanggal = new Tanggal();
+        $tanggal->tanggal = $request->date;
+        $tanggal->save();
+        $tanggal = Tanggal::where('tanggal',$request->date)->first();
+    }
 
     $totalPrice = 0;
     $productNames = [];
@@ -49,11 +55,17 @@ class CheckoutController extends Controller
         $productNames[] = $produk->nama;
 
         // Buat detail tanggal dengan id_tanggal yang sesuai
-        $detailTanggal = new DetailTanggal();
-        $detailTanggal->kuota_terpakai = $chart->jumlah;
-        $detailTanggal->id_tanggal = $tanggal->id;
-        $detailTanggal->id_produk = $produk->id;
-        $detailTanggal->save();
+        $detailcheck = DetailTanggal::where('id_produk',$produk->id)->where('id_tanggal',$tanggal->id)->first();
+        if($detailcheck == null){
+            $detailTanggal = new DetailTanggal();
+            $detailTanggal->kuota_terpakai = $chart->jumlah;
+            $detailTanggal->id_tanggal = $tanggal->id;
+            $detailTanggal->id_produk = $produk->id;
+            $detailTanggal->save();
+        }else{
+            $detailcheck->kuota_terpakai += $chart->jumlah;
+            $detailcheck->save();
+        }   
     }
 
 
@@ -72,12 +84,13 @@ class CheckoutController extends Controller
     $pemesanan = new Pemesanan();
     $pemesanan->id_customer = $customer->id;
     $pemesanan->id_karyawan = 1;
+    $pemesanan->no_nota = null;
     $pemesanan->nama = $customer->nama;
     $pemesanan->isi = implode(', ', $productNames);
     $pemesanan->harga = $totalPrice;
     $pemesanan->pickup = $metode === 'pickup' ? 1 : 0;
     $pemesanan->status = 'Checkout';
-    $pemesanan->tanggal = $tanggal;
+    $pemesanan->tanggal = $tanggal->tanggal;
     $pemesanan->ongkir = 0;
     $pemesanan->id_alamat = $idAlamat;
     $pemesanan->bukti_pembayaran = null;
@@ -106,13 +119,16 @@ class CheckoutController extends Controller
     $pemesanan->poin_diperoleh = $poin;
     $pemesanan->save();
 
+
     foreach ($charts as $chart) {
         $detail = new DetailPemesanan();
         $detail->id_pemesanan = $pemesanan->id;
         $detail->id_produk = $chart->id_produk;
         $detail->jumlah = $chart->jumlah;
         $detail->save();
+        $chart->delete();
     }
+
     return redirect()->route('checkout.success')->with('success', 'Pesanan berhasil diajukan'); 
     }
     public function success()

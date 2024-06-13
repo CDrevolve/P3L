@@ -109,7 +109,7 @@ Route::prefix('mo')->group(function () {
     Route::post('/pemesanans/prosesSemua', [PesananController::class, 'prosesSemua'])->name('pemesanans.prosesSemua');
     Route::get('/pemesanans/riwayat-pemakaian', [PesananController::class, 'riwayatIndex'])->name('pemesanans.riwayatIndex');
     Route::get('/laporan/penjualan-bulanan', [LaporanController::class, 'laporanPenjualanBulanan'])->name('laporan.penjualanBulanan');
-Route::get('/laporan/stok-bahan-baku', [LaporanController::class, 'laporanStokBahanBaku'])->name('laporan.stokBahanBaku');
+    Route::get('/laporan/stok-bahan-baku', [LaporanController::class, 'laporanStokBahanBaku'])->name('laporan.stokBahanBaku');
 });
 
 

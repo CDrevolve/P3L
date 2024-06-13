@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AuthMobileController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Api\ProdukMobileController;
+use App\Http\Controllers\Api\StokBahanBakuController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,3 +31,4 @@ Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 
 
 Route::get('/produk', [ProdukMobileController::class, 'index']);
 Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
+Route::get('/bahan-baku', [StokBahanBakuController::class, 'index']);
