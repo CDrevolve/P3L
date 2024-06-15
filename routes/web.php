@@ -33,7 +33,6 @@ use App\Http\Controllers\LaporanController;
 
 use App\Http\Controllers\MoKonfirPesanan;
 use App\Http\Controllers\laporanpenggunaanbahanbakuController;
-use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AjuanSaldoController;
 use App\Http\Controllers\LaporanPemasukandanPengeluaranController;
 use App\Http\Controllers\LaporanPresensiController;

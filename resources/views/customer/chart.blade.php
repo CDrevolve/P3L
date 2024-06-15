@@ -40,6 +40,7 @@
     </table>
     <div class="text-end">
         <h4>Total Harga: Rp {{ number_format($total, 0, ',', '.') }}</h4>
+        <h6>Total Point yang diPeroleh: {{$poin}}</h6>
     </div>
 
     <form action="{{ route('checkout') }}" method="POST">

@@ -51,10 +51,7 @@ class MoKonfirPesanan extends Controller
             }
         }
 
-        if (!empty($insufficientStockItems)) {
-            return redirect()->route('confirmMo.index')
-                ->with('error', $insufficientStockItems);
-        }
+        
 
         // foreach ($detailPemesanan as $dpn) {
 
@@ -108,6 +105,12 @@ class MoKonfirPesanan extends Controller
 
         $customer->poin += $poin;
         $customer->save();
+
+        if (!empty($insufficientStockItems)) {
+            
+            return redirect()->route('confirmMo.index')
+                ->with('error', $insufficientStockItems);
+        }
 
         return redirect()->route('confirmMo.index')->with('success', 'Berhasil di terima.');
     }

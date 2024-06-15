@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailPemesanan;
+use App\Models\PemakaianBahanBaku;
+use App\Models\Pemesanan;
 use App\Models\BahanBaku;
 use Illuminate\Http\Request;
 use PDF;
@@ -49,17 +51,7 @@ public function laporanStokBahanBaku(Request $request)
 
     return view('mo.laporan.bahan_baku', compact('data', 'tanggalCetak'));
 }
-=======
-use Illuminate\Http\Request;
-use App\Models\DetailPemesanan;
-use App\Models\PemakaianBahanBaku;
-use App\Models\BahanBaku;
-use App\Models\Pemesanan;
-use Carbon\Carbon;
-use PDF;
 
-class LaporanController extends Controller
-{
     public function laporanPenjualanTahunan(Request $request)
     {
         $tahun = $request->input('tahun') ?: Carbon::now()->year;
@@ -176,3 +168,4 @@ $pdf = PDF::loadView('owner.laporan.penggunaan_bahan_baku_pdf', compact('penggun
 return $pdf->download('Laporan_Penggunaan_Bahan_Baku_' . $startDate . '_to_' . $endDate . '.pdf');
 }
 
+}

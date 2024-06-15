@@ -53,11 +53,6 @@
         color: #333;
     }
 </style>
-
-        .product-price {
-            font-weight: bold;
-            color: #333;
-        }
     </style>
 </head>
 

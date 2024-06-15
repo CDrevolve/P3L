@@ -135,5 +135,19 @@ class CheckoutController extends Controller
     {
         return redirect()->route('home');
     }
+    public function printReceipt($id)
+    {
+        $order = Pemesanan::findOrFail($id);
+        $customer = Customer::findOrFail($order->id_customer);
+        $user = User::findOrFail($customer->id_user);
+        $details = DetailPemesanan::where('id_pemesanan',$order->id)->get();
+        $produks = [];
 
+        // Iterate over each detail to get the related product
+        foreach ($details as $detail) {
+            $produks[] = Produk::findOrFail($detail->id_produk);
+        }
+
+        return view('customer.nota', compact('order','details','produks','user'));
+    }
 }

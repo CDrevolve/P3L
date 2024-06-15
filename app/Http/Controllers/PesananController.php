@@ -12,12 +12,6 @@ use App\Models\DetailProduk;
 use App\Models\Resep;
 use App\Models\Customer;
 use App\Models\Alamat;
-use App\Models\DetailPemesanan;
-use App\Models\PemakaianBahanBaku;
-use App\Models\BahanBaku;
-use App\Models\DetailProduk;
-use App\Models\Produk;
-use App\Models\Resep;
 use Carbon\Carbon;
 
 class PesananController extends Controller
@@ -119,7 +113,7 @@ class PesananController extends Controller
         }
     
         // Update the order status
-        $detailPemesanan->pemesanan->status = 'diproses';
+        $detailPemesanan->pemesanan->status = ' sedang diproses';
         $detailPemesanan->pemesanan->save();
     
         return redirect()->route('pesanan.prosesIndex')->with('success', 'Pesanan berhasil diproses.');
@@ -156,7 +150,7 @@ class PesananController extends Controller
     // Jika semua bahan cukup, proses semua pesanan
     if ($semuaBahanCukup) {
         foreach ($pemesanans as $pemesanan) {
-            $pemesanan->status = 'diproses';
+            $pemesanan->status = 'sedang diproses';
             $pemesanan->save();
 
             foreach ($pemesanan->detailpemesanans as $detailPemesanan) {
@@ -261,4 +255,5 @@ class PesananController extends Controller
     return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui menjadi dibatalkan.');
 
 
+}
 }

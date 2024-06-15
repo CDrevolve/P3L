@@ -19,8 +19,29 @@ class ChartController extends Controller
 
         // Mengambil data chart (keranjang belanja) berdasarkan ID customer
         $chart = Chart::where('id_customer', $customer->id)->get();
+        $totalPrice = 0;
+        foreach($chart as $charts){
+            $produk = Produk::findOrFail($charts->id_produk);
+            $totalPrice += $produk->harga * $charts->jumlah;
+        }
+        $poin = 0;
 
-        return view('customer.chart', compact('chart','customer','alamats'));
+        while ($totalPrice >= 10000) {
+            if ($totalPrice >= 1000000) {
+                $poin += 200;
+                $totalPrice -= 1000000;
+            } else if ($totalPrice >= 500000) {
+                $poin += 75;
+                $totalPrice -= 500000;
+            } else if ($totalPrice >= 100000) {
+                $poin += 15;
+                $totalPrice -= 100000;
+            } else if ($totalPrice >= 10000) {
+                $poin += 1;
+                $totalPrice -= 10000;
+            }
+        }
+        return view('customer.chart', compact('chart','customer','alamats','poin'));
     }
     public function addToChart(Request $request, $id)
     {
