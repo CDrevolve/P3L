@@ -7,8 +7,8 @@ use App\Http\Controllers\Api\AuthMobileController;
 use App\Http\Controllers\ForgetPasswordController;
 use App\Http\Controllers\Api\ProdukMobileController;
 use App\Http\Controllers\Api\StokBahanBakuController;
-use App\Http\Controllers\api\ajuanSaldoMobile;
-use App\Http\Controllers\api\LaporanPPMobile;
+use App\Http\Controllers\Api\AjuanSaldoMobile;
+use App\Http\Controllers\Api\LaporanPPMobile;
 use App\Http\Controllers\Api\PesanannMobileController;
 use App\Http\Controllers\Api\LaporanMobileController;
 
@@ -35,21 +35,21 @@ Route::post('forgetPasswordMobile/sendEmail', [ForgetPasswordController::class, 
 
 
 
-Route::get('/produk', [ProdukMobileController::class, 'index']);
-Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
+// Route::get('/produk', [ProdukMobileController::class, 'index']);
+// Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
 Route::get('/bahan-baku', [StokBahanBakuController::class, 'index']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('/produk', [ProdukMobileController::class, 'index']);
     Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
-    Route::resource('ajuanSaldoMobile', ajuanSaldoMobile::class);
+    Route::resource('ajuanSaldoMobile', AjuanSaldoMobile::class);
     Route::get('showCustomer', [AuthMobileController::class, 'showCustomer']);
     Route::post('laporanPPMobile/laporan', [LaporanPPMobile::class, 'laporan'])->name('laporanPPMobile.laporan');
 });
 
 
-Route::get('/produk', [ProdukMobileController::class, 'index']);
+
 Route::get('/produk/{id}', [ProdukMobileController::class, 'show']);
 
 
@@ -61,6 +61,3 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/laporan-penggunaan-bahan-baku', [LaporanMobileController::class, 'laporanPenggunaanBahanBaku']);
     Route::get('/download-penggunaan-bahan-baku-pdf', [LaporanMobileController::class, 'downloadPenggunaanBahanBakuPDF']);
 });
-
-
-

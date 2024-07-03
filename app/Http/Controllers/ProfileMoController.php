@@ -25,18 +25,18 @@ class ProfileMOController extends Controller
             'new_password' => 'required|string|min:6',
             'new_password_confirmation' => 'required',
         ]);
-    
+
         $user = auth()->user();
-    
+
         // if($request-> current_password != $user->password){
         //     return back()->withErrors(['current_password' => 'Password saat ini salah.']);
         // }
-    
+
         // Memeriksa apakah password saat ini sesuai dengan yang diberikan
-         if (!Hash::check($request->current_password, $user->password)) {
+        if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Password saat ini salah.']);
         }
-    
+
         // Update password dengan yang baru
         $user->password = Hash::make($request->new_password);
         //$user->password = $request->new_password;
