@@ -27,10 +27,9 @@ return new class extends Migration
             $table->integer('jarak');
             $table->double('ongkir')->default(0);
             $table->double('tips')->default(0);
-            $table->string('no_nota');
             $table->string('bukti_pembayaran')->nullable();
-            $table->int('poin')->default(0);
-            $table->string('no_nota')->unique()->after('id');
+            $table->string('no_nota')->unique()->after('id')->nullable();
+            $table->int('poin_diperoleh')->default(0);
             $table->timestamps();
         });
     }

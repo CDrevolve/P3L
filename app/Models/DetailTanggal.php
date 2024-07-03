@@ -5,21 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetailPemesanan extends Model
+class DetailTanggal extends Model
 {
+    
     use HasFactory;
-    protected $table = 'detail_pemesanans';
-    protected $primaryKey = 'id';
 
+    use HasFactory;
+
+    protected $table = 'detail_tanggal';
+    protected $primary ='id';
     protected $fillable = [
-        'id_pemesanan',
+        'kuota_terpakai',
+        'id_tanggal',
         'id_produk',
-        'jumlah',
     ];
 
-    public function pemesanan()
+    public function tanggal()
     {
-        return $this->belongsTo(Pemesanan::class, 'id_pemesanan');
+        return $this->belongsTo(Tanggal::class, 'id_tanggal');
     }
 
     public function produk()
@@ -27,4 +30,3 @@ class DetailPemesanan extends Model
         return $this->belongsTo(Produk::class, 'id_produk');
     }
 }
-    

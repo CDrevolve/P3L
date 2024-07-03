@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Models\Hampers;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataPenitipController;
 use App\Http\Controllers\BahanBakuController;
@@ -25,9 +26,13 @@ use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PesananController;
+
+use App\Http\Controllers\HampersController;
+use App\Http\Controllers\TanggalController;
+use App\Http\Controllers\LaporanController;
+
 use App\Http\Controllers\MoKonfirPesanan;
 use App\Http\Controllers\laporanpenggunaanbahanbakuController;
-use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\AjuanSaldoController;
 use App\Http\Controllers\LaporanPemasukandanPengeluaranController;
 use App\Http\Controllers\LaporanPresensiController;
@@ -70,7 +75,9 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/profile/history', [ProfileController::class, 'orderHistory'])->name('profile.history');
 
-Route::resource('/pesanan', PesanController::class);
+Route::resource('/pesanan',PesanController::class);
+Route::get('/pesanhampers/{id}',[PesanController::class, 'showHampers'])->name('pesanan.showHampers');
+
 Route::post('/order/complete/{id}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
 Route::post('/order/complete/{id}/{status}', [CheckoutController::class, 'updateStatus'])->name('order.complete');
 
@@ -98,8 +105,10 @@ Route::get('confirmMo/terima/{id}', [MoKonfirPesanan::class, 'terima'])->name('c
 Route::get('confirmMo/tolak/{id}', [MoKonfirPesanan::class, 'tolak'])->name('confimMo.tolak');
 
 Route::prefix('admin')->group(function () {
+    Route::resource('/hampers', HampersController::class);
     Route::resource('/produk', ProdukController::class);
     Route::resource('/resep', AdminResepController::class);
+    Route::get('/hampers/{id}', [HampersController::class, 'show'])->name('hampers.show');
     Route::resource('/bahanbaku', BahanBakuController::class);
     Route::resource('/ajuanSaldo', AjuanSaldoController::class);
     Route::get('detailproduk/{id}', [AdminDetailProduk::class, 'index'])->name('detail.resep');
@@ -132,6 +141,14 @@ Route::prefix('mo')->group(function () {
     Route::resource('/pembelian', PembelianBBController::class);
     Route::get('/create_pembelian', [PembelianBBController::class, 'create'])->name('mo.create_pembelian');
     Route::resource('/pengeluaranlain', PengeluaranLainController::class);
+
+    Route::get('/pesanan/prosesIndex', [PesananController::class, 'prosesIndex'])->name('pesanan.prosesIndex');
+    Route::post('/pesanan/proses/{id}', [PesananController::class, 'prosesPesanan'])->name('pemesanans.proses');
+    Route::post('/pemesanans/prosesSemua', [PesananController::class, 'prosesSemua'])->name('pemesanans.prosesSemua');
+    Route::get('/pemesanans/riwayat-pemakaian', [PesananController::class, 'riwayatIndex'])->name('pemesanans.riwayatIndex');
+    Route::get('/laporan/penjualan-bulanan', [LaporanController::class, 'laporanPenjualanBulanan'])->name('laporan.penjualanBulanan');
+    Route::get('/laporan/stok-bahan-baku', [LaporanController::class, 'laporanStokBahanBaku'])->name('laporan.stokBahanBaku');
+
     Route::get('/profile/edit_password', [ProfileMoController::class, 'editPassword'])->name('mo.profile.editPassword');
     Route::post('/profile/update_password', [ProfileMoController::class, 'updatePassword'])->name('mo.profile.updatePassword');
     Route::get('/laporan-penjualan-tahunan', [LaporanController::class, 'laporanPenjualanTahunan'])->name('laporan-penjualan-tahunan');
@@ -140,7 +157,11 @@ Route::prefix('mo')->group(function () {
     Route::get('/laporan-penggunaan-bahan-baku', [LaporanController::class, 'laporanPenggunaanBahanBaku'])->name('laporan.penggunaan_bahan_baku');
     Route::post('/laporan-penggunaan-bahan-baku/download', [LaporanController::class, 'downloadPenggunaanBahanBakuPDF'])->name('laporan.penggunaan_bahan_baku.download');
 
+
 });
+
+Route::get('/', [ProdukController::class, 'indexDashboard'])->name('home');
+Route::post('/select-tanggal', [TanggalController::class, 'selectTanggal'])->name('select.tanggal');
 
 Route::prefix('owner')->group(function () {
     Route::get('laporanPresensi', [LaporanPresensiController::class, 'index'])->name('laporanPresensi.index');
@@ -158,7 +179,6 @@ Route::prefix('owner')->group(function () {
     Route::post('/laporan-penjualan-tahunan/download-pdf', [LaporanController::class, 'downloadPDFOwner'])->name('laporan-penjualan-tahunan.download-pdfOwner');
     Route::get('/laporan-penggunaan-bahan-baku', [LaporanController::class, 'laporanPenggunaanBahanBakuOwner'])->name('laporan.penggunaan_bahan_bakuOwner');
 });
-
 
 
 Route::get('costumer/fetchAll', [CustomerController::class, 'fetchAll']);

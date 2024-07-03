@@ -40,16 +40,13 @@
     </table>
     <div class="text-end">
         <h4>Total Harga: Rp {{ number_format($total, 0, ',', '.') }}</h4>
+        <h6>Total Point yang diPeroleh: {{$poin}}</h6>
     </div>
 
     <form action="{{ route('checkout') }}" method="POST">
         @csrf
         <input type="hidden" name="total_harga" value="{{ $total }}">
 
-        <div class="mb-3">
-            <label for="tanggal" class="form-label">Pilih Tanggal Pesanan:</label>
-            <input type="date" name="tanggal" id="tanggal" class="form-control" required>
-        </div>
 
         <div class="mb-3">
             <label for="metode" class="form-label">Metode Pengambilan:</label>
@@ -80,7 +77,7 @@
             <input type="number" name="poin" id="poin" class="form-control" min="0" max="{{ $customer->poin }}" placeholder="Masukkan jumlah poin">
             <p>Jumlah Poin yang dimiliki: {{ $customer->poin }}</p>
         </div>
-
+    <input type="hidden" name="date" id="date" value="{{ session('selected_date') }}">
         <button type="submit" class="btn btn-primary">Checkout</button>
     </form>
 </div>

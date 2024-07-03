@@ -93,6 +93,7 @@
                     <li class="nav-item"> <a href="{{ route('datapenitip.index') }}" class="nav-link">Penitip</a> </li>
                     <li class="nav-item"> <a href="{{ route('pengeluaranlain.index') }}" class="nav-link">Pengeluaran Lain</a> </li>
                     <li class="nav-item"> <a href="{{ route('mo.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
+                    <li class="nav-item"> <a href="{{ route('confirmMo.index') }}" class="nav-link">Confirm Pesanan</a> </li>
 
                     <li class="nav-item"> <a href="{{ route('laporanPresensi.index') }}" class="nav-link">Laporan Presensi & Gaji</a> </li>
                     <li class="nav-item"> <a href="{{ route('laporanTransaksiPenitip.index') }}" class="nav-link">Laporan Rekap Transaksi Penitip</a> </li>
@@ -101,11 +102,23 @@
                     <li class="nav-item"> <a href="{{ route('laporan-penjualan-tahunan') }}" class="nav-link">Laporan penjualan tahunan</a> </li>
                     <li class="nav-item"> <a href="{{ route('pemesanans.riwayatIndex') }}" class="nav-link">Riwayat</a></li>
                     <li class="nav-item"> <a href="{{ route('laporan.penggunaan_bahan_baku') }}" class="nav-link">Laporan Penggunaan Bahan Baku</a></li>
+                    <li class="nav-item"> <a href="{{ route('pesanan.prosesIndex') }}" class="nav-link">Pemesanan</a> </li>
+                    <li class="nav-item"> <a href="{{ route('pemesanans.riwayatIndex') }}" class="nav-link">Riwayat</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Laporan
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{{ route('laporan.penjualanBulanan') }}">Laporan Penjualan Bulanan</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporan.stokBahanBaku') }}">Laporan Stok Bahan Baku</a></li>
+                        </ul>
+                    </li>
 
                     @elseif(Auth::user()->role->id == '1')
                     <li class="nav-item"> <a href="{{ route('owner.profile.editPassword') }}" class="nav-link">Edit Password</a> </li>
                     <li class="nav-item"> <a href="{{ route('owner.karyawann') }}" class="nav-link">Kelola Gaji Karyawan</a> </li>
-                    <li class="nav-item"> <a href="{{ route('confirmMo.index') }}" class="nav-link">Confirm Pesanan</a> </li>
+                    
                     
                     <li class="nav-item"> <a href="{{ route('laporanPresensi.index') }}" class="nav-link">Laporan Presensi & Gaji</a> </li>
                     <li class="nav-item"> <a href="{{ route('laporanTransaksiPenitip.index') }}" class="nav-link">Laporan Rekap Transaksi Penitip</a> </li>

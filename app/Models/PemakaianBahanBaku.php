@@ -23,4 +23,6 @@ class PemakaianBahanBaku extends Model
     {
         return $this->belongsTo(BahanBaku::class);
     }
+
 }
+

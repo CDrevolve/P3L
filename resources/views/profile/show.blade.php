@@ -1,3 +1,6 @@
+@extends('dashboard.navbar')
+
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +8,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: ##FFD9C0;
         }
 
         .container {
@@ -40,6 +43,7 @@
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 8px;
+            margin-bottom: 20px;
         }
 
         .user-box h5 {
@@ -47,13 +51,8 @@
             margin-bottom: 5px;
         }
 
-        .form-control {
-            width: 100%;
-            padding: 10px;
+        .user-box p {
             margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
         }
 
         .btn {
@@ -73,6 +72,20 @@
             background-color: #007bff;
             color: #fff;
         }
+
+        .order-history-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .order-history-btn a {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -88,7 +101,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-9">
                 <div class="user-box">
                     <h5>Username</h5>
                     <p>{{ $user->username }}</p>
@@ -102,8 +115,8 @@
                     <p>{{ $customer->no_telp }}</p>
                     <h5>Poin</h5>
                     <p>{{$customer->poin}}</p>
+                    <a href="{{ route('profile.edit') }}" class="btn btn-update">Edit Profil</a>
                 </div>
-                <a href="{{ route('profile.edit') }}">Edit Profil</a>
             </div>
         </div>
     </div>
@@ -123,3 +136,4 @@
 </body>
 
 </html>
+@endsection

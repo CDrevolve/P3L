@@ -1,4 +1,4 @@
-<title>{{ $produk->nama }} - ATMA KITCHEN</title>
+<title> ATMA KITCHEN</title>
 @extends('dashboard.navbar')
 
 @section('content')
@@ -108,18 +108,20 @@
         color: #fff;
     }
 </style>
+   
 
 <div class="container mt-4 product-detail">
-    <div class="product-image">
-        <img src="{{ asset($produk->foto) }}" alt="{{ $produk->nama }}">
-    </div>
     <div class="product-info">
-        <h1>{{ $produk->nama }}</h1>
-        <p class="product-price">Rp {{ number_format($produk->harga, 0, ',', '.') }}</p>
-        <p>{{ $produk->deskripsi }}</p>
-        <p class="card-text">Stok: {{ $produk->stok }}</p>
-        <p class="card-text">Kuota Harian: {{ $produk->kuota_harian - $detailtanggal->kuota_terpakai}}</p>
+        <h1>{{ $hampers->nama }}</h1>
+        <p class="product-price">Rp {{ number_format($hampers->harga, 0, ',', '.') }}</p>
+        <h2>Products:</h2>
+        <ul>
+            @foreach($detailhampers as $detailh)
+                <li>{{ $detailh->produk->nama }}</li>
+            @endforeach
+        </ul>
     </div>
+
     <div class="add-to-cart">
         <div class="quantity-control">
             <button type="button" id="decreaseQuantity">-</button>
@@ -127,7 +129,7 @@
             <button type="button" id="increaseQuantity">+</button>
         </div>
         <!-- Form untuk menambahkan produk ke keranjang -->
-        <form action="{{ route('chart.add_to_chart', ['id' => $produk->id]) }}" method="POST">
+        <form action="{{ route('chart.add_to_chart', ['id' => $hampers->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="jumlah" id="hiddenJumlah" value="1"> <!-- Input hidden untuk jumlah -->
             <button type="submit" class="btn btn-primary">Add to Cart</button>
@@ -136,30 +138,4 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script>
-    document.getElementById('decreaseQuantity').addEventListener('click', function() {
-        var quantity = document.getElementById('jumlah');
-        var hiddenQuantity = document.getElementById('hiddenJumlah');
-        var value = parseInt(quantity.value);
-        if (value > 1) {
-            quantity.value = value - 1;
-            hiddenQuantity.value = quantity.value; // Update hidden input
-        }
-    });
-
-    document.getElementById('increaseQuantity').addEventListener('click', function() {
-        var quantity = document.getElementById('jumlah');
-        var hiddenQuantity = document.getElementById('hiddenJumlah');
-        var value = parseInt(quantity.value);
-        quantity.value = value + 1;
-        hiddenQuantity.value = quantity.value; // Update hidden input
-    });
-
-    // Ensure hidden input is updated if user manually changes the quantity
-    document.getElementById('jumlah').addEventListener('input', function() {
-        var quantity = document.getElementById('jumlah');
-        var hiddenQuantity = document.getElementById('hiddenJumlah');
-        hiddenQuantity.value = quantity.value;
-    });
-</script>
 @endsection
