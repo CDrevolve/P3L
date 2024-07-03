@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Customer;
-use Illuminate\Support\Facades\Auth;
 use App\Models\AjuanSaldo;
-use Carbon\Carbon;
 
-class ajuanSaldoMobile extends Controller
+class AjuanSaldoMobile extends Controller
 {
-    //
     public function index()
     {
         $customer = Customer::where('id_user', Auth::user()->id)->first();
@@ -27,16 +25,13 @@ class ajuanSaldoMobile extends Controller
     {
         $customer = Customer::where('id_user', Auth::user()->id)->first();
 
-        $ajuan = AjuanSaldo::create(
-            [
-                'id_customer' => $customer->id,
-                'saldo' => $customer->saldo,
-                'bank' => $request->bank,
-                'no_rekening' => $request->no_rekening,
-                'status' => 'Menunggu Konfirmasi',
-
-            ]
-        );
+        $ajuan = AjuanSaldo::create([
+            'id_customer' => $customer->id,
+            'saldo' => $customer->saldo,
+            'bank' => $request->bank,
+            'no_rekening' => $request->no_rekening,
+            'status' => 'Menunggu Konfirmasi',
+        ]);
 
         $customer->saldo = 0;
         $customer->save();
